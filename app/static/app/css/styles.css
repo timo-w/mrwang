@@ -49,3 +49,11 @@ nav a:hover {
     font-size: 14.5px;
     color: #8320bd;
 }
+
+/* Bellahouston Academy Logo */
+#bella-logo {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  height: 100px;
+}
