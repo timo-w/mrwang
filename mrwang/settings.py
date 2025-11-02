@@ -34,6 +34,7 @@ DEBUG = os.getenv("DJANGO_DEBUG")
 ALLOWED_HOSTS = [
     '.onrender.com',
     'mrwang.co.uk',
+    'www.mrwang.co.uk',
     'localhost',
     '127.0.0.1'
     ]
