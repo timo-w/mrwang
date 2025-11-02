@@ -1,0 +1,18 @@
+/* Styles for quiz generator */
+
+button {
+    background: linear-gradient(45deg,rgba(131, 32, 189, 1) 0%, rgba(131, 32, 189, 1) 100%);
+    border: 1px solid black;
+    padding: 10px 30px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: 0.05s linear;
+}
+button:hover {
+    background: linear-gradient(45deg,rgba(131, 32, 189, 1) 0%, rgba(255, 236, 64, 1) 100%);
+    transform: scale(1.01);
+}

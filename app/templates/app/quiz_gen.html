@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Quiz Generator{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/quiz_gen_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+
+  <h1>Generate Quiz</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <label for="subject">Subject:</label><br>
+    <textarea name="subject" rows="1" cols="30" placeholder="e.g. 'History'" required></textarea><br>
+    
+    <label for="topic">Topic:</label><br>
+    <textarea name="topic" rows="5" cols="60" placeholder="e.g. 'World War II'" required></textarea><br>
+
+    <label for="level">Level:</label><br>
+    <select name="level" required>
+      <option value="">--Please select a level--</option>
+      <option value="S1">BGE - S1</option>
+      <option value="S2">BGE - S2</option>
+      <option value="S3">BGE - S3</option>
+      <option value="National 4">National 4</option>
+      <option value="National 5">National 5</option>
+      <option value="Higher">Higher</option>
+      <option value="Advanced Higher">Advanced Higher</option>
+      <option value="NPA Level 44">NPA - Level 44</option>
+      <option value="NPA Level 45">NPA - Level 45</option>
+      <option value="NPA Level 46">NPA - Level 46</option>
+      <option value="Other">Other</option>
+    </select><br>
+    
+
+    <label for="no_of_questions">Number of questions:</label><br>
+    <input type="number" name="no_of_questions" min="1" max="20" value="5" required><br>
+
+    <label for="no_of_choices">Number of choices per question:</label><br>
+    <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br>
+
+    <label for="additional_info">Additional information (optional):</label><br>
+    <textarea name="additional_info" rows="3" cols="60" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
+
+    <br>
+    <button type="submit">Generate</button>
+  </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+/* Styles */
+
+body {
+    font-family: Arial, sans-serif;
+    background: #8320bd;
+    background: linear-gradient(45deg,rgba(131, 32, 189, 1) 0%, rgba(255, 236, 64, 1) 100%);
+    background-attachment: fixed;
+    background-size: 160% 160%;
+    animation: gradientShift 12s ease infinite;
+    color: black;
+    padding: 2rem;
+}
+
+/* Background gradient animation */
+@keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+}
+
+nav, .content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Nav bar */
+nav {
+    margin-bottom: 20px;
+    padding: 1rem 2rem;
+}
+nav a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.05s linear;
+}
+nav a:hover {
+    font-size: 14.5px;
+    color: #8320bd;
+}

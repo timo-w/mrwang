@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- Quiz Generator -->
+<!-- Copyright Timothy Wang 2025 -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %} | Mr Wang</title>
+  <link rel="stylesheet" href="{% static 'app/css/styles.css' %}">
+  {% block css %}{% endblock %}
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav>
+      <a href="{% url 'index' %}">Home</a> |
+      <a href="{% url 'quiz_gen' %}">Quiz Generator</a> |
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    <!-- Page content -->
+    {% endblock %}
+  </main>
+
+  <!-- Scripts -->
+  <script src="{% static 'app/js/scripts.js' %}"></script>
+</body>
+</html>
