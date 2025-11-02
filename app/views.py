@@ -6,6 +6,10 @@ from .utils import generate_text, create_quiz_doc
 def index(request):
     return render(request, "app/index.html")
 
+# About page
+def about(request):
+    return render(request, "app/about.html")
+
 # Quiz generator page
 def quiz_gen(request):
     if request.method == "POST":
