@@ -39,11 +39,16 @@
     
     <br><hr><br>
 
-    <label for="no_of_questions">Number of questions:</label><br>
-    <input type="number" name="no_of_questions" min="1" max="20" value="5" required><br><br>
-
-    <label for="no_of_choices">Choices per question:</label><br>
-    <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br><br>
+    <div class="two_col">
+      <div class="column">
+        <label for="no_of_questions">Number of questions:</label><br>
+        <input type="number" name="no_of_questions" min="1" max="20" value="5" required><br><br>
+      </div>
+      <div class="column">
+        <label for="no_of_choices">Choices per question:</label><br>
+      <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br><br>
+      </div>
+    </div><br>
 
     <label for="additional_info">Additional information (optional):</label><br>
     <textarea name="additional_info" rows="3" cols="40" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>

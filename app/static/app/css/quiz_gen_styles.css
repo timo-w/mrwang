@@ -21,7 +21,17 @@ button:hover {
     transform: scale(1.01);
 }
 
+/* Disable textarea resizing */
 textarea {
     resize: none;
 }
-  
+
+/* Two-column layout */
+.two_col {
+    display: flex;
+    width: 350px;
+    margin: auto;
+}
+.column {
+    flex: 50%;
+}
