@@ -1,13 +1,83 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}About{% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/about_styles.css' %}">
+<!-- Prism.js CSS for code snippet formatting -->
+<link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+{% endblock %}
+
 {% block content %}
 <div class="content">
-    <h1>About</h1>
-    <p>Hello! My name is Mr Wang and I&apos;m a Computing Science teacher at Bellahouston Academy</p>
-    <p>This site is a side project of mine to host various educational tools and resources.</p>
+    <h1>About the Site</h1>
+    <p>Hello! My name is Mr Wang and I&apos;m a Computing Science teacher at <a href="https://blogs.glowscotland.org.uk/gc/bellahoustonacademy2019/" target="_blank">Bellahouston Academy</a>. This site is a side project of mine to host various educational tools and resources.</p>
     <p>Please email me any suggestions or feedback at <i>timothy.wang.me.uk(at)gmail.com</i>.
     <p>Thanks for visiting!</p>
+    <div>
+        <h2>Site Details</h2>
+    </div>
+    <p>This site is a <a href="https://www.djangoproject.com/" target="_blank">Django</a> web app, hosted on <a href="https://render.com/" target="_blank">Render</a>.</p>
+    <p><a href="https://github.com/timo-w/mrwang">Click here</a> to open the GitHub page for this project.</p>
+
+    <br><hr><br>
+
+    <h1>AI Quiz Generator</h1>
+    <p>To this day, there is no official implementation in <a href="https://forms.office.com/" target="_blank">Microsoft Forms</a> to generate using AI. There is however, a feature to import a Word Document which can be parsed as a quiz or survey. My quiz generator app aims to provide a way to quickly generate multiple choice quizzes (MCQs) which can be imported into Forms using its &quot;Quick Import&quot; feature.</p>
+    <p>This drastically speeds-up the process of generating and importing a quiz into Forms compared to copy-pasting each question and possible answer into the site.</p>
+    <h2>Technical Details</h2>
+    <p>The app generates a prompt from the form input, which is passed into the <a href="https://azure.microsoft.com/" target="_blank">Azure API</a>. Currently, the model uses the <a href="https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/" target="_blank">GPT-4o Mini</a> model for response generation, which was chosen for its cost efficiency.</p>
+    <h2>Pre-prompts</h2>
+    <p>The prompt which is passed into the Azure API is made up of a &quot;system prompt&quot; and a &quot;user prompt&quot;. First, the form data is posted into a function like so:</p>
+    <pre><code class="language-python">
+subject = request.POST.get("subject")
+topic = request.POST.get("topic")
+level = request.POST.get("level")
+no_of_questions = request.POST.get("no_of_questions")
+no_of_choices = request.POST.get("no_of_choices")
+additional_info = request.POST.get("additional_info")
+
+# Create prompt
+text = generate_text(
+    subject,
+    topic,
+    level,
+    no_of_questions,
+    no_of_choices,
+    additional_info
+)
+filepath = create_quiz_doc(text)
+    </code></pre>
+    <p>This is combined with the system prompt which is as follows:</p>
+    <pre><code class="language-python">
+system_prompt = """
+    You are a helpful assistant that creates multiple-choice quiz documents.
+    Do not include any formatting symbols in your response.
+    Do not respond with any follow-up questions.
+
+    Your response will follow a specific format:
+    - For each question, begin with the question number.
+    - Do not use bullet points, only new lines.
+    - Under each question, insert a new line and then the possible answer beginning with the letter from A.
+    - Between each question, add an additional new line.
+    - Make option A the correct answer for each question.
+
+    You will be making quizzes which secondary teachers in Scotland will be using. This means that:
+    - Quizzes for S1-3s should contain questions which are answerable by 12-14 year olds.
+    - National 4/5, Higher, and Advanced Higher quizzes should contain content which is applicable for those courses.
+
+    The user prompt will contain the details for the quiz.
+"""
+    </code></pre>
+    <p>The response from this prompt is used to create a Microsoft Word docx file with the help of Python&apos;s <a href="https://pypi.org/project/python-docx/" target="_blank">docx</a> library, which is finally downloaded to the user&apos;s system.</p>
+    <p><a href="{% url 'quiz_gen' %}">Click here</a> to use the quiz generator.</p>
+
 </div>
+{% endblock %}
+
+{% block js %}
+<!-- Prism.js scripts -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
 {% endblock %}

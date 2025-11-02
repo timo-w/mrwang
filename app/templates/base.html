@@ -9,6 +9,10 @@
   <title>{% block title %}{% endblock %} | Mr Wang</title>
   <link rel="icon" type="image/x-icon" href="{% static 'app/images/favicon.ico' %}">
   <link rel="stylesheet" href="{% static 'app/css/styles.css' %}">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
   {% block css %}{% endblock %}
 </head>
 <body>
@@ -33,5 +37,6 @@
 
   <!-- Scripts -->
   <script src="{% static 'app/js/scripts.js' %}"></script>
+  {% block js %}{% endblock %}
 </body>
 </html>

@@ -1,7 +1,10 @@
 /* Styles for quiz generator */
 
+body {
+    text-align: center;
+}
 button {
-    background: linear-gradient(45deg,rgba(131, 32, 189, 1) 0%, rgba(131, 32, 189, 1) 100%);
+    background: rgba(131, 32, 189, 1);
     border: 1px solid black;
     padding: 10px 30px;
     color: white;
@@ -10,9 +13,15 @@ button {
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
-    transition: 0.05s linear;
+    transition: 0.1s linear;
 }
 button:hover {
-    background: linear-gradient(45deg,rgba(131, 32, 189, 1) 0%, rgba(255, 236, 64, 1) 100%);
+    background: rgba(255, 236, 64, 1);
+    color: black;
     transform: scale(1.01);
 }
+
+textarea {
+    resize: none;
+}
+  

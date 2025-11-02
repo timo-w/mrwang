@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Quiz Generator{% endblock %}
+{% block title %}AI Quiz Generator{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'app/css/quiz_gen_styles.css' %}">
@@ -10,16 +10,16 @@
 {% block content %}
 <div class="content">
 
-  <h1>Generate Quiz</h1>
+  <h1>AI Quiz Generator</h1>
 
   <form method="POST">
     {% csrf_token %}
 
     <label for="subject">Subject:</label><br>
-    <textarea name="subject" rows="1" cols="30" placeholder="e.g. 'History'" required></textarea><br>
+    <textarea name="subject" rows="1" cols="40" placeholder="e.g. 'History'" required></textarea><br><br>
     
     <label for="topic">Topic:</label><br>
-    <textarea name="topic" rows="5" cols="60" placeholder="e.g. 'World War II'" required></textarea><br>
+    <textarea name="topic" rows="5" cols="40" placeholder="e.g. 'World War II'" required></textarea><br><br>
 
     <label for="level">Level:</label><br>
     <select name="level" required>
@@ -37,17 +37,19 @@
       <option value="Other">Other</option>
     </select><br>
     
+    <br><hr><br>
 
     <label for="no_of_questions">Number of questions:</label><br>
-    <input type="number" name="no_of_questions" min="1" max="20" value="5" required><br>
+    <input type="number" name="no_of_questions" min="1" max="20" value="5" required><br><br>
 
-    <label for="no_of_choices">Number of choices per question:</label><br>
-    <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br>
+    <label for="no_of_choices">Choices per question:</label><br>
+    <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br><br>
 
     <label for="additional_info">Additional information (optional):</label><br>
-    <textarea name="additional_info" rows="3" cols="60" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
+    <textarea name="additional_info" rows="3" cols="40" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
 
-    <br>
+    <br><hr><br>
+
     <button type="submit">Generate</button>
   </form>
 
