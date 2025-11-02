@@ -17,16 +17,15 @@ def quiz_gen(request):
         no_of_choices = request.POST.get("no_of_choices")
         additional_info = request.POST.get("additional_info")
 
-        # Create prompt and quiz document
-        prompt = (
-            f"Subject: {subject}"
-            f"Topic: {topic}"
-            f"Level: {level}"
-            f"Number of questions: {no_of_questions}"
-            f"Number of possible choices per question: {no_of_choices}"
-            f"Additional information (if any): {additional_info}"
+        # Create prompt
+        text = generate_text(
+            subject,
+            topic,
+            level,
+            no_of_questions,
+            no_of_choices,
+            additional_info
         )
-        text = generate_text(prompt)
         filepath = create_quiz_doc(text)
         return FileResponse(open(filepath, "rb"), as_attachment=True, filename="generated-quiz.docx")
     
