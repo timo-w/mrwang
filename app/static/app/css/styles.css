@@ -57,3 +57,12 @@ nav a:hover {
   left: 30px;
   height: 100px;
 }
+
+/* Footer */
+footer {
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  font-style: italic;
+  padding: 2rem;
+}
