@@ -1,6 +1,10 @@
 # Mr Wang
 
-A Django web app that uses Azure OpenAI to generate Word documents based on prompts.
+A personal project to host easy-to-use teaching materials and resources.
+View the live site [here](https://mrwang.co.uk)!
+
+Contains:
+- A quiz generator web app that uses Azure OpenAI to generate Word documents based on prompts.
 
 ## Setup
 
