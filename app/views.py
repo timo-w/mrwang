@@ -10,6 +10,14 @@ def index(request):
 def about(request):
     return render(request, "app/about.html")
 
+# Teacher page
+def teacher(request):
+    return render(request, "app/teacher/teacher.html")
+
+# Pupil page
+def pupil(request):
+    return render(request, "app/pupil/pupil.html")
+
 # Quiz generator page
 def quiz_gen(request):
     if request.method == "POST":
@@ -33,4 +41,4 @@ def quiz_gen(request):
         filepath = create_quiz_doc(text)
         return FileResponse(open(filepath, "rb"), as_attachment=True, filename="generated-quiz.docx")
     
-    return render(request, "app/quiz_gen.html")
+    return render(request, "app/teacher/quiz_gen.html")

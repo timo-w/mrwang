@@ -20,8 +20,9 @@
   <header>
     <nav>
       <a href="{% url 'index' %}">Home</a> |
-      <a href="{% url 'about' %}">About</a> |
-      <a href="{% url 'quiz_gen' %}">Quiz Generator</a>
+      <a href="{% url 'teacher' %}">Teacher Resources</a> |
+      <a href="{% url 'pupil' %}">Pupil Resources</a> |
+      <a href="{% url 'about' %}">About</a>
     </nav>
   </header>
 
@@ -33,10 +34,10 @@
   </main>
 
   <!-- Footer -->
-   <footer>&copy; {% now "Y" %} Mr Wang - All rights reserved</footer>
+  <footer>&copy; {% now "Y" %} Mr Wang - All rights reserved</footer>
 
   <!-- Scripts -->
-  <script src="{% static 'app/js/scripts.js' %}"></script>
+  <script src="{% static 'app/js/global.js' %}"></script>
   {% block js %}{% endblock %}
 </body>
 </html>

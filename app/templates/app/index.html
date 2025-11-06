@@ -1,12 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/index.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="content">
     <h1>MrWang.co.uk</h1>
     <p>Welcome to Mr Wang's website!</p>
     <p>(Work in progress, obviously)</p>
-    <p><a href="{% url 'quiz_gen' %}">Click here</a> to use the quiz generator.</p>
+    <p><a href="{% url 'teacher' %}">Click here</a> for teacher resources.</p>
+    <p><a href="{% url 'pupil' %}">Click here</a> for pupil resources.</p>
 </div>
 {% endblock %}

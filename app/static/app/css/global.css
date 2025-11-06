@@ -37,17 +37,18 @@ nav, .content {
 nav {
     margin-bottom: 20px;
     padding: 1rem 2rem;
+    text-align: center;
 }
 nav a {
     text-decoration: none;
-    color: black;
+    color: rgba(131, 32, 189, 1);
     cursor: pointer;
     font-size: 14px;
     transition: 0.05s linear;
 }
 nav a:hover {
     font-size: 14.5px;
-    color: #8320bd;
+    text-decoration: underline;
 }
 
 /* Bellahouston Academy Logo */
