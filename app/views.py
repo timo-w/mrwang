@@ -67,11 +67,15 @@ def pupil_resources(request):
         file_info = []
         for f in files:
             abs_path = os.path.join(root, f)
-            size_kb = round(os.path.getsize(abs_path) / 1024, 1)
+            size_bytes = os.path.getsize(abs_path)
+            if size_bytes >= 1024 * 1024:
+                size = f"{round(size_bytes / (1024 * 1024), 2)} MB"
+            else:
+                size = f"{round(size_bytes / 1024, 1)} KB"
             file_info.append({
                 "path": os.path.join('app/pupil_resources', rel_path, f).replace('\\', '/'),
                 "name": f,
-                "size": size_kb,
+                "size": size,
             })
         if file_info:
             folders[folder_name] = file_info
