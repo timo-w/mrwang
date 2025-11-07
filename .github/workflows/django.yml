@@ -37,8 +37,5 @@ jobs:
     - name: Django system check
       run: python manage.py check --deploy
 
-    # - name: Run Tests
-    #   env:
-    #     SECRET_KEY: test-secret-key
-    #     DEBUG: True
-    #   run: python manage.py test --verbosity=2
+    - name: Run Tests
+      run: python manage.py test --verbosity=2
