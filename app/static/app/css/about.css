@@ -3,3 +3,8 @@
 p {
     text-align: justify;
 }
+
+img#rocket-costume {
+    width: 60%;
+    margin: 0 20%;
+}
