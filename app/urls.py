@@ -6,7 +6,6 @@ urlpatterns = [
     path("about", views.about, name="about"),
     path("teacher", views.teacher, name="teacher"),
     path("pupil", views.pupil, name="pupil"),
-    path("quiz_gen", views.quiz_gen, name="quiz_gen"),
     path('pupil_resources/', views.pupil_resources, name='pupil_resources'),
 ]
 

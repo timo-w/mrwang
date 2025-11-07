@@ -2,7 +2,7 @@ import os
 from django.shortcuts import render
 from django.http import FileResponse
 from django.conf import settings
-from .utils import generate_text, create_quiz_doc
+
 
 # Home page
 def index(request):
@@ -19,31 +19,6 @@ def teacher(request):
 # Pupil page
 def pupil(request):
     return render(request, "app/pupil/pupil.html")
-
-# Quiz generator page
-def quiz_gen(request):
-    if request.method == "POST":
-        # Get inputs from form
-        subject = request.POST.get("subject")
-        topic = request.POST.get("topic")
-        level = request.POST.get("level")
-        no_of_questions = request.POST.get("no_of_questions")
-        no_of_choices = request.POST.get("no_of_choices")
-        additional_info = request.POST.get("additional_info")
-
-        # Create prompt
-        text = generate_text(
-            subject,
-            topic,
-            level,
-            no_of_questions,
-            no_of_choices,
-            additional_info
-        )
-        filepath = create_quiz_doc(text)
-        return FileResponse(open(filepath, "rb"), as_attachment=True, filename="generated-quiz.docx")
-    
-    return render(request, "app/teacher/quiz_gen.html")
 
 # Pupil resources
 def pupil_resources(request):
@@ -73,7 +48,7 @@ def pupil_resources(request):
         if file_info:
             folders[folder_name] = file_info
 
-    # ✅ Sort the folders alphabetically (place it here)
+    # Sort the folders alphabetically
     folders = dict(sorted(folders.items(), key=lambda x: x[0].lower()))
 
     return render(request, "app/pupil/resources.html", {"folders": folders})

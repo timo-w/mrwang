@@ -22,6 +22,7 @@ from django.shortcuts import render
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
+    path('quiz_gen', include('quiz_gen.urls')),
 ]
 
 # For custom error pages
