@@ -77,7 +77,12 @@ def pupil_resources(request):
                 "name": f,
                 "size": size,
             })
-        if file_info:
-            folders[folder_name] = file_info
+
+    # Sort files and folders alphabetically
+    file_info.sort(key=lambda x: x["name"].lower())
+    folders = dict(sorted(folders.items(), key=lambda x: x[0].lower()))
+
+    if file_info:
+        folders[folder_name] = file_info
 
     return render(request, "app/pupil/resources.html", {"folders": folders})
