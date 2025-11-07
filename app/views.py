@@ -57,7 +57,7 @@ def pupil_resources(request):
         else:
             folder_name = rel_path
         file_paths = [
-            os.path.join('pupil_resources', rel_path, f).replace('\\', '/')
+            os.path.join('app/pupil_resources', rel_path, f).replace('\\', '/')
             for f in files
         ]
         if files:
@@ -69,7 +69,7 @@ def pupil_resources(request):
             abs_path = os.path.join(root, f)
             size_kb = round(os.path.getsize(abs_path) / 1024, 1)
             file_info.append({
-                "path": os.path.join('pupil_resources', rel_path, f).replace('\\', '/'),
+                "path": os.path.join('app/pupil_resources', rel_path, f).replace('\\', '/'),
                 "name": f,
                 "size": size_kb,
             })
