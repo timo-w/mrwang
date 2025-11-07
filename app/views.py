@@ -51,19 +51,10 @@ def pupil_resources(request):
     folders = {}
 
     for root, dirs, files in os.walk(base_path):
+        files.sort(key=str.lower)  # sort files alphabetically
         rel_path = os.path.relpath(root, base_path)
-        if rel_path == ".":
-            folder_name = "Root"
-        else:
-            folder_name = rel_path
-        file_paths = [
-            os.path.join('app/pupil_resources', rel_path, f).replace('\\', '/')
-            for f in files
-        ]
-        if files:
-            folders[folder_name] = file_paths
-        
-        # File info and sizes
+        folder_name = "Root" if rel_path == "." else rel_path
+
         file_info = []
         for f in files:
             abs_path = os.path.join(root, f)
@@ -72,17 +63,17 @@ def pupil_resources(request):
                 size = f"{round(size_bytes / (1024 * 1024), 2)} MB"
             else:
                 size = f"{round(size_bytes / 1024, 1)} KB"
+
             file_info.append({
                 "path": os.path.join('app/pupil_resources', rel_path, f).replace('\\', '/'),
                 "name": f,
                 "size": size,
             })
 
-    # Sort files and folders alphabetically
-    file_info.sort(key=lambda x: x["name"].lower())
-    folders = dict(sorted(folders.items(), key=lambda x: x[0].lower()))
+        if file_info:
+            folders[folder_name] = file_info
 
-    if file_info:
-        folders[folder_name] = file_info
+    # ✅ Sort the folders alphabetically (place it here)
+    folders = dict(sorted(folders.items(), key=lambda x: x[0].lower()))
 
     return render(request, "app/pupil/resources.html", {"folders": folders})
