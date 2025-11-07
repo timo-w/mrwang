@@ -11,8 +11,19 @@
 <div class="content">
     <h1>MrWang.co.uk</h1>
     <p>Welcome to Mr Wang's website!</p>
-    <p>(Work in progress, obviously)</p>
-    <p><a href="{% url 'teacher' %}">Click here</a> for teacher resources.</p>
-    <p><a href="{% url 'pupil' %}">Click here</a> for pupil resources.</p>
+
+    <div class="content-grid">
+        <a href="{% url 'teacher' %}">
+            Click here for Teacher Resources
+        </a>
+        <a href="{% url 'pupil' %}">
+            Click here for Pupil Resources
+        </a>
+        <a href="{% url 'about' %}">
+            About this Website
+        </a>
+    </div>
+    <br>
+
 </div>
 {% endblock %}

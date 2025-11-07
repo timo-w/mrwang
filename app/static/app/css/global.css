@@ -75,7 +75,7 @@ h1, h2, h3 {
   font-style: normal;
   text-align: center;
   margin: 1rem auto 2rem auto;
-  background: linear-gradient(white, white) padding-box, linear-gradient(to right, rgba(131, 32, 189, 1), rgba(255, 236, 64, 1)) border-box;
+  background: linear-gradient(white, white) padding-box, linear-gradient(45deg, rgba(131, 32, 189, 1), rgba(255, 236, 64, 1)) border-box;
   border-radius: 10px;
   padding: 10px;
 }
@@ -88,4 +88,29 @@ h2, h3 {
   margin-top: 30px;
   border-bottom: 2px solid transparent;
   max-width: 400px;
+}
+
+/* Button grid */
+.content-grid {
+  display: flex;
+  gap: 2rem;
+}
+.content-grid a {
+  flex: 50%;
+  padding: 10px;
+  height: 150px;
+  border-radius: 10px;
+  background: linear-gradient(white, white) padding-box, linear-gradient(45deg, rgba(131, 32, 189, 1), rgba(255, 236, 64, 1)) border-box;
+  border: 2px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+  transition: 0.1s ease-in-out;
+}
+.content-grid a:hover {
+  transform: scale(1.02);
 }
