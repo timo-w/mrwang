@@ -18,3 +18,15 @@ pip install -r requirements.txt
 cp .env.example .env  # add your own keys
 
 python manage.py runserver
+```
+
+The following environment variables must be set in a `.env` file:
+
+```bash
+AZURE_OPENAI_ENDPOINT
+AZURE_OPENAI_KEY
+AZURE_DEPLOYMENT_NAME
+AZURE_OPENAI_API_VERSION
+DJANGO_DEBUG
+DJANGO_SECRET_KEY
+```
