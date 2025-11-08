@@ -73,6 +73,7 @@ footer {
   text-align: center;
   font-style: italic;
   padding: 2rem;
+  cursor: default;
 }
 
 /* Headings */
@@ -85,6 +86,7 @@ h1, h2, h3 {
   background: var(--main-bg-gradient-outline);
   border-radius: 10px;
   padding: 10px;
+  cursor: default;
 }
 h1 {
   font-size: 40px;
@@ -104,20 +106,69 @@ h2, h3 {
 }
 .content-grid a {
   flex: 50%;
-  padding: 10px;
-  height: 150px;
-  border-radius: 10px;
-  background: var(--main-bg-gradient-outline);
-  border: 2px solid transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: black;
-  font-size: 20px;
-  text-align: center;
-  transition: 0.1s ease-in-out;
+  transition: 0.1 ease-in-out;
 }
 .content-grid a:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
+}
+
+/* Grid buttons  */
+.grid-button {
+  position: relative;
+  background-color: #262626;
+  height: 6rem;
+  border: 2px solid white;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  transition: all 0.5s ease;
+}
+/* --- Pseudo elements --- */
+.grid-button::before,
+.grid-button::after {
+  content: '';
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(20px);
+  transition: all 0.5s ease;
+  z-index: 10;
+}
+/* Purple circle */
+.grid-button::before {
+  width: 4rem;
+  height: 4rem;
+  right: 0.25rem;
+  top: 4.5rem;
+  background-color: var(--main-purple);
+}
+/* Yellow circle */
+.grid-button::after {
+  width: 6rem;
+  height: 6rem; 
+  right: 2rem;
+  top: 5rem;
+  background-color: var(--main-yellow);
+}
+/* --- Hover effects --- */
+.grid-button:hover {
+  border-color: var(--main-yellow);
+  color: var(--main-yellow);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 1rem;
+}
+/* Move and blur pseudo elements */
+.grid-button:hover::before {
+  right: 3rem;
+  top: 5rem;
+  filter: blur(30px);
+  box-shadow: 10px 10px 10px 20px var(--main-purple);
+}
+.grid-button:hover::after {
+  right: -2rem;
 }

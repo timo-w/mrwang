@@ -13,14 +13,20 @@
     <p>Welcome to Mr Wang's website!</p>
 
     <div class="content-grid">
-        <a href="{% url 'teacher' %}">
-            Click here for Teacher Resources
+        <a class="grid-button" href="{% url 'teacher' %}">
+            Teacher Resources
         </a>
-        <a href="{% url 'pupil' %}">
-            Click here for Pupil Resources
+        <a class="grid-button" href="{% url 'pupil' %}">
+            Pupil Resources
         </a>
-        <a href="{% url 'about' %}">
+    </div>
+    <br><hr><br>
+    <div class="content-grid">
+        <a class="grid-button" href="{% url 'about' %}">
             About this Website
+        </a>
+        <a class="grid-button" href="">
+            Other projects
         </a>
     </div>
     <br>
