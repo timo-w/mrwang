@@ -21,15 +21,9 @@ body {
 
 /* Background gradient animation */
 @keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
 
 /* White content box */
@@ -61,12 +55,16 @@ nav a:hover {
   text-decoration: underline;
 }
 
-/* Bellahouston Academy Logo */
-#bella-logo {
+/* Site Logo */
+#mrwang-logo {
   position: fixed;
   bottom: 30px;
   left: 30px;
   height: 100px;
+  transition: 0.2s ease-in-out;
+}
+#mrwang-logo:hover {
+  transform: scale(1.1);
 }
 
 /* Footer */
@@ -206,6 +204,7 @@ h4 {
   padding: 2rem;
   border-radius: 1rem;
   width: 50%;
+  max-width: 500px;
   text-align: center;
   position: relative;
   box-shadow: 0 8px 30px rgba(0,0,0,0.2);
