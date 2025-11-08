@@ -58,9 +58,9 @@ nav a:hover {
 /* Site Logo */
 #mrwang-logo {
   position: fixed;
-  bottom: 30px;
-  left: 30px;
-  height: 100px;
+  bottom: 10px;
+  left: 0;
+  height: 120px;
   transition: 0.2s ease-in-out;
 }
 #mrwang-logo:hover {
