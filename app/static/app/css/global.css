@@ -3,59 +3,62 @@
 :root {
   --main-purple: rgba(131, 32, 189, 1);
   --main-yellow: rgba(255, 236, 64, 1);
+  --main-gray: #262626;
   --main-bg-gradient: linear-gradient(45deg,var(--main-purple) 0%, var(--main-yellow) 100%);
   --main-bg-gradient-outline: linear-gradient(white, white) padding-box, var(--main-bg-gradient) border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: var(--main-purple);
-    background: var(--main-bg-gradient);
-    background-attachment: fixed;
-    background-size: 160% 160%;
-    animation: gradientShift 12s ease infinite;
-    color: black;
-    padding: 2rem;
+  font-family: Arial, sans-serif;
+  background: var(--main-purple);
+  background: var(--main-bg-gradient);
+  background-attachment: fixed;
+  background-size: 160% 160%;
+  animation: gradientShift 12s ease infinite;
+  color: black;
+  padding: 2rem;
 }
 
 /* Background gradient animation */
 @keyframes gradientShift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
+/* White content box */
 nav, .content {
-    background-color: white;
-    border-radius: 10px;
-    padding: 2rem;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Nav bar */
 nav {
-    margin-bottom: 20px;
-    padding: 1rem 2rem;
-    text-align: center;
+  margin-bottom: 20px;
+  padding: 1rem 2rem;
+  text-align: center;
 }
 nav a {
-    text-decoration: none;
-    color: var(--main-purple);
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.05s linear;
+  text-decoration: none;
+  color: var(--main-gray);
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.05s linear;
 }
 nav a:hover {
-    font-size: 14.5px;
-    text-decoration: underline;
+  color: var(--main-purple);
+  font-size: 14.5px;
+  text-decoration: underline;
 }
 
 /* Bellahouston Academy Logo */
@@ -98,24 +101,27 @@ h2, h3 {
   border-bottom: 2px solid transparent;
   max-width: 400px;
 }
+h4 {
+  text-align: center;
+}
 
 /* Button grid */
 .content-grid {
   display: flex;
   gap: 2rem;
 }
-.content-grid a {
+.content-grid a, .content-grid div {
   flex: 50%;
   transition: 0.1 ease-in-out;
 }
-.content-grid a:hover {
+.content-grid a:hover, .content-grid div:hover {
   transform: scale(1.05);
 }
 
 /* Grid buttons  */
 .grid-button {
   position: relative;
-  background-color: #262626;
+  background-color: var(--main-gray);
   height: 6rem;
   border: 2px solid white;
   color: white;
@@ -128,6 +134,7 @@ h2, h3 {
   text-decoration: underline;
   text-underline-offset: 0.5rem;
   transition: all 0.5s ease;
+  cursor: pointer;
 }
 /* --- Pseudo elements --- */
 .grid-button::before,
@@ -171,4 +178,90 @@ h2, h3 {
 }
 .grid-button:hover::after {
   right: -2rem;
+}
+
+
+/* --- Modal Overlay --- */
+.app-modal {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.app-modal.show {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+/* --- Modal content --- */
+.app-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 50%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+.app-modal.show .app-modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+.app-modal-content img {
+  width: 60%;
+  margin: 0 20%;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+.app-modal-content h2 {
+  margin-bottom: 0.5rem;
+}
+.app-modal-content p {
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+/* Close modal button */
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.close-modal:hover {
+  transform: scale(1.2);
+}
+/* Launch app button */
+.launch-btn {
+  background: var(--main-purple);
+  border: 1px solid black;
+  padding: 10px 30px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.1s linear;
+}
+
+.launch-btn:hover {
+  background: var(--main-yellow);
+  color: black;
+  transform: scale(1.01);
 }

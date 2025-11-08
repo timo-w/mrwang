@@ -9,14 +9,33 @@
     <h1>Pupil Resources</h1>
     
     <div class="content-grid">
-        <a class="grid-button" href="{% url 'pupil_resources' %}">
-            National 5 Computing Notes
-        </a>
-        <a class="grid-button" href="">
-            Coming soon...
-        </a>
+        <div class="grid-button" 
+            data-app-name="N5 Computing Notes"
+            data-app-desc="View and download Mr Wang's National 5 Computing Science notes"
+            data-app-img="{% static 'app/images/n5-thumbnail.png' %}"
+            data-app-link="{% url 'pupil_resources' %}">
+            N5 Computing Notes
+        </div>
+        <div class="grid-button" 
+            data-app-name="New projects coming soon"
+            data-app-desc="Check in again for future progress!"
+            data-app-img="{% static 'app/images/under-construction.jpg' %}"
+            data-app-link="">
+            Coming Soon
+        </div>
     </div>
     <br>
+
+    <!-- Overlay Modal -->
+    <div class="app-modal" id="appModal">
+        <div class="app-modal-content">
+            <button class="close-modal">&times;</button>
+            <img id="modalImg" src="" alt="App thumbnail">
+            <h4 id="modalTitle"></h4>
+            <p id="modalDesc"></p>
+            <a id="modalLink" class="launch-btn" href="#">Open Resource</a>
+        </div>
+    </div>
 
 </div>
 {% endblock %}

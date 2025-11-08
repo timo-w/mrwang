@@ -9,14 +9,33 @@
     <h1>Teacher Resources</h1>
     
     <div class="content-grid">
-        <a class="grid-button" href="{% url 'quiz_gen' %}">
+        <div class="grid-button" 
+            data-app-name="AI Quiz Generator"
+            data-app-desc="Generate Microsoft Forms quizzes automatically using AI. Works for any subject and level."
+            data-app-img="{% static 'app/images/quiz-gen-thumbnail.png' %}"
+            data-app-link="{% url 'quiz_gen' %}">
             AI Quiz Generator
-        </a>
-        <a class="grid-button" href="">
-            Coming soon...
-        </a>
+        </div>
+        <div class="grid-button" 
+            data-app-name="New projects coming soon"
+            data-app-desc="Check in again for future progress!"
+            data-app-img="{% static 'app/images/under-construction.jpg' %}"
+            data-app-link="">
+            Coming Soon
+        </div>
     </div>
     <br>
+
+    <!-- Overlay Modal -->
+    <div class="app-modal" id="appModal">
+        <div class="app-modal-content">
+            <button class="close-modal">&times;</button>
+            <img id="modalImg" src="" alt="App thumbnail">
+            <h4 id="modalTitle"></h4>
+            <p id="modalDesc"></p>
+            <a id="modalLink" class="launch-btn" href="#">Open Resource</a>
+        </div>
+    </div>
 
 </div>
 {% endblock %}
