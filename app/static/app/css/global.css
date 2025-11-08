@@ -1,9 +1,16 @@
-/* Styles */
+/* Global site styles */
+
+:root {
+  --main-purple: rgba(131, 32, 189, 1);
+  --main-yellow: rgba(255, 236, 64, 1);
+  --main-bg-gradient: linear-gradient(45deg,var(--main-purple) 0%, var(--main-yellow) 100%);
+  --main-bg-gradient-outline: linear-gradient(white, white) padding-box, var(--main-bg-gradient) border-box;
+}
 
 body {
     font-family: Arial, sans-serif;
-    background: #8320bd;
-    background: linear-gradient(45deg,rgba(131, 32, 189, 1) 0%, rgba(255, 236, 64, 1) 100%);
+    background: var(--main-purple);
+    background: var(--main-bg-gradient);
     background-attachment: fixed;
     background-size: 160% 160%;
     animation: gradientShift 12s ease infinite;
@@ -41,7 +48,7 @@ nav {
 }
 nav a {
     text-decoration: none;
-    color: rgba(131, 32, 189, 1);
+    color: var(--main-purple);
     cursor: pointer;
     font-size: 14px;
     transition: 0.05s linear;
@@ -75,7 +82,7 @@ h1, h2, h3 {
   font-style: normal;
   text-align: center;
   margin: 1rem auto 2rem auto;
-  background: linear-gradient(white, white) padding-box, linear-gradient(45deg, rgba(131, 32, 189, 1), rgba(255, 236, 64, 1)) border-box;
+  background: var(--main-bg-gradient-outline);
   border-radius: 10px;
   padding: 10px;
 }
@@ -100,7 +107,7 @@ h2, h3 {
   padding: 10px;
   height: 150px;
   border-radius: 10px;
-  background: linear-gradient(white, white) padding-box, linear-gradient(45deg, rgba(131, 32, 189, 1), rgba(255, 236, 64, 1)) border-box;
+  background: var(--main-bg-gradient-outline);
   border: 2px solid transparent;
   display: flex;
   justify-content: center;

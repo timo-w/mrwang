@@ -1,5 +1,5 @@
 /* Scripts for quiz generator */
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Quiz script loaded!");
-});
+$(document).ready(function(){
+    console.log("Global script loaded!");
+  });

@@ -4,7 +4,7 @@ body {
     text-align: center;
 }
 button {
-    background: rgba(131, 32, 189, 1);
+    background: var(--main-purple);
     border: 1px solid black;
     padding: 10px 30px;
     color: white;
@@ -16,7 +16,7 @@ button {
     transition: 0.1s linear;
 }
 button:hover {
-    background: rgba(255, 236, 64, 1);
+    background: var(--main-yellow);
     color: black;
     transform: scale(1.01);
 }
