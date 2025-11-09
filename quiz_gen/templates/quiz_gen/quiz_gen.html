@@ -62,15 +62,35 @@
 
     </div>
 
-    <button type="submit">Generate</button>
+    <button type="submit" id="generate-quiz" class="launch-btn">Generate</button>
   </form>
 
-  <p>Click <a href="https://forms.office.com/" target="_blank">here</a> to open Microsoft Forms (opens in a new tab).</p>
+  <!-- Guide overlay -->
+  <div class="app-modal" id="appModal">
+    <div class="app-modal-content">
+        <button class="close-modal">&times;</button>
+        <h4 id="modalTitle"></h4>
+        <img id="modalImg" src="" alt="Screenshot">
+        <p id="modalDesc"></p>
+        <a id="previous-slide" class="modal-nav">&larr; Previous step</a>
+        <a id="next-slide" class="modal-nav">Next step &rarr;</a>
+    </div>
+  </div>
 
 </div>
 {% endblock %}
 
 
 {% block js %}
+<script>
+  window.quizImages = {
+    slide1: "{% static 'quiz_gen/images/slide1.png' %}",
+    slide2: "{% static 'quiz_gen/images/slide2.gif' %}",
+    slide3: "{% static 'quiz_gen/images/slide3.gif' %}",
+    slide4: "{% static 'quiz_gen/images/slide4.gif' %}",
+    slide5: "{% static 'quiz_gen/images/slide5.gif' %}",
+    slide6: "{% static 'quiz_gen/images/slide6.gif' %}",
+  };
+</script>
 <script src="{% static 'quiz_gen/js/quiz_gen.js' %}"></script>
 {% endblock %}

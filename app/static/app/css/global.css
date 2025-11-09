@@ -245,7 +245,8 @@ h4 {
 .close-modal:hover {
   transform: scale(1.2);
 }
-/* Launch app button */
+
+/* Launch button */
 .launch-btn {
   background: var(--main-purple);
   border: 1px solid black;
