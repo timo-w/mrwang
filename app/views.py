@@ -19,6 +19,10 @@ def teacher(request):
 def projects(request):
     return render(request, "app/projects.html")
 
+# Photography page
+def photography(request):
+    return render(request, "app/photography.html")
+
 # Pupil page
 def pupil(request):
     return render(request, "app/pupil/pupil.html")
