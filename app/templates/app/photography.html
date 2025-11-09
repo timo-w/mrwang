@@ -13,7 +13,23 @@
     <p>A few highlights...</p>
     <hr>
 
-    
+    {% for year, images in galleries.items %}
+        <h2 class="year-title">{{ year }}</h2>
+        <div class="gallery">
+        {% for image in images %}
+            <img src="{% static image %}" alt="Gallery image" class="thumb">
+        {% endfor %}
+        </div>
+        <br><hr>
+        {% empty %}
+        <p>No images found.</p>
+    {% endfor %}
+
+    <!-- Image overlay modal -->
+    <div class="overlay" id="imageOverlay">
+        <span class="close-btn">&times;</span>
+        <img id="fullImage" src="" alt="Full-size view">
+    </div>
 
 </div>
 {% endblock %}
