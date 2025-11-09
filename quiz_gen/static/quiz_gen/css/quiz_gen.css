@@ -35,3 +35,17 @@ textarea {
 .column {
     flex: 50%;
 }
+
+/* More options button */
+a#more-options {
+    color: gray;
+    font-style: italic;
+    cursor: pointer;
+    font-size: 12px;
+}
+a#more-options:hover {
+    text-decoration: underline;
+}
+.collapsable {
+    display: none;
+}

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{% static 'quiz_gen/css/quiz_gen.css' %}">
 {% endblock %}
 
+
 {% block content %}
 <div class="content">
 
@@ -37,23 +38,29 @@
       <option value="Other">Other</option>
     </select><br>
     
+    <br><a id="more-options">&darr; More options &darr;</a>
     <br><hr><br>
 
-    <div class="two_col">
-      <div class="column">
-        <label for="no_of_questions">Number of questions:</label><br>
-        <input type="number" name="no_of_questions" min="1" max="20" value="5" required><br><br>
-      </div>
-      <div class="column">
-        <label for="no_of_choices">Choices per question:</label><br>
-      <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br><br>
-      </div>
-    </div><br>
+    <!-- More options menu -->
+    <div class="collapsable">
+    
+      <div class="two_col">
+        <div class="column">
+          <label for="no_of_questions">Number of questions:</label><br>
+          <input type="number" name="no_of_questions" min="1" max="20" value="5" required><br><br>
+        </div>
+        <div class="column">
+          <label for="no_of_choices">Choices per question:</label><br>
+        <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br><br>
+        </div>
+      </div><br>
 
-    <label for="additional_info">Additional information (optional):</label><br>
-    <textarea name="additional_info" rows="3" cols="40" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
+      <label for="additional_info">Additional information (optional):</label><br>
+      <textarea name="additional_info" rows="3" cols="40" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
 
-    <br><hr><br>
+      <br><hr><br>
+
+    </div>
 
     <button type="submit">Generate</button>
   </form>
@@ -61,4 +68,9 @@
   <p>Click <a href="https://forms.office.com/" target="_blank">here</a> to open Microsoft Forms (opens in a new tab).</p>
 
 </div>
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'quiz_gen/js/quiz_gen.js' %}"></script>
 {% endblock %}

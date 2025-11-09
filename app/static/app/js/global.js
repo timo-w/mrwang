@@ -1,11 +1,11 @@
-/* Scripts for quiz generator */
+/* Global site scripts */
 
 $(document).ready(function(){
     console.log("Global script loaded!");
 
     const $modal = $('#appModal');
 
-  // Open modal
+    // Open modal
     $('.grid-button').on('click', function() {
         $('#modalTitle').text($(this).data('app-name'));
         $('#modalDesc').text($(this).data('app-desc'));
