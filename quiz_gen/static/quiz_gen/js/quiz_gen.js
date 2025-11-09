@@ -2,6 +2,11 @@
 
 const slides = [
     {
+      title: "Your Quiz is now Generating!",
+      description: "This quick guide will show you how to import your quiz in Microsoft Forms and share it with your class.<br>Click on the 'Next step' button to continue.",
+      image: window.quizImages.slide0
+    },
+    {
       title: "Opening Microsoft Forms (1/6)",
       description: "First, click <a href='https://forms.office.com/' target='_blank'>here</a> to open Microsoft Forms (opens in a new tab).<br>You will need to be signed in to use the site.",
       image: window.quizImages.slide1
