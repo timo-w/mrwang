@@ -3,7 +3,7 @@
 const slides = [
     {
       title: "Opening Microsoft Forms (1/6)",
-      description: "First, click <a href='https://forms.office.com/' target='_blank'>here</a> to open Microsoft Forms (opens in a new tab).",
+      description: "First, click <a href='https://forms.office.com/' target='_blank'>here</a> to open Microsoft Forms (opens in a new tab).<br>You will need to be signed in to use the site.",
       image: window.quizImages.slide1
     },
     {

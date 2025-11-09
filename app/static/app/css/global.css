@@ -109,7 +109,7 @@ h4 {
   gap: 2rem;
 }
 .content-grid a, .content-grid div {
-  flex: 50%;
+  flex: 1;
   transition: 0.1 ease-in-out;
 }
 .content-grid a:hover, .content-grid div:hover {
