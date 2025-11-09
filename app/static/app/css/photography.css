@@ -75,3 +75,16 @@
     from { transform: translateY(20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
+
+
+
+/* Mobile view */
+
+@media only screen and (max-width: 600px) {
+    .gallery img:hover {
+        transform: none;
+    }
+    .close-btn {
+        font-size: x-large;
+    }
+}

@@ -20,14 +20,24 @@
   {% block css %}{% endblock %}
 </head>
 <body>
+  
   <!-- Navbar -->
   <header>
     <nav>
-      <a href="{% url 'index' %}">Home</a> |
-      <a href="{% url 'teacher' %}">Teacher Resources</a> |
-      <a href="{% url 'pupil' %}">Pupil Resources</a> |
-      <a href="{% url 'projects' %}">Other Projects</a> |
-      <a href="{% url 'about' %}">About</a>
+      <div class="nav-header">
+        <span class="nav-title">Menu</span>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          ☰
+        </button>
+      </div>
+
+      <div class="nav-links">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'teacher' %}">Teacher Resources</a>
+        <a href="{% url 'pupil' %}">Pupil Resources</a>
+        <a href="{% url 'projects' %}">Other Projects</a>
+        <a href="{% url 'about' %}">About</a>
+      </div>
     </nav>
   </header>
 

@@ -28,6 +28,43 @@
         padding: 1rem;
     }
 
+    /* Navigation */
+    .nav-toggle {
+        display: block;
+    }
+    .nav-title {
+        display: block;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+    .nav-links a {
+        font-size: x-large;
+    }
+    .nav-links a:hover {
+        font-size: x-large;
+    }
+    .nav-links.show {
+        display: flex;
+        animation: slideDown 0.3s ease forwards;
+    }
+
+    /* Burger menu animation */
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     /* Headings */
     h1, h2, h3 {
         width: 90%;

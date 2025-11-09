@@ -26,21 +26,52 @@ body {
   100% {background-position: 0% 50%;}
 }
 
-/* White content box */
+/* Base navbar styles */
 nav, .content {
   background-color: white;
   border-radius: 10px;
   padding: 2rem;
   max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 20px auto;
 }
 
-/* Nav bar */
+/* Navbar */
 nav {
-  margin-bottom: 20px;
-  padding: 1rem 2rem;
+  padding: 0.2rem 2rem 1rem 2rem;
   text-align: center;
+}
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-title {
+  display: none;
+  font-weight: bold;
+  color: var(--main-gray);
+  font-size: 1rem;
+  margin-left: 1.5rem;;
+}
+.nav-toggle {
+  display: none;
+  background: none;
+  margin-right: 1.5rem;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--main-gray);
+  transition: transform 0.2s ease;
+}
+.nav-toggle:hover {
+  color: var(--main-purple);
+  transform: scale(1.2);
+}
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 nav a {
   text-decoration: none;

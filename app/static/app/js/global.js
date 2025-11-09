@@ -27,4 +27,9 @@ $(document).ready(function(){
         }
     });
 
+    // Burger menu (mobile)
+    $('.nav-toggle').on('click', function() {
+        $('.nav-links').toggleClass('show');
+    });
+
 });
