@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ subject.name }}{% endblock %}
+
+{% block content %}
+<div class="content">
+  
+  <h1>{{ subject.name }}</h1>
+
+  <h2>Useful Links</h2>
+  <ul>
+    {% for link in links %}
+      <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
+    {% empty %}
+      <li>No links yet.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Modules</h2>
+  <ul>
+    {% for module in modules %}
+      <li><a href="{% url 'module_detail' module.id %}">{{ module.name }}</a></li>
+    {% empty %}
+      <li>No modules yet.</li>
+    {% endfor %}
+  </ul>
+
+</div>
+{% endblock %}
