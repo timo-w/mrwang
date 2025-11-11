@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
     path('quiz_gen', include('quiz_gen.urls')),
+    path('subjects', include('subjects.urls')),
 ]
 
 # For custom error pages
