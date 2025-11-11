@@ -7,8 +7,8 @@ def subject_list(request):
     return render(request, 'subjects/subject_home.html', {'subjects': subjects})
 
 # Subject page
-def subject_detail(request, slug):
-    subject = get_object_or_404(Subject, slug=slug)
+def subject_detail(request, subject_slug):
+    subject = get_object_or_404(Subject, slug=subject_slug)
     links = subject.links.all()
     modules = subject.modules.all()
     return render(request, 'subjects/subject_detail.html', {
@@ -18,10 +18,12 @@ def subject_detail(request, slug):
     })
 
 # Module page
-def module_detail(request, module_id):
-    module = get_object_or_404(Module, id=module_id)
+def module_detail(request, subject_slug, module_slug):
+    subject = get_object_or_404(Subject, slug=subject_slug)
+    module = get_object_or_404(Module, subject=subject, slug=module_slug)
     documents = module.documents.all()
     return render(request, 'subjects/module_detail.html', {
+        'subject': subject,
         'module': module,
         'documents': documents,
     })

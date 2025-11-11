@@ -20,6 +20,14 @@ class Subject(models.Model):
 class Module(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='modules')
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=False, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            # Combine subject + module name to make unique slugs site-wide
+            base_slug = slugify(f"{self.subject.slug}-{self.name}")
+            self.slug = base_slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.subject.name} - {self.name}"
