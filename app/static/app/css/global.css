@@ -4,6 +4,7 @@
   --main-purple: rgba(131, 32, 189, 1);
   --main-yellow: rgba(255, 236, 64, 1);
   --main-gray: #262626;
+  --main-lightgray: rgba(200, 200, 200, 1);
   --main-bg-gradient: linear-gradient(45deg,var(--main-purple) 0%, var(--main-yellow) 100%);
   --main-bg-gradient-outline: linear-gradient(white, white) padding-box, var(--main-bg-gradient) border-box;
 }
