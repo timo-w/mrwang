@@ -145,7 +145,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media
 MEDIA_ROOT = DATA_DIR / 'media'
-os.makedirs(MEDIA_ROOT, exist_ok=True)
 MEDIA_URL = 'media/'
 
 # Default primary key field type
