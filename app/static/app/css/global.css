@@ -136,7 +136,8 @@ h4 {
 
 /* Button grid */
 .content-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* 2 columns */
   gap: 2rem;
 }
 .content-grid a, .content-grid div {
@@ -161,7 +162,8 @@ h4 {
   border-radius: 0.5rem;
   overflow: hidden;
   text-decoration: underline;
-  text-underline-offset: 0.5rem;
+  text-underline-offset: 0.3rem;
+  line-height: 2rem;
   transition: all 0.5s ease;
   cursor: pointer;
 }
@@ -196,7 +198,7 @@ h4 {
   border-color: var(--main-yellow);
   color: var(--main-yellow);
   text-decoration-thickness: 2px;
-  text-underline-offset: 1rem;
+  text-underline-offset: 0.7rem;
 }
 /* Move and blur pseudo elements */
 .grid-button:hover::before {

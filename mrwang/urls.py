@@ -16,14 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 from django.conf.urls import handler404, handler500
+from django.conf.urls.static import static
 from django.shortcuts import render
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
     path('quiz_gen', include('quiz_gen.urls')),
-]
+    path('subjects/', include('subjects.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # For custom error pages
 def custom_404(request, exception):

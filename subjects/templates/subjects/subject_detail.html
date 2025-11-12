@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ subject.name }}{% endblock %}
+
+{% block content %}
+<div class="content">
+  
+  <h1>{{ subject.name }}</h1>
+
+  <h2>Useful Links</h2>
+  <p>Click on a link to open it in a new tab.</p>
+  <ul>
+    {% for link in links %}
+      <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
+    {% empty %}
+      <li>No links yet.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Modules</h2>
+  <div class="content-grid">
+    {% for module in modules %}
+        <a class="grid-button" href="{% url 'module_detail' subject.slug module.slug %}">
+            {{ module.name }}
+        </a>
+    {% empty %}
+      <li>No modules yet.</li>
+    {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

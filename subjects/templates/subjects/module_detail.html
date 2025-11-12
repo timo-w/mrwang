@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ module.name }}{% endblock %}
+
+{% block content %}
+<div class="content">
+  
+  <h1>{{ module.name }}</h1>
+  <h2>Documents</h2>
+  <p>Click on a document to download to your device.</p>
+  <ul>
+    {% for doc in documents %}
+      <li>
+        <a href="{{ doc.file.url }}">{{ doc.name }}</a>
+      </li>
+    {% empty %}
+      <li>No documents yet.</li>
+    {% endfor %}
+  </ul>
+
+</div>
+{% endblock %}

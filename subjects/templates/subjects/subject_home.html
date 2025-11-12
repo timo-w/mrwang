@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Subjects{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h1>Subject Resources</h1>
+  <p>Select a subject to view and download resources.</p>
+
+  <div class="content-grid">
+    {% for subject in subjects %}
+        <a class="grid-button" href="{% url 'subject_detail' subject.slug %}">
+            {{ subject.name }}
+        </a>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
