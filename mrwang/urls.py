@@ -37,3 +37,16 @@ def custom_500(request):
 
 handler404 = custom_404
 handler500 = custom_500
+
+
+# Serve media files directly through Django while on Render
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # Serve media even in production (Render)
+    from django.views.static import serve
+    from django.urls import re_path
+
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]
