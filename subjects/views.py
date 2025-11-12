@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Subject, Module
 
 # All subjects
-def subject_list(request):
+def subjects(request):
     subjects = Subject.objects.all()
     return render(request, 'subjects/subject_home.html', {'subjects': subjects})
 
