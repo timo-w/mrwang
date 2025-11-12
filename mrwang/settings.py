@@ -19,6 +19,9 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# Use /data on Render (persistent disk) if available or fallback for local dev
+DATA_DIR = Path(os.getenv("DATA_DIR", BASE_DIR))
+os.makedirs(DATA_DIR, exist_ok=True)
 
 
 # Quick-start development settings - unsuitable for production
@@ -94,8 +97,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mrwang.wsgi.application'
 
-# Use /data on Render (persistent disk) if available or fallback for local dev
-DATA_DIR = Path(os.getenv("DATA_DIR", BASE_DIR))
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -147,7 +148,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Media
-MEDIA_ROOT = 'media/'
+MEDIA_ROOT = DATA_DIR / 'media'
+os.makedirs(MEDIA_ROOT, exist_ok=True)
 MEDIA_URL = 'media/'
 
 # Default primary key field type
