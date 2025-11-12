@@ -5,7 +5,7 @@ from django.utils.text import slugify
 # e.g. "Computing Science"
 class Subject(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, max_length=120)
+    slug = models.SlugField(unique=True, max_length=100)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -20,7 +20,7 @@ class Subject(models.Model):
 class Module(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='modules')
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, unique=False, blank=True)
+    slug = models.SlugField(unique=True, max_length=100)
 
     def save(self, *args, **kwargs):
         if not self.slug:

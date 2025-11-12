@@ -9,6 +9,7 @@
   <h1>{{ subject.name }}</h1>
 
   <h2>Useful Links</h2>
+  <p>Click on a link to open it in a new tab.</p>
   <ul>
     {% for link in links %}
       <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
