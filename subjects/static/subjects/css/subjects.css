@@ -12,3 +12,12 @@
 .back-button:hover {
   transform: scale(1.05);
 }
+
+@media only screen and (max-width: 600px) {
+
+  .back-button {
+    font-size: large;
+    margin: 20px;
+  }
+
+}
