@@ -18,13 +18,15 @@
   </ul>
 
   <h2>Modules</h2>
-  <ul>
+  <div class="content-grid">
     {% for module in modules %}
-      <li><a href="{% url 'module_detail' subject.slug module.slug %}">{{ module.name }}</a></li>
+        <a class="grid-button" href="{% url 'module_detail' subject.slug module.slug %}">
+            {{ module.name }}
+        </a>
     {% empty %}
       <li>No modules yet.</li>
     {% endfor %}
-  </ul>
+    </div>
 
 </div>
 {% endblock %}

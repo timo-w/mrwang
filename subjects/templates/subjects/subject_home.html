@@ -8,11 +8,13 @@
   <h1>Subject Resources</h1>
   <p>Select a subject to view and download resources.</p>
 
-  <ul>
+  <div class="content-grid">
     {% for subject in subjects %}
-      <li><a href="{% url 'subject_detail' subject.slug %}">{{ subject.name }}</a></li>
+        <a class="grid-button" href="{% url 'subject_detail' subject.slug %}">
+            {{ subject.name }}
+        </a>
     {% endfor %}
-  </ul>
-
+    </div>
 </div>
+
 {% endblock %}
