@@ -19,6 +19,8 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# Use persistent disk if available
+DATA_DIR = Path(os.getenv("DATA_DIR", BASE_DIR))
 # Use /data on Render (persistent disk) if available or fallback for local dev
 # Only create directories if writable (avoid Render build-time crash)
 if os.access("/", os.W_OK):
