@@ -3,8 +3,16 @@
 
 {% block title %}{{ subject.name }}{% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'subjects/css/subjects.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="content">
+
+  <div>
+    <a href="{% url 'subjects' %}" class="back-button">&lt; Back to <b>Subjects</b></a>
+  </div>
   
   <h1>{{ subject.name }}</h1>
 
