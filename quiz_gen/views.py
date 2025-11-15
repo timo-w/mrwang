@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import FileResponse
-from .utils import generate_text, create_quiz_doc
+from shared_utils.utils import generate_text, create_quiz_doc
 
 
 # Quiz generator page

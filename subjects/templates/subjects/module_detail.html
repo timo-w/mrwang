@@ -42,13 +42,23 @@
           </iframe>
         </div>
         <a id="modalLink" class="launch-btn">Download</a>
+        <a id="generateQuiz" class="launch-btn" href="#" style="display:none;">Generate Quiz</a>
     </div>
   </div>
+
+  <!-- CSRF Token -->
+  <form id="csrf-form" style="display:none;">
+    {% csrf_token %}
+  </form>
 
 </div>
 {% endblock %}
 
 
 {% block js %}
+<script>
+  // Get CSRF token from hidden form
+  const csrftoken = document.querySelector('#csrf-form input[name="csrfmiddlewaretoken"]').value;
+</script>
 <script src="{% static 'subjects/js/subjects.js' %}"></script>
 {% endblock %}
