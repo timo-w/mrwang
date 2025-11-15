@@ -20,7 +20,7 @@
 
   <ul class="subject-link-container">
     {% for doc in documents %}
-      <div class="subject-link"
+      <div role="button" class="subject-link"
         data-file-name="{{ module.name }}: {{ doc.name }}"
         data-file-link="{{ doc.file.url }}">
         {{ doc.name }}
