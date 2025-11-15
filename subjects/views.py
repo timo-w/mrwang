@@ -1,6 +1,8 @@
+import re
+import random
 import os
 import requests
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Subject, Module
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -67,8 +69,38 @@ def generate_quiz_from_file(request):
         level="N/A",
         no_of_questions="10",
         no_of_choices="4",
-        additional_info=extracted[:8000]
+        additional_info=extracted[:8000]  # keep prompt safe
     )
 
-    # Render a new template showing the quiz
-    return render(request, "subjects/generated_quiz.html", {"quiz_text": quiz_text})
+    # Store in session
+    request.session['quiz_text'] = quiz_text
+
+    # Redirect to interactive quiz page
+    return redirect('display_generated_quiz')
+
+
+# Parse and display quiz
+def display_generated_quiz(request):
+    quiz_text = request.session.get('quiz_text')
+    if not quiz_text:
+        return HttpResponse("No quiz found. Please generate a quiz first.", status=400)
+
+    # Split by questions
+    question_blocks = re.split(r'\n\d+\.\s', '\n' + quiz_text)
+    quiz_questions = []
+
+    for block in question_blocks[1:]:
+        lines = block.strip().splitlines()
+        if not lines:
+            continue
+        question_text = lines[0].strip()
+        choices = [line.strip() for line in lines[1:] if line.strip()]
+        random.shuffle(choices)
+        correct_answer = next((c for c in choices if c.startswith('A')), None)
+        quiz_questions.append({
+            'question': question_text,
+            'choices': choices,
+            'correct_answer': correct_answer
+        })
+
+    return render(request, "subjects/interactive_quiz.html", {"quiz_questions": quiz_questions})

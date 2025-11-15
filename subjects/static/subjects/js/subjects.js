@@ -60,29 +60,12 @@ $(document).ready(function () {
             return;
         }
     
-        // Create a temporary form
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = "/subjects/generate-quiz/";
-        form.target = "_blank"; // open in new tab
-    
-        // CSRF token
-        const csrfInput = document.createElement('input');
-        csrfInput.type = 'hidden';
-        csrfInput.name = 'csrfmiddlewaretoken';
-        csrfInput.value = csrftoken;
-        form.appendChild(csrfInput);
-    
-        // File URL
-        const fileInput = document.createElement('input');
-        fileInput.type = 'hidden';
-        fileInput.name = 'file_url';
-        fileInput.value = fileUrl;
-        form.appendChild(fileInput);
-    
-        document.body.appendChild(form);
+        // Create a hidden form and submit
+        const form = $('<form method="POST" action="/subjects/generate-quiz/"></form>');
+        form.append(`<input type="hidden" name="csrfmiddlewaretoken" value="${csrftoken}">`);
+        form.append(`<input type="hidden" name="file_url" value="${fileUrl}">`);
+        $('body').append(form);
         form.submit();
-        form.remove();
     });
 
 });
