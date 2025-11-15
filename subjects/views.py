@@ -2,9 +2,9 @@ import os
 import requests
 from django.shortcuts import render, get_object_or_404
 from .models import Subject, Module
-from django.http import FileResponse, HttpResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from shared_utils.utils import generate_text, create_quiz_doc, extract_text_from_file
+from shared_utils.utils import generate_text, extract_text_from_file
 
 
 # All subjects
@@ -40,7 +40,6 @@ def module_detail(request, subject_slug, module_slug):
 # Generate quiz from document
 @csrf_exempt
 def generate_quiz_from_file(request):
-
     if request.method != "POST":
         return HttpResponse("Invalid method", status=405)
     
@@ -61,16 +60,15 @@ def generate_quiz_from_file(request):
     # Extract text
     extracted = extract_text_from_file(local_path)
 
-    # Send text to generator
+    # Generate quiz text
     quiz_text = generate_text(
         subject="Auto-generated from document",
         topic="Document contents",
         level="N/A",
         no_of_questions="10",
         no_of_choices="4",
-        additional_info=extracted[:8000]  # keep prompt safe
+        additional_info=extracted[:8000]
     )
 
-    # Create and return quiz doc
-    quiz_path = create_quiz_doc(quiz_text)
-    return FileResponse(open(quiz_path, "rb"), as_attachment=True, filename="generated-quiz.docx")
+    # Render a new template showing the quiz
+    return render(request, "subjects/generated_quiz.html", {"quiz_text": quiz_text})

@@ -39,3 +39,6 @@ yarn-error.log
 
 # Database backups
 db-backups/
+
+# Temporary files
+temp_extractions/

@@ -59,44 +59,30 @@ $(document).ready(function () {
             alert("No file selected to generate quiz from.");
             return;
         }
-
-        $(this).prop('disabled', true).text('Generating...');
-
-        $.ajax({
-            url: "/subjects/generate-quiz-from-file/",
-            method: "POST",
-            data: {
-                file_url: fileUrl,
-                csrfmiddlewaretoken: csrftoken
-            },
-            xhrFields: { responseType: 'blob' },
-            success: function (data, status, xhr) {
-                // Extract filename from header
-                let filename = "generated-quiz.docx";
-                const disposition = xhr.getResponseHeader('Content-Disposition');
-                if (disposition && disposition.indexOf('filename=') !== -1) {
-                    filename = disposition.split('filename=')[1].replace(/"/g, '');
-                }
-
-                const blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
-                const url = window.URL.createObjectURL(blob);
-
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            },
-            error: function (xhr) {
-                console.error(xhr.responseText);
-                alert("Error generating quiz. Check console for details.");
-            },
-            complete: function () {
-                $('#generateQuiz').prop('disabled', false).text('Generate Quiz');
-            }
-        });
+    
+        // Create a temporary form
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "/subjects/generate-quiz/";
+        form.target = "_blank"; // open in new tab
+    
+        // CSRF token
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrfmiddlewaretoken';
+        csrfInput.value = csrftoken;
+        form.appendChild(csrfInput);
+    
+        // File URL
+        const fileInput = document.createElement('input');
+        fileInput.type = 'hidden';
+        fileInput.name = 'file_url';
+        fileInput.value = fileUrl;
+        form.appendChild(fileInput);
+    
+        document.body.appendChild(form);
+        form.submit();
+        form.remove();
     });
 
 });
