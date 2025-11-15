@@ -57,6 +57,11 @@
 .pptx-preview {
   height: 80%;
   width: 100%;
+  border: 1px solid var(--main-gray);
+}
+.app-modal-content a {
+  margin: 1rem 0;
+  font-size: 0.8rem;
 }
 
 

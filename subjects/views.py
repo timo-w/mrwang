@@ -1,8 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Subject, Module
-from django.http import FileResponse, Http404
-from django.conf import settings
-from pathlib import Path
 
 # All subjects
 def subjects(request):
@@ -30,13 +27,3 @@ def module_detail(request, subject_slug, module_slug):
         'module': module,
         'documents': documents,
     })
-
-# For PDF iFrame previews
-def media_preview(request, file_path):
-    full_path = Path(settings.MEDIA_ROOT) / file_path
-    if not full_path.exists():
-        raise Http404("File not found")
-    response = FileResponse(open(full_path, 'rb'))
-    # Remove the security header ONLY for this route
-    response.headers['X-Frame-Options'] = 'ALLOWALL'
-    return response

@@ -22,13 +22,13 @@ $(document).ready(function () {
             $('#appModal').addClass('show');
     
         } else if (isPDF) {
-            const absUrl = `https://www.mrwang.co.uk/media-preview/${fileLink.replace('/media/', '')}`;
+            const absUrl = encodeURIComponent(`https://www.mrwang.co.uk${fileLink}`);
+            const gview = `https://docs.google.com/gview?url=${absUrl}&embedded=true`;
         
             $('#modalName').text($(this).data('file-name'));
-            $('#modalPreview').attr('src', absUrl);
+            $('#modalPreview').attr('src', gview);
+            $('#modalLink').attr('href', absUrl);
             $('#appModal').addClass('show');
-            console.log(absUrl);
-            
         } else {
             // Everything else: open in new tab
             window.open(fileLink, '_blank');
