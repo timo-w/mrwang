@@ -1,10 +1,9 @@
 import os
 import datetime
+from openai import AzureOpenAI
 from docx import Document
 from pptx import Presentation
 from PyPDF2 import PdfReader
-from openai import AzureOpenAI
-
 
 
 # Azure Open AI Details
@@ -13,6 +12,7 @@ client = AzureOpenAI(
     api_key=os.getenv("AZURE_OPENAI_KEY"),
     api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
 )
+
 
 # Call Azure OpenAI
 def generate_text(subject: str, topic: str, level: str, no_of_questions: str, no_of_choices: str, additional_info: str) -> str:

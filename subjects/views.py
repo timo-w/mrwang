@@ -4,12 +4,14 @@ from django.shortcuts import render, get_object_or_404
 from .models import Subject, Module
 from django.http import FileResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .utils import generate_text, create_quiz_doc, extract_text_from_file
+from shared_utils.utils import generate_text, create_quiz_doc, extract_text_from_file
+
 
 # All subjects
 def subjects(request):
     subjects = Subject.objects.all()
     return render(request, 'subjects/subject_home.html', {'subjects': subjects})
+
 
 # Subject page
 def subject_detail(request, subject_slug):
@@ -21,6 +23,7 @@ def subject_detail(request, subject_slug):
         'links': links,
         'modules': modules,
     })
+
 
 # Module page
 def module_detail(request, subject_slug, module_slug):
