@@ -60,7 +60,7 @@
   border: 1px solid var(--main-gray);
 }
 .app-modal-content a {
-  margin: 1rem 0;
+  margin: 1rem;
   font-size: 0.8rem;
 }
 
