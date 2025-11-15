@@ -46,6 +46,21 @@
   text-underline-offset: 0.7rem;
 }
 
+/* --- Modal content (override) --- */
+.app-modal-content {
+  padding: 1rem;
+  width: 90%;
+  height: 80%;
+  max-width: 1000px;
+  text-align: center;
+}
+.pptx-preview {
+  background-color: aqua;
+  border: 1px solid hotpink;
+  height: 80%;
+  width: 100%;
+}
+
 
 /* Mobile view */
 @media only screen and (max-width: 600px) {

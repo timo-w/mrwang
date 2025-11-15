@@ -20,11 +20,34 @@
 
   <ul class="subject-link-container">
     {% for doc in documents %}
-      <a class="subject-link" href="{{ doc.file.url }}">{{ doc.name }}</a>
+      <div class="subject-link"
+        data-file-name="{{ module.name }}: {{ doc.name }}"
+        data-file-link="{{ doc.file.url }}">
+        {{ doc.name }}
+      </div>
     {% empty %}
       <li>No documents yet.</li>
     {% endfor %}
   </ul>
 
+  <!-- Overlay Modal -->
+  <div class="app-modal" id="appModal">
+    <div class="app-modal-content">
+        <button class="close-modal">&times;</button>
+        <h4 id="modalName"></h4>
+        <div class="pptx-preview">
+          <iframe
+            id="modalPreview"
+            width="100%" height="100%" frameborder="0">
+          </iframe>
+        </div>
+    </div>
+  </div>
+
 </div>
+{% endblock %}
+#
+
+{% block js %}
+<script src="{% static 'subjects/js/subjects.js' %}"></script>
 {% endblock %}
