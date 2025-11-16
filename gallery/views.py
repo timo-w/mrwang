@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Photo
 
 # Gallery home
-def gallery_overview(request):
+def gallery_home(request):
     years = Photo.objects.values_list("year", flat=True).distinct().order_by("-year")
     return render(request, "gallery/overview.html", {"years": years})
 

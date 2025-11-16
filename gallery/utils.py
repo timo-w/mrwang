@@ -2,8 +2,6 @@ import os
 from datetime import datetime
 
 def photo_upload_path(instance, filename):
-    # Extract extension
-    ext = filename.split('.')[-1]
 
     # Build a safe filename (timestamp + original name)
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
