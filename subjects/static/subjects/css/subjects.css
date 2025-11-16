@@ -1,17 +1,5 @@
 /* Styles for subject pages */
 
-.back-button {
-  display: inline-block;
-  padding: 0.5rem 0.5rem;
-  text-decoration: none;
-  font-size: 0.8rem;
-  color: var(--main-gray);
-  transition: 0.1s ease-in-out;
-}
-
-.back-button:hover {
-  transform: scale(1.05);
-}
 
 /* Subject links */
 .subject-link-container {
