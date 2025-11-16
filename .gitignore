@@ -43,3 +43,4 @@ db-backups/
 # Temporary files
 temp_extractions/
 tempfile.*
+temp_extractions/tempfile.pptx

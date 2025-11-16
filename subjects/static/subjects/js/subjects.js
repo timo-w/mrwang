@@ -4,7 +4,6 @@ $(document).ready(function () {
     console.log("Subjects script loaded!");
 
     const $modal = $('#appModal');
-    const csrftoken = "{{ csrf_token }}";
 
     // Open document preview
     $('.subject-link').on('click', function () {
@@ -19,7 +18,7 @@ $(document).ready(function () {
         // Only show button if office file or PDF
         if (isOffice || isPDF) {
             // Store file URL on the Generate Quiz button
-            $('#generateQuiz').data('file-url', absUrl);
+            $('#generateQuiz').data('file-link', fileLink);
             $('#generateQuiz').show();
         } else {
             $('#generateQuiz').hide();
@@ -54,9 +53,9 @@ $(document).ready(function () {
 
     // Generate quiz button
     $('#generateQuiz').on('click', function () {
-        const fileUrl = $(this).data('file-url');
+        const fileLink = $(this).data('file-link');
         const $btn = $(this);
-        if (!fileUrl) {
+        if (!fileLink) {
             alert("No file selected to generate quiz from.");
             return;
         }
@@ -67,7 +66,7 @@ $(document).ready(function () {
         // Create a hidden form and submit
         const form = $('<form method="POST" action="/subjects/generate-quiz/"></form>');
         form.append(`<input type="hidden" name="csrfmiddlewaretoken" value="${csrftoken}">`);
-        form.append(`<input type="hidden" name="file_url" value="${fileUrl}">`);
+        form.append(`<input type="hidden" name="file_path" value="${fileLink}">`);
         $('body').append(form);
         form.submit();
     });

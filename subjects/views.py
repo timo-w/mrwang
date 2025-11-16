@@ -1,8 +1,8 @@
 import re
 import random
 import os
-import requests
 from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
 from .models import Subject, Module
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -45,35 +45,32 @@ def generate_quiz_from_file(request):
     if request.method != "POST":
         return HttpResponse("Invalid method", status=405)
     
-    file_url = request.POST.get("file_url")
-    if not file_url:
-        return HttpResponse("Missing file URL", status=400)
+    # Get path from subjects.js
+    rel_path = request.POST.get("file_path")
+    if not rel_path:
+        return HttpResponse("Missing file path", status=400)
 
-    # Download file
-    response = requests.get(file_url)
+    # Turn `/media/...` into an actual filesystem path
+    local_path = os.path.join(settings.MEDIA_ROOT, rel_path.replace("/media/", ""))
 
-    os.makedirs("temp_extractions", exist_ok=True)
-    local_path = f"temp_extractions/tempfile{os.path.splitext(file_url)[1]}"
-    with open(local_path, "wb") as f:
-        f.write(response.content)
+    if not os.path.exists(local_path):
+        return HttpResponse(f"File not found: {local_path}", status=404)
 
     # Extract text
     extracted = extract_text_from_file(local_path)
 
-    # Generate quiz text
+    # Generate quiz
     quiz_text = generate_text(
         subject="Auto-generated from document",
         topic="Document contents",
         level="N/A",
         no_of_questions="10",
         no_of_choices="4",
-        additional_info=extracted[:8000]  # keep prompt safe
+        additional_info=extracted[:8000]
     )
 
-    # Store in session
     request.session['quiz_text'] = quiz_text
 
-    # Redirect to interactive quiz page
     return redirect('generated-quiz')
 
 
