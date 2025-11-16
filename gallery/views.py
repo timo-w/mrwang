@@ -4,7 +4,7 @@ from .models import Photo
 # Gallery home
 def gallery_home(request):
     years = Photo.objects.values_list("year", flat=True).distinct().order_by("-year")
-    return render(request, "gallery/overview.html", {"years": years})
+    return render(request, "gallery/gallery.html", {"years": years})
 
 # Photos by year
 def gallery_year(request, year):
