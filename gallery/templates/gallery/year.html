@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Photography{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gallery/css/gallery.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1>Photography — {{ year }}</h1>
+    <p>Click a photo to view the full image.</p>
+    <hr>
+
+    {% if photos %}
+        <div class="gallery">
+            {% for photo in photos %}
+                <img 
+                    src="{{ photo.thumbnail.url }}" 
+                    data-full="{{ photo.image.url }}"
+                    alt="{{ photo.title|default:'Gallery image' }}"
+                    class="thumb"
+                    loading="lazy">
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No photos found for this year.</p>
+    {% endif %}
+
+    <br><hr>
+
+    <!-- Image overlay modal -->
+    <div class="overlay" id="imageOverlay">
+        <span class="close-btn">&times;</span>
+        <img id="fullImage" src="" alt="Full-size view">
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'gallery/js/gallery.js' %}"></script>
+{% endblock %}
