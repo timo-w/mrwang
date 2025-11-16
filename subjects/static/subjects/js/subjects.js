@@ -27,20 +27,32 @@ $(document).ready(function () {
         if (isOffice) {
             // Office Viewer embed
             const embedUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(absUrl)}`;
+            
             $('#modalName').text($(this).data('file-name'));
             $('#modalPreview').attr('src', embedUrl);
+
+            // Set download link
+            $('#modalLink')
+                .attr('href', absUrl)
+                .attr('download', filePath.split('/').pop());
+
             $modal.addClass('show');
 
         } else if (isPDF) {
             // Google Docs Viewer embed for PDFs
             const gview = `https://docs.google.com/gview?url=${encodeURIComponent(absUrl)}&embedded=true`;
+            
             $('#modalName').text($(this).data('file-name'));
             $('#modalPreview').attr('src', gview);
-            $('#modalLink').attr('href', absUrl); // direct download link
+
+            // Set download link
+            $('#modalLink')
+                .attr('href', absUrl)
+                .attr('download', filePath.split('/').pop());
+
             $modal.addClass('show');
 
         } else {
-            // Everything else: open in new tab
             window.open(absUrl, '_blank');
         }
     });

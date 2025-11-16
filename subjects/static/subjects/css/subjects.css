@@ -88,17 +88,15 @@
 /* Mobile view */
 @media only screen and (max-width: 600px) {
 
-  .back-button {
-    font-size: large;
-    margin: 20px;
-  }
-
   .subject-link-container {
     grid-template-columns: 1fr;
     padding: 0 2rem;
   }
   .subject-link {
     font-size: large;
+  }
+  .pptx-preview {
+    height: 60%;
   }
 
 }

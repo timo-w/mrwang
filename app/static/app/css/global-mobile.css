@@ -120,4 +120,10 @@
         font-size: x-large;
     }
 
+    /* Back button */
+    .back-button {
+        font-size: large;
+        margin: 20px;
+    }
+
 }
