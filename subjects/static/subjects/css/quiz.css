@@ -39,3 +39,9 @@
     width: 50%;
     margin: 0 25%;
 }
+
+/* Score */
+h4#quizResult {
+    text-align: center;
+    font-size: 1.5rem;
+}

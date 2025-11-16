@@ -1,8 +1,13 @@
 // Scripts for submitting generated quiz
 
+console.log("Quiz script loaded!");
+
 function submitQuiz() {
     const $questions = $('.quiz-question');
     let correct = 0;
+
+    // Scroll to the top
+    $('html, body').animate({ scrollTop: 0 }, 'slow');
 
     $questions.each(function () {
         const $q = $(this);
@@ -39,5 +44,5 @@ function submitQuiz() {
         }
     });
 
-    $('#quizResult').text(`You scored ${correct} out of ${$questions.length}`);
+    $('#quizResult').text(`You scored ${correct} out of ${$questions.length}.`);
 }
