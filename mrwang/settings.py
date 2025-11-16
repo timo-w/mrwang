@@ -57,9 +57,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'imagekit', # for gallery app
     'app',
     'quiz_gen',
     'subjects',
+    'gallery',
 ]
 
 # Middleware

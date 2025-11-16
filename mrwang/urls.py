@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('app.urls')),
     path('quiz_gen', include('quiz_gen.urls')),
     path('subjects/', include('subjects.urls')),
+    path('gallery/', include('gallery.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # For custom error pages
