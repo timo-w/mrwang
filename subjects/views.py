@@ -1,11 +1,11 @@
 import re
-import random
+from random import shuffle
 import os
 from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
-from .models import Subject, Module
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from .models import Subject, Module
 from shared_utils.utils import generate_text, extract_text_from_file
 
 
@@ -56,10 +56,8 @@ def generate_quiz_from_file(request):
     if not os.path.exists(local_path):
         return HttpResponse(f"File not found: {local_path}", status=404)
 
-    # Extract text
+    # Extract text and generate
     extracted = extract_text_from_file(local_path)
-
-    # Generate quiz
     quiz_text = generate_text(
         subject="Auto-generated from document",
         topic="Document contents",
@@ -70,7 +68,6 @@ def generate_quiz_from_file(request):
     )
 
     request.session['quiz_text'] = quiz_text
-
     return redirect('generated-quiz')
 
 
@@ -97,13 +94,12 @@ def display_generated_quiz(request):
             line = line.strip()
             if not line:
                 continue
-            # Remove patterns like "A. something", "B) something", etc.
             line = re.sub(r'^[A-Z][\.\)]\s*', '', line)
             cleaned_choices.append(line)
 
         # Set correct answer before randomising options
         correct_answer = cleaned_choices[0]
-        random.shuffle(cleaned_choices)
+        shuffle(cleaned_choices)
 
         quiz_questions.append({
             'question': question_text,

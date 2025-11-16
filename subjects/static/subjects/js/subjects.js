@@ -7,9 +7,9 @@ $(document).ready(function () {
 
     // Open document preview
     $('.subject-link').on('click', function () {
-        const fileLink = $(this).data('file-link');
-        const lower = fileLink.toLowerCase();
-        const absUrl = `https://www.mrwang.co.uk${fileLink}`;
+        const filePath = $(this).data('file-path');
+        const lower = filePath.toLowerCase();
+        const absUrl = `https://www.mrwang.co.uk${filePath}`;
 
         const officeExt = ['.pptx', '.docx', '.xlsx'];
         const isOffice = officeExt.some(ext => lower.endsWith(ext));
@@ -18,7 +18,7 @@ $(document).ready(function () {
         // Only show button if office file or PDF
         if (isOffice || isPDF) {
             // Store file URL on the Generate Quiz button
-            $('#generateQuiz').data('file-link', fileLink);
+            $('#generateQuiz').data('file-path', filePath);
             $('#generateQuiz').show();
         } else {
             $('#generateQuiz').hide();
@@ -53,9 +53,9 @@ $(document).ready(function () {
 
     // Generate quiz button
     $('#generateQuiz').on('click', function () {
-        const fileLink = $(this).data('file-link');
+        const filePath = $(this).data('file-path');
         const $btn = $(this);
-        if (!fileLink) {
+        if (!filePath) {
             alert("No file selected to generate quiz from.");
             return;
         }
@@ -66,7 +66,7 @@ $(document).ready(function () {
         // Create a hidden form and submit
         const form = $('<form method="POST" action="/subjects/generate-quiz/"></form>');
         form.append(`<input type="hidden" name="csrfmiddlewaretoken" value="${csrftoken}">`);
-        form.append(`<input type="hidden" name="file_path" value="${fileLink}">`);
+        form.append(`<input type="hidden" name="file_path" value="${filePath}">`);
         $('body').append(form);
         form.submit();
     });

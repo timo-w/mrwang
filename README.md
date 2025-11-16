@@ -5,7 +5,7 @@ View the live site [here](https://mrwang.co.uk)!
 
 Contains:
 - A quiz generator web app that uses Azure OpenAI to generate Word documents based on prompts.
-- Downloadable pupil resources from classes
+- Downloadable pupil resources from classes - where AI quizzes can be generated based on the resource
 - Photography
 - 1 of your 5 a day
 
@@ -22,6 +22,7 @@ python manage.py migrate
 python manage.py createsuperuser --noinput
 cp .env.example .env  # add your own keys
 
+python manage.py check # just in case
 python manage.py runserver
 ```
 
