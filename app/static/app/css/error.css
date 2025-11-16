@@ -4,3 +4,7 @@ img#error-monkey {
     width: 80%;
     margin: 0 10%;
 }
+
+p {
+    text-align: center;
+}

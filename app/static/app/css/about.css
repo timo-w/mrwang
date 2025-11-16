@@ -8,3 +8,10 @@ img#rocket-costume {
     width: 60%;
     margin: 0 20%;
 }
+
+/* Reduce code size on mobile view */
+@media only screen and (max-width: 600px) {
+    code {
+        font-size: 1rem !important;
+    }
+}
