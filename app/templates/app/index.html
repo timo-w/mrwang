@@ -8,32 +8,29 @@
 {% endblock %}
 
 {% block content %}
-<div class="content">
-    <h1>Mr Wang&apos;s Website</h1>
-    <p>Here you will find educational resources, tools, and other fun stuff!</p>
-    <hr>
+<h1>Mr Wang&apos;s Website</h1>
+<p>Here you will find educational resources, tools, and other fun stuff!</p>
+<hr>
 
-    <h4>Educational Resources</h4>
-    <div class="content-grid">
-        <a class="grid-button" href="{% url 'teacher' %}">
-            Teacher Resources
-        </a>
-        <a class="grid-button" href="{% url 'subjects' %}">
-            Pupil Resources by Subject
-        </a>
-    </div>
-    <br><hr>
-
-    <h4>Other Stuff</h4>
-    <div class="content-grid">
-        <a class="grid-button" href="{% url 'about' %}">
-            About this Website
-        </a>
-        <a class="grid-button" href="{% url 'projects' %}">
-            Other Stuff
-        </a>
-    </div>
-    <br>
-
+<h4>Educational Resources</h4>
+<div class="content-grid">
+    <a class="grid-button" href="{% url 'teacher' %}">
+        Teacher Resources
+    </a>
+    <a class="grid-button" href="{% url 'subjects' %}">
+        Pupil Resources by Subject
+    </a>
 </div>
+<br><hr>
+
+<h4>Other Stuff</h4>
+<div class="content-grid">
+    <a class="grid-button" href="{% url 'about' %}">
+        About this Website
+    </a>
+    <a class="grid-button" href="{% url 'projects' %}">
+        Other Stuff
+    </a>
+</div>
+<br>
 {% endblock %}

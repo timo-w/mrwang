@@ -9,74 +9,70 @@
 
 
 {% block content %}
-<div class="content">
+<h1>AI Quiz Generator</h1>
 
-  <h1>AI Quiz Generator</h1>
+<form method="POST">
+  {% csrf_token %}
 
-  <form method="POST">
-    {% csrf_token %}
+  <label for="subject">Subject:</label><br>
+  <textarea name="subject" rows="1" cols="40" placeholder="e.g. 'History'" required></textarea><br><br>
+  
+  <label for="topic">Topic:</label><br>
+  <textarea name="topic" rows="5" cols="40" placeholder="e.g. 'World War II'" required></textarea><br><br>
 
-    <label for="subject">Subject:</label><br>
-    <textarea name="subject" rows="1" cols="40" placeholder="e.g. 'History'" required></textarea><br><br>
-    
-    <label for="topic">Topic:</label><br>
-    <textarea name="topic" rows="5" cols="40" placeholder="e.g. 'World War II'" required></textarea><br><br>
+  <label for="level">Level:</label><br>
+  <select name="level" required>
+    <option value="">--Please select a level--</option>
+    <option value="S1">BGE - S1</option>
+    <option value="S2">BGE - S2</option>
+    <option value="S3">BGE - S3</option>
+    <option value="National 4">National 4</option>
+    <option value="National 5">National 5</option>
+    <option value="Higher">Higher</option>
+    <option value="Advanced Higher">Advanced Higher</option>
+    <option value="NPA Level 44">NPA - Level 44</option>
+    <option value="NPA Level 45">NPA - Level 45</option>
+    <option value="NPA Level 46">NPA - Level 46</option>
+    <option value="Other">Other</option>
+  </select><br>
+  
+  <br><a id="more-options">&darr; More options &darr;</a>
+  <br><hr><br>
 
-    <label for="level">Level:</label><br>
-    <select name="level" required>
-      <option value="">--Please select a level--</option>
-      <option value="S1">BGE - S1</option>
-      <option value="S2">BGE - S2</option>
-      <option value="S3">BGE - S3</option>
-      <option value="National 4">National 4</option>
-      <option value="National 5">National 5</option>
-      <option value="Higher">Higher</option>
-      <option value="Advanced Higher">Advanced Higher</option>
-      <option value="NPA Level 44">NPA - Level 44</option>
-      <option value="NPA Level 45">NPA - Level 45</option>
-      <option value="NPA Level 46">NPA - Level 46</option>
-      <option value="Other">Other</option>
-    </select><br>
-    
-    <br><a id="more-options">&darr; More options &darr;</a>
+  <!-- More options menu -->
+  <div class="collapsable">
+  
+    <div class="two_col">
+      <div class="column">
+        <label for="no_of_questions">Number of questions:</label><br>
+        <input type="number" name="no_of_questions" min="1" max="20" value="5" required><br><br>
+      </div>
+      <div class="column">
+        <label for="no_of_choices">Choices per question:</label><br>
+      <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br><br>
+      </div>
+    </div><br>
+
+    <label for="additional_info">Additional information (optional):</label><br>
+    <textarea name="additional_info" rows="3" cols="40" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
+
     <br><hr><br>
 
-    <!-- More options menu -->
-    <div class="collapsable">
-    
-      <div class="two_col">
-        <div class="column">
-          <label for="no_of_questions">Number of questions:</label><br>
-          <input type="number" name="no_of_questions" min="1" max="20" value="5" required><br><br>
-        </div>
-        <div class="column">
-          <label for="no_of_choices">Choices per question:</label><br>
-        <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br><br>
-        </div>
-      </div><br>
-
-      <label for="additional_info">Additional information (optional):</label><br>
-      <textarea name="additional_info" rows="3" cols="40" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
-
-      <br><hr><br>
-
-    </div>
-
-    <button type="submit" id="generate-quiz" class="launch-btn">Generate</button>
-  </form>
-
-  <!-- Guide overlay -->
-  <div class="app-modal" id="appModal">
-    <div class="app-modal-content">
-        <button class="close-modal">&times;</button>
-        <h4 id="modalTitle"></h4>
-        <img id="modalImg" src="" alt="Screenshot">
-        <p id="modalDesc"></p>
-        <a id="previous-slide" class="modal-nav">&larr; Previous step</a>
-        <a id="next-slide" class="modal-nav">Next step &rarr;</a>
-    </div>
   </div>
 
+  <button type="submit" id="generate-quiz" class="launch-btn">Generate</button>
+</form>
+
+<!-- Guide overlay -->
+<div class="app-modal" id="appModal">
+  <div class="app-modal-content">
+      <button class="close-modal">&times;</button>
+      <h4 id="modalTitle"></h4>
+      <img id="modalImg" src="" alt="Screenshot">
+      <p id="modalDesc"></p>
+      <a id="previous-slide" class="modal-nav">&larr; Previous step</a>
+      <a id="next-slide" class="modal-nav">Next step &rarr;</a>
+  </div>
 </div>
 {% endblock %}
 

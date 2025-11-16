@@ -42,9 +42,9 @@
   </header>
 
   <main>
-    {% block content %}
-    <!-- Page content -->
-    {% endblock %}
+    <div class="content">
+    {% block content %}<!-- Page content -->{% endblock %}
+    </div>
     <a href="{% url 'index' %}"><img id="mrwang-logo" src="{% static 'app/images/logos/mrwang-logo.png' %}" alt="Mr Wang Logo"></a>
   </main>
 

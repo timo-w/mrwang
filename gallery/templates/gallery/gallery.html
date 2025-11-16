@@ -5,17 +5,15 @@
 
 
 {% block content %}
-<div class="content">
-    <h1>Gallery</h1>
-    <p>Some highlights over the years. Click a year to view photos.</p>
-    <div class="content-grid">
-        {% for year in years %}
-            <a class="grid-button" href="{% url 'gallery_year' year %}">
-                {{ year }}
-            </a>
-        {% empty %}
-        <li>Failed to load gallery. Try again later.</li>
-        {% endfor %}
-    </div>
+<h1>Gallery</h1>
+<p>Some highlights over the years. Click a year to view photos.</p>
+<div class="content-grid">
+    {% for year in years %}
+        <a class="grid-button" href="{% url 'gallery_year' year %}">
+            {{ year }}
+        </a>
+    {% empty %}
+    <li>Failed to load gallery. Try again later.</li>
+    {% endfor %}
 </div>
 {% endblock %}

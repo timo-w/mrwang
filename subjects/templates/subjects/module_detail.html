@@ -8,50 +8,46 @@
 {% endblock %}
 
 {% block content %}
-<div class="content">
-
-  <div>
-    <a href="{% url 'subject_detail' subject.slug %}" class="back-button">&lt; Back to <b>{{ subject.name }}</b></a>
-  </div>
-  
-  <h1>{{ module.name }}</h1>
-  <h2>Documents</h2>
-  <p>Click on a document to download to your device.</p>
-
-  <ul class="subject-link-container">
-    {% for doc in documents %}
-      <div role="button" class="subject-link"
-        data-file-name="{{ module.name }}: {{ doc.name }}"
-        data-file-path="{{ doc.file.url }}">
-        {{ doc.name }}
-      </div>
-    {% empty %}
-      <li>No documents yet.</li>
-    {% endfor %}
-  </ul>
-
-  <!-- Overlay Modal -->
-  <div class="app-modal" id="appModal">
-    <div class="app-modal-content">
-        <button class="close-modal">&times;</button>
-        <h4 id="modalName"></h4>
-        <div class="pptx-preview">
-          <iframe
-            id="modalPreview"
-            width="100%" height="100%" frameborder="0">
-          </iframe>
-        </div>
-        <a id="modalLink" class="launch-btn">Download</a>
-        <a id="generateQuiz" class="launch-btn" href="#" style="display:none;">Generate Quiz</a>
-    </div>
-  </div>
-
-  <!-- CSRF Token -->
-  <form id="csrf-form" style="display:none;">
-    {% csrf_token %}
-  </form>
-
+<div>
+  <a href="{% url 'subject_detail' subject.slug %}" class="back-button">&lt; Back to <b>{{ subject.name }}</b></a>
 </div>
+
+<h1>{{ module.name }}</h1>
+<h2>Documents</h2>
+<p>Click on a document to download to your device.</p>
+
+<ul class="subject-link-container">
+  {% for doc in documents %}
+    <div role="button" class="subject-link"
+      data-file-name="{{ module.name }}: {{ doc.name }}"
+      data-file-path="{{ doc.file.url }}">
+      {{ doc.name }}
+    </div>
+  {% empty %}
+    <li>No documents yet.</li>
+  {% endfor %}
+</ul>
+
+<!-- Overlay Modal -->
+<div class="app-modal" id="appModal">
+  <div class="app-modal-content">
+      <button class="close-modal">&times;</button>
+      <h4 id="modalName"></h4>
+      <div class="pptx-preview">
+        <iframe
+          id="modalPreview"
+          width="100%" height="100%" frameborder="0">
+        </iframe>
+      </div>
+      <a id="modalLink" class="launch-btn">Download</a>
+      <a id="generateQuiz" class="launch-btn" href="#" style="display:none;">Generate Quiz</a>
+  </div>
+</div>
+
+<!-- CSRF Token -->
+<form id="csrf-form" style="display:none;">
+  {% csrf_token %}
+</form>
 {% endblock %}
 
 

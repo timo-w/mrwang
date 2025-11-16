@@ -9,39 +9,36 @@
 {% endblock %}
 
 {% block content %}
-<div class="content">
+<div>
+  <a href="javascript:history.back()" class="back-button">&lt; Back to Module</b></a>
+</div>
 
-  <div>
-    <a href="javascript:history.back()" class="back-button">&lt; Back to Module</b></a>
-  </div>
+<h1>Generated Quiz</h1>
+<p>This quiz was generated using the resource you selected. AI can make errors, so ask your teacher if you don&apos;t understand a question.</p>
 
-  <h1>Generated Quiz</h1>
-  <p>This quiz was generated using the resource you selected. AI can make errors, so ask your teacher if you don&apos;t understand a question.</p>
+<div class="quiz-container">
+  <h4 id="quizResult">Select your answers and click &quot;Submit Quiz&quot; to see your score.</h4>
+  <br><hr><br>
 
-  <div class="quiz-container">
-    <h4 id="quizResult">Select your answers and click &quot;Submit Quiz&quot; to see your score.</h4>
-    <br><hr><br>
-
-    <form id="quizForm">
-        {% for q in quiz_questions %}
-        <div class="quiz-question" data-correct="{{ q.correct_answer }}">
-          <h4>{{ forloop.counter }}. {{ q.question }}</h4>
-          <ul>
-            {% for choice in q.choices %}
-              <li>
-                <label>
-                  <input type="radio" name="question{{ forloop.parentloop.counter }}" value="{{ choice }}">
-                  {{ choice }}
-                </label>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-        <br><hr><br>
-        {% endfor %}
-      <button type="button" class="launch-btn" onclick="submitQuiz()">Submit Quiz</button>
-    </form>
-  </div>
+  <form id="quizForm">
+    {% for q in quiz_questions %}
+      <div class="quiz-question" data-correct="{{ q.correct_answer }}">
+        <h4>{{ forloop.counter }}. {{ q.question }}</h4>
+        <ul>
+          {% for choice in q.choices %}
+            <li>
+              <label>
+                <input type="radio" name="question{{ forloop.parentloop.counter }}" value="{{ choice }}">
+                {{ choice }}
+              </label>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <br><hr><br>
+    {% endfor %}
+    <button type="button" class="launch-btn" onclick="submitQuiz()">Submit Quiz</button>
+  </form>
 </div>
 
 {% endblock %}
