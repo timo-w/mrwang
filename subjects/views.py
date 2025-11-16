@@ -51,8 +51,6 @@ def generate_quiz_from_file(request):
 
     # Download file
     response = requests.get(file_url)
-    if response.status_code != 200:
-        return HttpResponse("Could not download file", status=400)
 
     os.makedirs("temp_extractions", exist_ok=True)
     local_path = f"temp_extractions/tempfile{os.path.splitext(file_url)[1]}"
@@ -76,7 +74,7 @@ def generate_quiz_from_file(request):
     request.session['quiz_text'] = quiz_text
 
     # Redirect to interactive quiz page
-    return redirect('display_generated_quiz')
+    return redirect('generated-quiz')
 
 
 # Parse and display quiz
@@ -93,14 +91,27 @@ def display_generated_quiz(request):
         lines = block.strip().splitlines()
         if not lines:
             continue
+
         question_text = lines[0].strip()
-        choices = [line.strip() for line in lines[1:] if line.strip()]
-        random.shuffle(choices)
-        correct_answer = next((c for c in choices if c.startswith('A')), None)
+
+        # Clean choices by removing leading "A. ", "B. ", etc.
+        cleaned_choices = []
+        for line in lines[1:]:
+            line = line.strip()
+            if not line:
+                continue
+            # Remove patterns like "A. something", "B) something", etc.
+            line = re.sub(r'^[A-Z][\.\)]\s*', '', line)
+            cleaned_choices.append(line)
+
+        # Set correct answer before randomising options
+        correct_answer = cleaned_choices[0]
+        random.shuffle(cleaned_choices)
+
         quiz_questions.append({
             'question': question_text,
-            'choices': choices,
+            'choices': cleaned_choices,
             'correct_answer': correct_answer
         })
 
-    return render(request, "subjects/interactive_quiz.html", {"quiz_questions": quiz_questions})
+    return render(request, "subjects/generated_quiz.html", {"quiz_questions": quiz_questions})

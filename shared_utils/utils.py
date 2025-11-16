@@ -20,6 +20,7 @@ def generate_text(subject: str, topic: str, level: str, no_of_questions: str, no
         You are a helpful assistant that creates multiple-choice quiz documents.
         Do not include any formatting symbols in your response.
         Do not respond with any follow-up questions.
+        Use British English spellings, grammar, and conventions throughout.
 
         Your response will follow a specific format:
         - For each question, begin with the question number.

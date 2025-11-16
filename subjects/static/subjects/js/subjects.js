@@ -4,7 +4,7 @@ $(document).ready(function () {
     console.log("Subjects script loaded!");
 
     const $modal = $('#appModal');
-    const csrftoken = "{{ csrf_token }}";  // make sure your template sets this
+    const csrftoken = "{{ csrf_token }}";
 
     // Open document preview
     $('.subject-link').on('click', function () {

@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path("generate-quiz/", views.generate_quiz_from_file, name="generate-quiz"),
-    path("interactive-quiz/", views.display_generated_quiz, name="display_generated_quiz"),
+    path("generated-quiz/", views.display_generated_quiz, name="generated-quiz"),
     
     path('', views.subjects, name='subjects'),
     path('<slug:subject_slug>/', views.subject_detail, name='subject_detail'),
