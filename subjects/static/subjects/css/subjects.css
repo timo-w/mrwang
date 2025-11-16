@@ -46,6 +46,38 @@
   text-underline-offset: 0.7rem;
 }
 
+/* Generate quiz button */
+#generateQuiz {
+  position: relative;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+/* Disabled look */
+#generateQuiz.loading,
+#generateQuiz:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  background-color: var(--main-lightgray);
+  color: var(--main-gray);
+}
+/* Spinner */
+#generateQuiz.loading::before {
+  content: "";
+  position: absolute;
+  left: 0.4rem;
+  top: 0.55rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid var(--main-gray);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
 /* --- Modal content (override) --- */
 .app-modal-content {
   padding: 1rem;

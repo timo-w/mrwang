@@ -1,0 +1,41 @@
+/* Styles for generated quiz page */
+
+.quiz-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background:#f9f9f9;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.quiz-question {
+    margin-bottom: 1.5rem;
+}
+.quiz-question h4 {
+    margin-bottom: 0.5rem;
+}
+.quiz-question ul {
+    list-style-type: none;
+    padding: 0;
+}
+.quiz-question li {
+    margin-bottom: 0.5rem;
+}
+
+/* Question results */
+.correct-answer {
+    background-color: #d4edda;
+}
+.no-answer {
+    background-color: #fff3cd;
+}
+.incorrect-answer {
+    background-color: #f8d7da;
+}
+
+/* Submit button (override) */
+.launch-btn {
+    width: 50%;
+    margin: 0 25%;
+}

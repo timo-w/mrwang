@@ -55,10 +55,14 @@ $(document).ready(function () {
     // Generate quiz button
     $('#generateQuiz').on('click', function () {
         const fileUrl = $(this).data('file-url');
+        const $btn = $(this);
         if (!fileUrl) {
             alert("No file selected to generate quiz from.");
             return;
         }
+
+         // Disable + show spinner
+        $btn.prop('disabled', true).addClass('loading').text('Generating...');
     
         // Create a hidden form and submit
         const form = $('<form method="POST" action="/subjects/generate-quiz/"></form>');

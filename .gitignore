@@ -42,3 +42,4 @@ db-backups/
 
 # Temporary files
 temp_extractions/
+tempfile.*

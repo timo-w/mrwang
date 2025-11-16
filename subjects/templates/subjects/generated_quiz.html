@@ -4,24 +4,20 @@
 {% block title %}Generated Quiz{% endblock %}
 
 {% block css %}
-<style>
-  .quiz-container { max-width: 800px; margin: 2rem auto; padding: 1rem 2rem; background:#f9f9f9; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-  .quiz-question { margin-bottom: 1.5rem; }
-  .quiz-question h4 { margin-bottom: 0.5rem; }
-  .quiz-question ul { list-style-type: none; padding: 0; }
-  .quiz-question li { margin-bottom: 0.5rem; }
-  .back-btn, .submit-btn { margin-top: 1rem; padding: 0.5rem 1rem; border-radius:6px; text-decoration:none; cursor:pointer; }
-  .back-btn { background:#007bff;color:#fff; }
-  .back-btn:hover { background:#0056b3; }
-  .submit-btn { background:#28a745;color:#fff; }
-  .submit-btn:hover { background:#218838; }
-</style>
+<link rel="stylesheet" href="{% static 'subjects/css/subjects.css' %}">
+<link rel="stylesheet" href="{% static 'subjects/css/quiz.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="content">
+
+  <div>
+    <a href="javascript:history.back()" class="back-button">&lt; Back to Module</b></a>
+  </div>
+
   <div class="quiz-container">
     <h1>Generated Quiz</h1>
+    <br><hr><br>
     <form id="quizForm">
         {% for q in quiz_questions %}
         <div class="quiz-question" data-correct="{{ q.correct_answer }}">
@@ -37,55 +33,16 @@
             {% endfor %}
           </ul>
         </div>
+        <br><hr><br>
       {% endfor %}
-      <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
+      <button type="button" class="launch-btn" onclick="submitQuiz()">Submit Quiz</button>
     </form>
     <p id="quizResult"></p>
-    <a href="javascript:history.back()" class="back-btn">Back</a>
   </div>
 </div>
 
-<script>
-function submitQuiz() {
-    const $questions = $('.quiz-question');
-    let correct = 0;
+{% endblock %}
 
-    $questions.each(function () {
-        const $q = $(this);
-        const correctAnswer = $q.data('correct');
-        const $selected = $q.find('input[type=radio]:checked');
-
-        // Find label/LI containing the correct answer
-        const $correctLi = $q.find('label')
-            .filter(function () {
-                return $(this).text().trim() === correctAnswer;
-            })
-            .closest('li');
-
-        // Reset colours
-        $q.find('li').css('background', '');
-
-        if ($selected.length === 0) {
-            // Unanswered
-            $q.css('background', '#fff3cd'); // yellow
-            $correctLi.css('background', '#d4edda'); // mark correct
-            return;
-        }
-
-        if ($selected.val() === correctAnswer) {
-            // Correct
-            correct++;
-            $q.css('background', '#d4edda'); // green
-            $selected.closest('li').css('background', '#d4edda');
-        } else {
-            // Incorrect
-            $q.css('background', '#f8d7da'); // red
-            $selected.closest('li').css('background', '#f8d7da');
-            $correctLi.css('background', '#d4edda'); // show correct
-        }
-    });
-
-    $('#quizResult').text(`You scored ${correct} out of ${$questions.length}`);
-}
-</script>
+{% block js %}
+<script src="{% static 'subjects/js/quiz.js' %}"></script>
 {% endblock %}
