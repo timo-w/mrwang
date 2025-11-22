@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}View Examples{% endblock %}
+
+{% block css %}
+<!-- Prism.js CSS for code snippet formatting -->
+<link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'code_puzzles/css/puzzle.css' %}">
+{% endblock %}
+
+{% block content %}
+<div>
+  <a href="{% url 'puzzle_home' %}" class="back-button">&lt; Back to <b>Code Puzzles</b></a>
+</div>
+
+<h1>Visual Basic Code Examples</h1>
+
+<!-- Topic Filter -->
+<form method="get" style="margin-bottom: 20px;">
+    <label for="topic">Filter by Topic:</label>
+    <select name="topic" id="topic" onchange="this.form.submit()">
+        <option value="">All Topics</option>
+        {% for t in topics %}
+            <option value="{{ t.id }}" {% if request.GET.topic|default:'' == t.id|stringformat:'s' %}selected{% endif %}>
+                {{ t.name }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
+
+<!-- Program List -->
+{% if programs %}
+    <div class="content-grid">
+        {% for program in programs %}
+            <div class="grid-button"
+                 data-title="{{ program.title }}"
+                 data-topics="{% for t in program.topics.all %}{{ t.name }}{% if not forloop.last %}, {% endif %}{% endfor %}">
+                {{ program.title }}
+<!-- Hidden pre preserves formatting; not JSON-escaped -->
+<pre class="program-code" style="display:none;"><code>{% for line in program.lines.all %}
+{{ line.content }}
+{% endfor %}
+</code></pre>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No programs found.</p>
+{% endif %}
+
+<!-- Overlay Modal -->
+<div class="app-modal" id="appModal">
+    <div class="app-modal-content">
+        <button class="close-modal">&times;</button>
+        <h4 id="modalTitle"></h4>
+        <p><strong>Topics:</strong> <span id="modalTopics"></span></p>
+        <pre><code id="modalCode" class="language-vbnet"></code></pre>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<!-- Prism.js scripts -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js"></script>
+<script src="{% static 'code_puzzles/js/puzzle.js' %}"></script>
+{% endblock %}
