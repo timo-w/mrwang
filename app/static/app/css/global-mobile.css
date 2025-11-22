@@ -126,4 +126,10 @@
         margin: 20px;
     }
 
+    /* Small content grid */
+    .content-grid-small {
+        grid-template-columns: 1fr;
+        padding: 0 2rem;
+    }
+
 }

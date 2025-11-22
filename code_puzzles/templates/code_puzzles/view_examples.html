@@ -31,9 +31,9 @@
 
 <!-- Program List -->
 {% if programs %}
-    <div class="content-grid">
+    <div class="content-grid-small">
         {% for program in programs %}
-            <div class="grid-button"
+            <div class="grid-button-small"
                  data-title="{{ program.title }}"
                  data-topics="{% for t in program.topics.all %}{{ t.name }}{% if not forloop.last %}, {% endif %}{% endfor %}">
                 {{ program.title }}

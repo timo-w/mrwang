@@ -313,3 +313,33 @@ h4 {
 .back-button:hover {
   transform: scale(1.05);
 }
+
+/* Secondary content grid */
+.content-grid-small {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  list-style-type: none;
+  padding-left: 0;
+  gap: 0.5rem 1rem;
+}
+
+.grid-button-small {
+  box-sizing: border-box;
+  background-color: var(--main-lightgray);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  margin: 0.2rem 0;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  line-height: 2rem;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: bold;
+  transition: 0.1s ease-in-out;
+}
+.grid-button-small:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  text-underline-offset: 0.7rem;
+}
