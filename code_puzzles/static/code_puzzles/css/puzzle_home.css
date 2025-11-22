@@ -1,6 +1,6 @@
 /* Styles for code puzzles page */
 
-/* Reduce code size on mobile view */
+/* Mobile view */
 @media only screen and (max-width: 600px) {
     code {
         font-size: 1rem !important;

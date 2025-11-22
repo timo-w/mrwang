@@ -28,7 +28,7 @@
 
 </form>
 
-<hr><br>
+<hr>
 
 {% if program %}
     <h4>{{ program.title }}</h4>
@@ -39,7 +39,7 @@
 
     <p>Drag and drop the lines into the correct order.</p>
 
-   <ul id="sortableLines" class="sortable-list">
+    <ul id="sortableLines" class="sortable-list">
         {% for line in lines %}
             <li class="sortable-item" data-id="{{ line.id }}" data-line-number="{{ line.line_number }}">
                 <code>{{ line.content }}</code>
@@ -47,17 +47,18 @@
         {% endfor %}
     </ul>
 
-    <button id="checkButton" class="btn">Check Order</button>
-    <p id="resultMessage" style="margin-top: 20px;"></p>
+    <p id="resultMessage"></p>
 
-    <button id="showCorrect" class="btn" style="display:none;">
-        Show Correct Order
-    </button>
+    <div class="btn-container">
+        <button id="checkButton" class="launch-btn">Check Order</button>
+        <button id="showCorrect" class="launch-btn" style="display:none;">Show Answer</button>
+    </div>
 
     <br><hr><br>
-    <div class="program-nav">
-        <button id="prevProgram">&larr; Previous program</button>
-        <button id="nextProgram">Next program &rarr;</button>
+    <div class="nav-btn-container">
+        <button id="prevProgram" class="program-nav">&larr; Previous program</button>
+        <button id="randomProgram" class="program-nav">&#x1F3B2; Random program</button>
+        <button id="nextProgram" class="program-nav">Next program &rarr;</button>
     </div>
 {% endif %}
 
@@ -69,6 +70,7 @@
     const CURRENT_INDEX = {{ index }};
     const TOPIC = "{{ selected_topic|default:'' }}";
 </script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="{% static 'code_puzzles/js/play.js' %}"></script>
 {% endblock %}

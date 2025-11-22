@@ -46,9 +46,19 @@ $(document).ready(function () {
         if (isCorrect) {
             $resultMessage.html("<b style='color: green;'>Correct!</b>");
             $("#showCorrect").hide();
+            $("#checkButton").hide();
+            // Confetti!
+            confetti({ particleCount: 100, angle: 90, spread: 100, origin: { x: 0.5, y: 1 } });
+            $("#sortableLines .sortable-item").each(function () {
+                $(this).addClass("correct-line");
+            setTimeout(() => $(this).removeClass("correct-line"), 1000);
+});
         } else {
             $resultMessage.html("<b style='color: red;'>Not correct. Try again!</b>");
             $("#showCorrect").show();   // reveal the button
+            // Shake program lines
+            $("#sortableLines").addClass("incorrect-shake");
+            setTimeout(() => $("#sortableLines").removeClass("incorrect-shake"), 400);
         }
     });
 
@@ -71,8 +81,9 @@ $(document).ready(function () {
 
         $resultMessage.html("<b style='color: blue;'>Correct order shown.</b>");
 
-        // Hide button so they can't re-click
+        // Hide buttons
         $("#showCorrect").hide();
+        $("#checkButton").hide();
     });
 
     // Prev / Next navigation handlers
@@ -92,6 +103,18 @@ $(document).ready(function () {
 
         window.location.href = url.toString();
     }
+
+    // Random program
+    $("#randomProgram").on("click", function () {
+        if (PROGRAM_COUNT === 0) {return;}
+        let rand = Math.floor(Math.random() * PROGRAM_COUNT);
+
+        // Avoid picking the current program if possible
+        if (PROGRAM_COUNT > 1 && rand === CURRENT_INDEX) {
+            rand = (rand + 1) % PROGRAM_COUNT;
+        }
+        goToIndex(rand);
+    });
 
     $("#prevProgram").on("click", function () {
         goToIndex(CURRENT_INDEX - 1);
