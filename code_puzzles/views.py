@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Program, Topic
 
 
@@ -10,7 +10,6 @@ def puzzle_home(request):
 # View aLl code examples
 def view_examples(request):
     topic_id = request.GET.get("topic")
-
     topics = Topic.objects.all()
 
     if topic_id:
@@ -26,4 +25,31 @@ def view_examples(request):
 
 # Play code puzzles
 def play(request):
-    return render(request, "code_puzzles/play_puzzles.html")
+    topic_id = request.GET.get("topic")
+    index = int(request.GET.get("i", 0))
+
+    topics = Topic.objects.all()
+    programs = Program.objects.all()
+    
+    if topic_id:
+        programs = programs.filter(topics__id=topic_id)
+
+    programs = list(programs)
+
+    if programs:
+        index = index % len(programs)  # wrap-around
+        program = programs[index]
+        lines = program.lines.all()
+    else:
+        program = None
+        lines = []
+
+    context = {
+        "topics": topics,
+        "programs": programs,
+        "program": program,
+        "lines": lines,
+        "index": index,
+        "selected_topic": topic_id,
+    }
+    return render(request, "code_puzzles/play.html", context)

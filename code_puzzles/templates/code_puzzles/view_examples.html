@@ -6,15 +6,15 @@
 {% block css %}
 <!-- Prism.js CSS for code snippet formatting -->
 <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'code_puzzles/css/puzzle.css' %}">
+<link rel="stylesheet" href="{% static 'code_puzzles/css/puzzle_home.css' %}">
 {% endblock %}
 
 {% block content %}
 <div>
-  <a href="{% url 'puzzle_home' %}" class="back-button">&lt; Back to <b>Code Puzzles</b></a>
+  <a href="{% url 'puzzle_home' %}" class="back-button">&lt; Back to <b>Code Puzzle Home</b></a>
 </div>
 
-<h1>Visual Basic Code Examples</h1>
+<h1>Program Examples</h1>
 
 <!-- Topic Filter -->
 <form method="get" style="margin-bottom: 20px;">
@@ -64,5 +64,5 @@
 <!-- Prism.js scripts -->
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js"></script>
-<script src="{% static 'code_puzzles/js/puzzle.js' %}"></script>
+<script src="{% static 'code_puzzles/js/puzzle_home.js' %}"></script>
 {% endblock %}

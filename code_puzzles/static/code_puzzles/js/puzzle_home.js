@@ -15,7 +15,7 @@ $(document).ready(function() {
         const topics = $(this).data("topics");
 
         // Read the code from the hidden <pre>
-        const code = $(this).find(".program-code").text().replace(/\\r/g, "");
+        let code = $(this).find(".program-code").text().replace(/\\r/g, "");
         // Indent code
         code = indentVB(code);
 
