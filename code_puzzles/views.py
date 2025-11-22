@@ -8,7 +8,7 @@ def puzzle_home(request):
 
 
 # View aLl code examples
-def view_examples(request):
+def examples(request):
     topic_id = request.GET.get("topic")
     topics = Topic.objects.all()
     selected_topic = None
@@ -22,7 +22,7 @@ def view_examples(request):
     else:
         programs = Program.objects.all()
 
-    return render(request, "code_puzzles/view_examples.html", {
+    return render(request, "code_puzzles/examples.html", {
         "programs": programs,
         "topics": topics,
         "selected_topic": selected_topic,
@@ -43,7 +43,7 @@ def play(request):
     programs = list(programs)
 
     if programs:
-        index = index % len(programs)  # wrap-around
+        index = index % len(programs) # wrap-around
         program = programs[index]
         lines = program.lines.all()
     else:
