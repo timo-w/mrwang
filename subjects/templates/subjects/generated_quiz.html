@@ -34,6 +34,8 @@
             </li>
           {% endfor %}
         </ul>
+        <div class="explanation-box" style="display:none;"></div>
+        <button type="button" class="explain-btn" style="display:none;">Explain answer.</button>
       </div>
       <br><hr><br>
     {% endfor %}
@@ -41,8 +43,16 @@
   </form>
 </div>
 
+<!-- CSRF Token -->
+<form id="csrf-form" style="display:none;">
+  {% csrf_token %}
+</form>
 {% endblock %}
 
 {% block js %}
+<script>
+  // Get CSRF token from hidden form
+  const csrftoken = document.querySelector('#csrf-form input[name="csrfmiddlewaretoken"]').value;
+</script>
 <script src="{% static 'subjects/js/quiz.js' %}"></script>
 {% endblock %}

@@ -45,3 +45,47 @@ h4#quizResult {
     text-align: center;
     font-size: 1.5rem;
 }
+
+/* Explain answer button */
+button.explain-btn {
+    background-color: var(--main-gray);
+    border: none;
+    border-radius: 0.2rem;
+    color: var(--main-lightgray);
+    padding: 0.6rem 0.2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.8rem;
+    cursor: pointer;
+    width: 40%;
+    margin: 0.5rem 30%;
+    transition: 0.1s ease-in-out;
+}
+button.explain-btn:hover {
+    background-color: var(--main-lightgray);
+    color: var(--main-gray);
+    transform: scale(1.05);
+}
+
+/* Explanation box */
+.explanation-box {
+    box-sizing: border-box;
+    background-color: white;
+    width: 92%;
+    margin: 0.3rem 4%;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+}
+
+
+
+/* Mobile view */
+@media only screen and (max-width: 600px) {
+
+    button.explain-btn {
+        font-size: large;
+        padding: 1rem 0.5rem;
+    }
+
+}

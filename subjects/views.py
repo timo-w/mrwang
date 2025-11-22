@@ -1,12 +1,12 @@
 import re
-from random import shuffle
 import os
+from random import shuffle
 from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Subject, Module
-from shared_utils.utils import generate_text, extract_text_from_file
+from shared_utils.utils import generate_text, extract_text_from_file, client
 
 
 # All subjects
@@ -108,3 +108,53 @@ def display_generated_quiz(request):
         })
 
     return render(request, "subjects/generated_quiz.html", {"quiz_questions": quiz_questions})
+
+
+# Explain incorrect quiz answers
+@csrf_exempt
+def explain_answer(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Invalid method"}, status=405)
+
+    # Get question data from quiz
+    question = request.POST.get("question")
+    correct = request.POST.get("correct")
+    user_answer = request.POST.get("user_answer")
+
+    if not question or not correct:
+        return JsonResponse({"error": "Missing data"}, status=400)
+    
+    # Normalise empty answers: treat "", null, " " as no answer
+    user_answer = (user_answer or "").strip()
+
+    # Build answer line only if an answer exists
+    answer_line = (
+        f"Pupil's incorrect answer: {user_answer}\nExplain why this is wrong.\n"
+        if user_answer
+        else ""
+    )
+
+    # Create language prompt
+    prompt = (
+        f"Question: {question}\n"
+        f"Correct answer: {correct}\n"
+        f"{answer_line}\n"
+        f"Explain clearly why the correct answer is correct."
+        f"Be brief, not exceeding a few sentences."
+        f"Use simple language appropriate for a secondary school pupil."
+        f"No need to summarise your answer or give advice at the end."
+        f"Do not use formatting symbols."
+        f"Do not respond with a follow-up question."
+        f"Repond in second person and use British English."
+    )
+
+    response = client.chat.completions.create(
+        model=os.getenv("AZURE_DEPLOYMENT_NAME"),
+        messages=[
+            {"role": "system", "content": "You explain incorrect answers clearly and concisely."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    explanation = response.choices[0].message.content
+    return JsonResponse({"explanation": explanation})
