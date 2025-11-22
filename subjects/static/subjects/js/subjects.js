@@ -6,7 +6,7 @@ $(document).ready(function () {
     const $modal = $('#appModal');
 
     // Open document preview
-    $('.subject-link').on('click', function () {
+    $('.grid-button-small').on('click', function () {
         const filePath = $(this).data('file-path');
         const lower = filePath.toLowerCase();
         const absUrl = `https://www.mrwang.co.uk${filePath}`;
@@ -93,7 +93,7 @@ $(document).ready(function () {
 
     if (targetLesson) {
         // Find all lesson items
-        const items = document.querySelectorAll(".subject-link");
+        const items = document.querySelectorAll(".grid-button-small");
 
         for (const item of items) {
             // Normalised versions of the displayed text and data attribute
