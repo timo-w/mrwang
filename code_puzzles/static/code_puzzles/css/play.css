@@ -1,0 +1,85 @@
+/* Styles of code puzzle page */
+
+/* Program lines */
+.sortable-list {
+    list-style: none;
+    padding: 0;
+}
+.sortable-item {
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #eee;
+    border: 1px solid #ccc;
+    cursor: grab;
+    font-family: monospace;
+}
+.sortable-item:active {
+    cursor: grabbing;
+}
+
+/* Check order/show answer buttons */
+.btn-container, .nav-btn-container {
+    display: flex;
+    justify-content: center;
+}
+.btn-container {
+    gap: 2rem;
+}
+.nav-btn-container {
+    gap: 20%;
+}
+
+/* Prev/Next program buttons */
+.program-nav {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    font-size: 0.8rem;
+    transition: 0.1s ease-in-out;
+}
+.program-nav:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+/* Result message */
+p#resultMessage {
+    text-align: center;
+}
+
+/* Animation for incorrect answer */
+.incorrect-shake {
+    animation: shake 0.4s;
+}
+@keyframes shake {
+    0%   { transform: translateX(0); }
+    25%  { transform: translateX(-5px); }
+    50%  { transform: translateX(5px); }
+    75%  { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* Animation for correct answer */
+.correct-line {
+    animation: highlightPulse 1.5s;
+}
+@keyframes highlightPulse {
+    0%   { background-color: #eeeeee; }
+    40%  { background-color: rgba(0,255,0,0.3); }
+    100% { background-color: #eeeeee; }
+}
+
+
+/* Mobile view */
+@media only screen and (max-width: 600px) {
+    select {
+        font-size: larger;
+    }
+    .nav-btn-container {
+        gap: 1rem;
+    }
+    .program-nav {
+        font-size: large;
+    }
+}

@@ -16,9 +16,9 @@
 <h2>Documents</h2>
 <p>Select a lesson from the list below:</p>
 
-<ul class="subject-link-container">
+<ul class="content-grid-small">
   {% for doc in documents %}
-    <div role="button" class="subject-link"
+    <div role="button" class="grid-button-small"
       data-file-name="{{ module.name }}: {{ doc.name }}"
       data-file-path="{{ doc.file.url }}">
       {{ doc.name }}

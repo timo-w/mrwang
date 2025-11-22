@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'quiz_gen',
     'subjects',
     'gallery',
+    'code_puzzles',
 ]
 
 # Middleware

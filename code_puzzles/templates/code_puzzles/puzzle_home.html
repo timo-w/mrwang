@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Code Puzzle{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'code_puzzles/css/puzzle_home.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Code Puzzle</h1>
+
+<div class="content-grid">
+    <a class="grid-button" href="{% url 'play' %}">
+        Play Puzzle
+    </a>
+    <a class="grid-button" href="{% url 'view_examples' %}">
+        Revise Code Examples
+    </a>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'code_puzzles/js/puzzle_home.js' %}"></script>
+{% endblock %}

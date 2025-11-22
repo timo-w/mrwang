@@ -16,9 +16,9 @@
 
 <h2>Useful Links</h2>
 <p>Click on a link to open it in a new tab.</p>
-<ul class="subject-link-container">
+<ul class="content-grid-small">
   {% for link in links %}
-    <a class="subject-link" href="{{ link.url }}" target="_blank">{{ link.name }}</a>
+    <a class="grid-button-small" href="{{ link.url }}" target="_blank">{{ link.name }}</a>
   {% empty %}
     <li>No links yet.</li>
   {% endfor %}
@@ -35,5 +35,5 @@
   {% empty %}
     <li>No modules yet.</li>
   {% endfor %}
-  </div>
+</div>
 {% endblock %}

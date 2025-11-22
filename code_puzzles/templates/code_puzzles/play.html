@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Play Puzzle{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'code_puzzles/css/play.css' %}">
+{% endblock %}
+
+{% block content %}
+<div>
+  <a href="{% url 'puzzle_home' %}" class="back-button">&lt; Back to <b>Code Puzzle Home</b></a>
+</div>
+
+<h1>Play Puzzle</h1>
+
+<form method="get" style="margin-bottom: 20px;">
+
+    <label>Topic:</label>
+    <select name="topic" onchange="this.form.submit()">
+        <option value="">All Topics</option>
+        {% for t in topics %}
+            <option value="{{ t.id }}" {% if selected_topic == t.id|stringformat:'s' %}selected{% endif %}>
+                {{ t.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+</form>
+
+<hr>
+
+{% if program %}
+    <h4>{{ program.title }}</h4>
+
+    {% if program.description %}
+        <p>{{ program.description }}</p>
+    {% endif %}
+
+    <p>Drag and drop the lines into the correct order.</p>
+
+    <ul id="sortableLines" class="sortable-list">
+        {% for line in lines %}
+            <li class="sortable-item" data-id="{{ line.id }}" data-line-number="{{ line.line_number }}">
+                <code>{{ line.content }}</code>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p id="resultMessage"></p>
+
+    <div class="btn-container">
+        <button id="checkButton" class="launch-btn">Check Order</button>
+        <button id="showCorrect" class="launch-btn" style="display:none;">Show Answer</button>
+    </div>
+
+    <br><hr><br>
+    <div class="nav-btn-container">
+        <button id="prevProgram" class="program-nav">&larr; Previous program</button>
+        <button id="randomProgram" class="program-nav">&#x1F3B2; Random program</button>
+        <button id="nextProgram" class="program-nav">Next program &rarr;</button>
+    </div>
+{% endif %}
+
+{% endblock %}
+
+{% block js %}
+<script>
+    const PROGRAM_COUNT = {{ programs|length }};
+    const CURRENT_INDEX = {{ index }};
+    const TOPIC = "{{ selected_topic|default:'' }}";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="{% static 'code_puzzles/js/play.js' %}"></script>
+{% endblock %}
