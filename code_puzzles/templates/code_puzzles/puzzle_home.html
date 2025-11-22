@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Code Puzzles{% endblock %}
+{% block title %}Code Puzzle{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'code_puzzles/css/puzzle_home.css' %}">
 {% endblock %}
 
 {% block content %}
-<h1>Code Puzzles</h1>
+<h1>Code Puzzle</h1>
 
 <div class="content-grid">
     <a class="grid-button" href="{% url 'play' %}">

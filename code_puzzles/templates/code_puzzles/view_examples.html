@@ -49,6 +49,17 @@
     <p>No programs found.</p>
 {% endif %}
 
+<!-- Go to lesson button -->
+{% if selected_topic and selected_topic.lesson_url %}
+    <div id="toLessonBtn">
+        <a class="launch-btn" href="{{ selected_topic.lesson_url }}" target="_blank">Go to Lesson: {{ selected_topic.name }}</a>
+    </div>
+{% else %}
+    <div id="toLessonBtn">
+        <a class="launch-btn" href="" target="_blank">Go to SDD Lessons</a>
+    </div>
+{% endif %}
+
 <!-- Overlay Modal -->
 <div class="app-modal" id="appModal">
     <div class="app-modal-content">

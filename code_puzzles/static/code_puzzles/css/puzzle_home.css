@@ -1,11 +1,25 @@
 /* Styles for code puzzles page */
 
+#toLessonBtn {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+#toLessonBtn a {
+    width: 50%;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
 /* Mobile view */
 @media only screen and (max-width: 600px) {
     code {
         font-size: 1rem !important;
     }
     select {
-        font-size: larger;
+        font-size: large;
+    }
+    #toLessonBtn a {
+        width: 80%;
     }
 }

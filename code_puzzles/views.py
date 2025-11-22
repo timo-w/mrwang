@@ -11,15 +11,21 @@ def puzzle_home(request):
 def view_examples(request):
     topic_id = request.GET.get("topic")
     topics = Topic.objects.all()
+    selected_topic = None
 
     if topic_id:
         programs = Program.objects.filter(topics=topic_id).distinct()
+        try:
+            selected_topic = Topic.objects.get(id=topic_id)
+        except Topic.DoesNotExist:
+            selected_topic = None
     else:
         programs = Program.objects.all()
 
     return render(request, "code_puzzles/view_examples.html", {
         "programs": programs,
         "topics": topics,
+        "selected_topic": selected_topic,
     })
 
 

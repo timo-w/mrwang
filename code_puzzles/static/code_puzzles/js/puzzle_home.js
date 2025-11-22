@@ -25,7 +25,6 @@ $(document).ready(function() {
         
         // Re-highlight using Prism
         Prism.highlightElement(modalCode[0]);
-
         modal.addClass("show");
     });
 
