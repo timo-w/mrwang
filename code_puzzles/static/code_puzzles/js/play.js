@@ -108,19 +108,19 @@ $(document).ready(function () {
         // Collect all blankable positions
         // ---------------------------
         const wordPositions = [];
+
+        // Tokens we don't want to turn into blanks
+        const skipTokens = new Set(['&', 'amp', ';', '(', ')', ',']);
+
         $lines.each(function (lineIndex) {
             const clean = $(this).html().replace(/<\/?[^>]+>/g, '');
             const tokens = tokenizeLine(clean);
+
             for (let ti = 0; ti < tokens.length; ti++) {
                 const tok = tokens[ti];
                 if (!tok || /^\s+$/.test(tok)) continue; // skip whitespace
                 if (/^".*"$/.test(tok)) continue; // skip string literals
-                if (tok === "&") continue; // specific characters as blanks
-                if (tok === "amp") continue;
-                if (tok === ";") continue;
-                if (tok === "(") continue;
-                if (tok === ")") continue;
-                if (tok === ",") continue;
+                if (skipTokens.has(tok)) continue; // skip specific tokens
                 wordPositions.push({ lineIndex, tokenIndex: ti, original: tok });
             }
         });

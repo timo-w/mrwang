@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Program, Topic
-from random import choice
+from random import choice, shuffle
 
 
 # Puzzle home
@@ -37,12 +37,14 @@ def play(request):
 
     # Get all topics and programs
     topics = Topic.objects.all()
-    programs = Program.objects.all() # TODO: Shuffle programs
+    programs = Program.objects.all()
     
     if topic_id:
         programs = programs.filter(topics__id=topic_id)
 
+    # Convert queryset to list and shuffle
     programs = list(programs)
+    shuffle(programs)
 
     if programs:
         index = index % len(programs)
