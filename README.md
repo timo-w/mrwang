@@ -7,6 +7,7 @@ Contains:
 - A quiz generator web app that uses Azure OpenAI to generate Word documents based on prompts.
 - Downloadable pupil resources from classes - where AI quizzes can be generated based on the resource
 - Photography
+- Code puzzles - a fun revision tool for practicing Visual Basic code
 - 1 of your 5 a day
 
 ## Setup
