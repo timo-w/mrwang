@@ -35,7 +35,8 @@
         {% for program in programs %}
             <div class="grid-button-small"
                  data-title="{{ program.title }}"
-                 data-topics="{% for t in program.topics.all %}{{ t.name }}{% if not forloop.last %}, {% endif %}{% endfor %}">
+                 data-topics="{% for t in program.topics.all %}{{ t.name }}{% if not forloop.last %}, {% endif %}{% endfor %}"
+                 data-description="{{ program.description }}">
                 {{ program.title }}
 <!-- Hidden pre preserves formatting; not JSON-escaped -->
 <pre class="program-code" style="display:none;"><code>{% for line in program.lines.all %}
@@ -66,6 +67,7 @@
         <button class="close-modal">&times;</button>
         <h4 id="modalTitle"></h4>
         <p><strong>Topics:</strong> <span id="modalTopics"></span></p>
+        <p id="modalDescription"></p>
         <pre><code id="modalCode" class="language-vbnet"></code></pre>
     </div>
 </div>

@@ -11,6 +11,12 @@
     font-size: 0.8rem;
 }
 
+/* Make modal larger to display code */
+.app-modal-content {
+    width: 80%;
+    max-width: 800px;
+}
+
 /* Mobile view */
 @media only screen and (max-width: 600px) {
     code {

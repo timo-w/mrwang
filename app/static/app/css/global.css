@@ -242,6 +242,8 @@ h4 {
   text-align: center;
   position: relative;
   box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  max-height: 80vh;
+  overflow-y: auto;
   transform: translateY(30px);
   opacity: 0;
   transition: all 0.4s ease;
