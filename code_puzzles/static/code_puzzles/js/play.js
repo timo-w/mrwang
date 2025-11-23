@@ -131,7 +131,7 @@ $(document).ready(function () {
         const chosen = [];
         const chosenByLine = {}; // track blanks per line
 
-        const blanksCount = Math.min(wordPositions.length, Math.floor(Math.random() * 3) + 1);
+        const blanksCount = Math.min(wordPositions.length, Math.floor(Math.random() * 4) + 1);
 
         while (chosen.length < blanksCount && wordPositions.length > 0) {
             const idx = Math.floor(Math.random() * wordPositions.length);

@@ -42,32 +42,36 @@ function indentVB(code) {
 function highlightVB(raw) {
     let text = raw;
 
-    // 1. Strings: anything inside quotes
-    text = text.replace(/"([^"]*)"/g, function (match) {
-        return `<span class="vb-string">${match}</span>`;
+    // Step 0: extract string literals and replace them with placeholders
+    const stringPlaceholders = [];
+    text = text.replace(/"([^"]*)"/g, function(match) {
+        const ph = `__STRING_${stringPlaceholders.length}__`;
+        stringPlaceholders.push(match); // store the full match including quotes
+        return ph;
     });
 
-    // 2. Numbers
-    text = text.replace(/\b\d+(\.\d+)?\b/g, function (match) {
+    // 1. Numbers (outside strings)
+    text = text.replace(/\b\d+(\.\d+)?\b/g, function(match) {
         return `<span class="vb-number">${match}</span>`;
     });
 
-    // 3. Keywords
+    // 2. Keywords
     const keywords = [
         "If", "Then", "Else", "ElseIf", "End",
-        "While", "Do", "Loop", "For", "Next",
-        "Sub", "Function", "Return", "Dim", "As"
+        "While", "Do", "Loop", "For", "Next", "Until",
+        "Sub", "Function", "Return", "Dim", "As",
+        "And", "Or", "Not"
     ];
-
     const keywordRegex = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
+    text = text.replace(keywordRegex, match => `<span class="vb-keyword">${match}</span>`);
 
-    text = text.replace(keywordRegex, function (match) {
-        return `<span class="vb-keyword">${match}</span>`;
-    });
+    // 3. Function calls (identifiers followed by parentheses)
+    text = text.replace(/([A-Za-z_][A-Za-z0-9_]*)\s*(?=\()/g, match => `<span class="vb-func">${match}</span>`);
 
-    // 4. Function calls (word characters followed by parenthesis)
-    text = text.replace(/([A-Za-z_][A-Za-z0-9_]*)\s*(?=\()/g, function (match) {
-        return `<span class="vb-func">${match}</span>`;
+    // 4. Put string literals back
+    stringPlaceholders.forEach((str, i) => {
+        const ph = `__STRING_${i}__`;
+        text = text.replace(ph, `<span class="vb-string">${str}</span>`);
     });
 
     return text;
