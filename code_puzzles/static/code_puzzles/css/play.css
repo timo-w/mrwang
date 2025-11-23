@@ -62,12 +62,12 @@ p#resultMessage {
 
 /* Animation for correct answer */
 .correct-line {
-    animation: highlightPulse 1.5s;
+    animation: highlightPulse 1.0s;
 }
 @keyframes highlightPulse {
-    0%   { background-color: #eeeeee; }
+    0%   { background-color: var(--main-gray); }
     40%  { background-color: rgba(0,255,0,0.3); }
-    100% { background-color: #eeeeee; }
+    100% { background-color: var(--main-gray; }
 }
 
 

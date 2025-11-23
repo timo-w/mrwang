@@ -39,22 +39,37 @@
         <p>{{ program.description }}</p>
     {% endif %}
 
-    <p>Drag and drop the lines into the correct order.</p>
+    {% if puzzle_type == "reorder" %}
 
-    <ul id="sortableLines" class="sortable-list">
-        {% for line in lines %}
-            <li class="sortable-item language-vbnet" data-id="{{ line.id }}" data-line-number="{{ line.line_number }}">
-                <code>{{ line.content }}</code>
-            </li>
-        {% endfor %}
-    </ul>
+        <h4>Drag and drop the lines into the correct order.</h4>
+
+        <ul id="sortableLines" class="sortable-list">
+            {% for line in lines %}
+                <li class="sortable-item language-vbnet" data-id="{{ line.id }}" data-line-number="{{ line.line_number }}">
+                    <code>{{ line.content }}</code>
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% elif puzzle_type == "fill_blank" %}
+
+        <h4>Fill in the missing parts of the code:</h4>
+
+        <div id="fillBlanks" class="fill-blanks-container">
+            {% for line in lines %}
+                <div class="code-line sortable-item language-vbnet">
+                    <code>{{ line.content }}</code>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% endif %}
 
     <p id="resultMessage"></p>
-
     <div class="btn-container">
-        <button id="checkButton" class="launch-btn">Check Order</button>
-        <button id="showCorrect" class="launch-btn" style="display:none;">Show Answer</button>
-    </div>
+        <button id="checkButton" class="launch-btn">Check</button>
+        <button id="showCorrect" class="launch-btn" style="display:none;">Show Solution</button>
+    </div>  
 
     <br><hr><br>
     <div class="nav-btn-container">
@@ -71,6 +86,7 @@
     const PROGRAM_COUNT = {{ programs|length }};
     const CURRENT_INDEX = {{ index }};
     const TOPIC = "{{ selected_topic|default:'' }}";
+    const PUZZLE_TYPE = "{{ puzzle_type }}";
 </script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
