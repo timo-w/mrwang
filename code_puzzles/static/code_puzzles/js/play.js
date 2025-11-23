@@ -24,7 +24,15 @@ $(document).ready(function () {
 
         $sortable.empty();
         items.forEach(it => $sortable.append(it));
+
     }
+
+    // Apply VB syntax highlighting
+    $("#sortableLines code").each(function () {
+        const raw = $(this).text();
+        
+        $(this).html(highlightVB(raw));
+    });
 
     // Now Sortable
     if ($sortable.length) {

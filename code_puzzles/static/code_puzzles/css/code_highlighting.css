@@ -1,0 +1,45 @@
+/* Code snippet main colours */
+pre[class*="language-"] {
+    background-color: var(--main-gray);
+}
+code[class*="language-"] {
+    background: transparent;
+}
+pre[class*="language-"],
+code[class*="language-"] {
+    color: var(--main-lightgray);
+}
+
+/* VB Color codes */
+.vb-string {
+    color: #2ecc71;   /* green */
+}
+.vb-number {
+    color: #e67e22;   /* orange */
+}
+.vb-keyword {
+    color: #db34d8;   /* purple */
+    font-weight: 600;
+}
+.vb-func {
+    color: #2980b9;   /* darker blue */
+    font-weight: 600;
+}
+
+.sortable-item {
+    background: var(--main-gray);
+    color: var(--main-lightgray);
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    cursor: grab;
+    display: block;
+}
+.sortable-item code {
+    background: transparent !important;
+    color: inherit;
+}
+/* The ghost element while dragging */
+.sortable-item.sortable-ghost {
+    opacity: 0.5;
+}

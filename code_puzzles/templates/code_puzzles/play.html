@@ -4,7 +4,9 @@
 {% block title %}Play Puzzle{% endblock %}
 
 {% block css %}
+<link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'code_puzzles/css/play.css' %}">
+<link rel="stylesheet" href="{% static 'code_puzzles/css/code_highlighting.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -41,7 +43,7 @@
 
     <ul id="sortableLines" class="sortable-list">
         {% for line in lines %}
-            <li class="sortable-item" data-id="{{ line.id }}" data-line-number="{{ line.line_number }}">
+            <li class="sortable-item language-vbnet" data-id="{{ line.id }}" data-line-number="{{ line.line_number }}">
                 <code>{{ line.content }}</code>
             </li>
         {% endfor %}
@@ -72,5 +74,8 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbnet.min.js"></script>
+<script src="{% static 'code_puzzles/js/code_functions.js' %}"></script>
 <script src="{% static 'code_puzzles/js/play.js' %}"></script>
 {% endblock %}
