@@ -1,3 +1,5 @@
+from django.forms import Textarea
+from django.db import models
 from django.contrib import admin
 from .models import Topic, Program, ProgramLine
 
@@ -15,6 +17,10 @@ class ProgramLineInline(admin.TabularInline):
     ordering = ("line_number",)
     show_change_link = True
 
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={'rows': 1, 'style': 'height: 1.8em;'})},
+    }
+
 
 @admin.register(Program)
 class ProgramAdmin(admin.ModelAdmin):
@@ -30,3 +36,7 @@ class ProgramLineAdmin(admin.ModelAdmin):
     list_filter = ("program",)
     ordering = ("program", "line_number")
     search_fields = ("content",)
+
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={'rows': 1, 'style': 'height: 1.8em;'})},
+    }
