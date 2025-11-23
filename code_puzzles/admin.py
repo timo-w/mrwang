@@ -18,7 +18,7 @@ class ProgramLineInline(admin.TabularInline):
     show_change_link = True
 
     formfield_overrides = {
-        models.TextField: {'widget': Textarea(attrs={'rows': 1, 'style': 'height: 1.8em;'})},
+        models.TextField: {'widget': Textarea(attrs={'rows': 1, 'cols': 100, 'style': 'height: 1.8em;'})},
     }
 
 
@@ -38,5 +38,5 @@ class ProgramLineAdmin(admin.ModelAdmin):
     search_fields = ("content",)
 
     formfield_overrides = {
-        models.TextField: {'widget': Textarea(attrs={'rows': 1, 'style': 'height: 1.8em;'})},
+        models.TextField: {'widget': Textarea(attrs={'rows': 1, 'cols': 100, 'style': 'height: 1.8em;'})},
     }
