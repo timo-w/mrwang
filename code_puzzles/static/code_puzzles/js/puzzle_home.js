@@ -41,15 +41,23 @@ function indentVB(code) {
 
     for (let raw of lines) {
         let line = raw.trim();
+        const isElse = line.startsWith("Else") && !line.startsWith("ElseIf");
 
-        // Decrease before writing the line if it's a closing block
+        const isElseIf = line.startsWith("ElseIf");
+
+        // Handle closing block indentation
         if (decrease.some(d => line.startsWith(d))) {
             level = Math.max(0, level - 1);
         }
 
-        indented.push("    ".repeat(level) + line);
+        // Special case: Else / ElseIf align with the matching If
+        if (isElse || isElseIf) {
+            indented.push("    ".repeat(Math.max(0, level - 1)) + line);
+        } else {
+            indented.push("    ".repeat(level) + line);
+        }
 
-        // Increase after writing if it's an opening block
+        // Handle opening block indentation
         if (increase.some(i => line.startsWith(i))) {
             level++;
         }
