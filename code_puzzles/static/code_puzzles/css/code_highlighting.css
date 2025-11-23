@@ -12,18 +12,16 @@ code[class*="language-"] {
 
 /* VB Color codes */
 .vb-string {
-    color: #2ecc71;   /* green */
+    color: #2ecc71;
 }
 .vb-number {
-    color: #e67e22;   /* orange */
+    color: #e67e22;
 }
 .vb-keyword {
-    color: #db34d8;   /* purple */
-    font-weight: 600;
+    color: #db34d8;
 }
 .vb-func {
-    color: #2980b9;   /* darker blue */
-    font-weight: 600;
+    color: #2980b9;
 }
 
 
@@ -78,7 +76,7 @@ code[class*="language-"] {
     cursor: default;
 }
 
-/* Make inputs fit nicely inside Prism-highlighted code */
+/* Make inputs fit inside Prism-highlighted code */
 .code-line code {
     white-space: pre-wrap;
 }

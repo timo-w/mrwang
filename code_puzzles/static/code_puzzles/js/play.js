@@ -28,9 +28,8 @@ $(document).ready(function () {
             $sortable.empty();
             items.forEach(it => $sortable.append(it));
         }
-
-        // Apply VB syntax highlighting
-        $("#sortableLines code").each(function () {
+        // Highlight VB
+        $("#sortableLines .sortable-item code").each(function () {
             const raw = $(this).text();
             $(this).html(highlightVB(raw));
         });
@@ -87,101 +86,128 @@ $(document).ready(function () {
     else if (PUZZLE_TYPE === "fill_blank") {
 
         const $container = $("#fillBlanks");
-        const lines = $container.find(".code-line");
+        const $lines = $container.find(".code-line");
 
-        // Collect all word positions
-        const wordPositions = [];
-
-        $container.find(".code-line").each(function (lineIndex) {
-            let text = $(this).text();
-            const words = text.split(/(\s+)/);
-
-            let insideString = false; // state machine: inside " ... " ?
-
-            for (let wordIndex = 0; wordIndex < words.length; wordIndex++) {
-                const w = words[wordIndex];
-
-                // Count quotes in this chunk
-                const quoteCount = (w.match(/"/g) || []).length;
-
-                // If we are currently outside a string, this word is blankable
-                // only if it contains no quotes that *start* a literal.
-                if (!insideString && quoteCount === 0 && w.trim()) {
-                    wordPositions.push({ lineIndex, wordIndex, originalWord: w });
-                }
-
-                // Flip inside/outside when passing quotes
-                // If quoteCount is odd, we toggle the state.
-                if (quoteCount % 2 === 1) {
-                    insideString = !insideString;
-                }
-            }
-        });
-
-        // Pick 1 or 2 blanks for the whole program
-        const blanksCount = Math.min(wordPositions.length, Math.floor(Math.random() * 4) + 1);
-        const chosen = [];
-        while (chosen.length < blanksCount) {
-            const idx = Math.floor(Math.random() * wordPositions.length);
-            if (!chosen.includes(idx)) chosen.push(idx);
+        // ---------------------------
+        // Helper functions
+        // ---------------------------
+        function tokenizeLine(clean) {
+            // Match string literals, multi-char operators, identifiers, punctuation, whitespace, fallback
+            return clean.match(/"[^"]*"|<=|>=|==|<>|!=|[A-Za-z0-9_.]+|[()\[\],.:&+*/%-]|\s+|./g) || [];
         }
 
-        // Apply blanks
-        chosen.forEach(i => {
-            const { lineIndex, wordIndex } = wordPositions[i];
-            const $line = lines.eq(lineIndex);
+        function escapeAttr(s) {
+            return String(s)
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
 
-            // Split preserving whitespace
-            const words = $line.text().split(/(\s+)/);
+        // ---------------------------
+        // Collect all blankable positions
+        // ---------------------------
+        const wordPositions = [];
+        $lines.each(function (lineIndex) {
+            const clean = $(this).html().replace(/<\/?[^>]+>/g, '');
+            const tokens = tokenizeLine(clean);
+            for (let ti = 0; ti < tokens.length; ti++) {
+                const tok = tokens[ti];
+                if (!tok || /^\s+$/.test(tok)) continue; // skip whitespace
+                if (/^".*"$/.test(tok)) continue; // skip string literals
+                if (tok === "&") continue; // specific characters as blanks
+                if (tok === "amp") continue;
+                if (tok === ";") continue;
+                if (tok === "(") continue;
+                if (tok === ")") continue;
+                if (tok === ",") continue;
+                wordPositions.push({ lineIndex, tokenIndex: ti, original: tok });
+            }
+        });
 
-            let raw = words[wordIndex];
+        // ---------------------------
+        // Select blanks with adjacency constraint
+        // ---------------------------
+        const chosen = [];
+        const chosenByLine = {}; // track blanks per line
 
-            const match = raw.match(/^([A-Za-z0-9_]+)(.*)$/);
+        const blanksCount = Math.min(wordPositions.length, Math.floor(Math.random() * 3) + 1);
 
-            if (match) {
-                const core = match[1];
-                const tail = match[2];
+        while (chosen.length < blanksCount && wordPositions.length > 0) {
+            const idx = Math.floor(Math.random() * wordPositions.length);
+            const candidate = wordPositions[idx];
+            const line = candidate.lineIndex;
+            const token = candidate.tokenIndex;
 
-                words[wordIndex] =
-                    `<input type="text"
-                        class="blank-input"
-                        data-answer="${core}"
-                        size="${Math.max(core.length, 3)}">` + tail;
+            if (!chosenByLine[line]) chosenByLine[line] = [];
 
-            } else {
-                words[wordIndex] =
-                    `<input type="text"
-                        class="blank-input"
-                        data-answer="${raw}"
-                        size="${Math.max(raw.length, 3)}">`;
+            // Skip if adjacent token is already chosen
+            const adjacent = chosenByLine[line].some(ti => Math.abs(ti - token) === 1);
+            if (adjacent) continue;
+
+            chosen.push(idx);
+            chosenByLine[line].push(token);
+        }
+
+        // ---------------------------
+        // Replace chosen tokens with inputs
+        // ---------------------------
+        const placeholderMap = {};
+        let placeholderCounter = 0;
+
+        $lines.each(function (lineIndex) {
+            const $line = $(this);
+            const clean = $line.html().replace(/<\/?[^>]+>/g, '');
+            let tokens = tokenizeLine(clean);
+
+            const blanksOnThisLine = (chosenByLine[lineIndex] || []).map(ti => {
+                const wp = wordPositions.find(wp => wp.lineIndex === lineIndex && wp.tokenIndex === ti);
+                return wp ? { tokenIndex: ti, original: wp.original } : null;
+            }).filter(Boolean);
+
+            if (blanksOnThisLine.length === 0) {
+                $line.html(highlightVB(clean));
+                return;
             }
 
-            // Update line HTML
-            $line.html(words.join(""));
+            // Sort descending to replace safely
+            blanksOnThisLine.sort((a,b)=>b.tokenIndex - a.tokenIndex);
 
-            // Highlight lines which have inputs
-            const highlighted = highlightVB($line.html());
+            blanksOnThisLine.forEach(b => {
+                const ti = b.tokenIndex;
+                const ph = `__BLANK_${placeholderCounter++}__`;
+                const answer = b.original;
+                const size = Math.max(String(answer).length, 3);
+                const inputHtml = `<input type="text" class="blank-input" data-answer="${escapeAttr(answer)}" size="${size}">`;
+                placeholderMap[ph] = inputHtml;
+                tokens[ti] = ph;
+            });
+
+            // Highlight text with placeholders
+            let textWithPlaceholders = tokens.join("");
+            let highlighted = highlightVB(textWithPlaceholders);
+
+            // Replace placeholders with input HTML
+            for (const ph in placeholderMap) {
+                highlighted = highlighted.split(ph).join(placeholderMap[ph]);
+            }
+
             $line.html(highlighted);
         });
-        // Apply VB syntax highlighting for rest of code
-        $("#fillBlanks code").each(function () {
-            const raw = $(this).text();
-            $(this).html(highlightVB(raw));
-        });
-2
+
+        // ---------------------------
+        // Check / Show answers
+        // ---------------------------
         $("#checkButton").on("click", function () {
             let allCorrect = true;
 
             $(".blank-input").each(function () {
-                const user = $(this).val().trim();
-                const correct = $(this).data("answer");
-
+                const user = String($(this).val() || "").trim();
+                const correct = String($(this).attr("data-answer") || "").trim();
                 if (user.toLowerCase() === correct.toLowerCase()) {
-                    $(this).addClass("blank-correct");
-                    $(this).removeClass("blank-wrong");
+                    $(this).addClass("blank-correct").removeClass("blank-wrong");
                 } else {
-                    $(this).addClass("blank-wrong");
-                    $(this).removeClass("blank-correct");
+                    $(this).addClass("blank-wrong").removeClass("blank-correct");
                     allCorrect = false;
                 }
             });
@@ -190,31 +216,24 @@ $(document).ready(function () {
                 $("#resultMessage").html("<b style='color: green;'>All correct!</b>");
                 $("#checkButton").hide();
                 $("#showCorrect").hide();
-                // Confetti effect
                 confetti({ particleCount: 100, angle: 90, spread: 100, origin: { x: 0.5, y: 1 } });
             } else {
                 $("#resultMessage").html("<b style='color: red;'>Not quite, try again.</b>");
                 $("#showCorrect").show();
-                // Shake effect
                 $("#fillBlanks").addClass("incorrect-shake");
                 setTimeout(() => $("#fillBlanks").removeClass("incorrect-shake"), 400);
             }
         });
 
-        // Show answers
         $("#showCorrect").on("click", function () {
             $(".blank-input").each(function () {
-                const answer = $(this).data("answer");
-                $(this).val(answer);
-                $(this).addClass("blank-correct");
-                $(this).removeClass("blank-wrong");
+                const answer = String($(this).attr("data-answer") || "");
+                $(this).val(answer).addClass("blank-correct").removeClass("blank-wrong");
             });
-
             $("#resultMessage").html("<b style='color: blue;'>Answers shown.</b>");
             $("#checkButton").hide();
             $("#showCorrect").hide();
         });
-
     }
 
     // -----------------------------
