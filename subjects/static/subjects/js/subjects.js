@@ -88,28 +88,18 @@ $(document).ready(function () {
     // Open page to specific lesson
 
     // Extract the ?lesson= parameter from URL
-    const params = new URLSearchParams(window.location.search);
-    const targetLesson = params.get("lesson");
+    const targetLesson = new URLSearchParams(window.location.search).get("lesson");
 
     if (targetLesson) {
-        // Find all lesson items
-        const items = document.querySelectorAll(".grid-button-small");
+        $(".grid-button-small").each(function () {
+            const text = $(this).text().trim();
+            const lessonNumber = text.split(" ")[0];
 
-        for (const item of items) {
-            // Normalised versions of the displayed text and data attribute
-            const text = item.textContent.trim();
-            const dataName = item.dataset.fileName || "";
-            // Check whether text begins with the lesson number
-            if (text.startsWith(targetLesson)) {
-                item.dispatchEvent(new Event("click"));
-                break;
+            if (lessonNumber === targetLesson) {
+                $(this).trigger("click");
+                return false; // stop .each loop
             }
-            // Fallback: look inside data-file-name
-            if (dataName.includes(`${targetLesson} -`)) {
-                item.dispatchEvent(new Event("click"));
-                break;
-            }
-        }
+        });
     }
 
 });
