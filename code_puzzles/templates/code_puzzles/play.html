@@ -16,19 +16,20 @@
 
 <h1>Play Puzzle</h1>
 
-<form method="get" style="margin-bottom: 20px;">
-
-    <label>Topic:</label>
-    <select name="topic" onchange="this.form.submit()">
-        <option value="">All Topics</option>
-        {% for t in topics %}
-            <option value="{{ t.id }}" {% if selected_topic == t.id|stringformat:'s' %}selected{% endif %}>
-                {{ t.name }}
-            </option>
-        {% endfor %}
-    </select>
-
-</form>
+<div class="puzzle-header">
+    <form method="get" style="margin-bottom: 20px;">
+        <label>Topic:</label>
+        <select name="topic" onchange="this.form.submit()">
+            <option value="">All Topics</option>
+            {% for t in topics %}
+                <option value="{{ t.id }}" {% if selected_topic == t.id|stringformat:'s' %}selected{% endif %}>
+                    {{ t.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+    {% comment %} <p id="pointsDisplay">Points: 0</p> {% endcomment %}
+</div>
 
 <hr>
 

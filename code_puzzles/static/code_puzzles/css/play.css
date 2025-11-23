@@ -48,6 +48,17 @@ p#resultMessage {
     text-align: center;
 }
 
+/* Points counter */
+.puzzle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.puzzle-header form {
+    margin-top: 20px;
+}
+
 /* Animation for incorrect answer */
 .incorrect-shake {
     animation: shake 0.4s;
@@ -67,7 +78,7 @@ p#resultMessage {
 @keyframes highlightPulse {
     0%   { background-color: var(--main-gray); }
     40%  { background-color: rgba(0,255,0,0.3); }
-    100% { background-color: var(--main-gray; }
+    100% { background-color: var(--main-gray); }
 }
 
 
