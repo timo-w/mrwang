@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Program, Topic
+from random import choice
 
 
 # Puzzle home
@@ -34,8 +35,9 @@ def play(request):
     topic_id = request.GET.get("topic")
     index = int(request.GET.get("i", 0))
 
+    # Get all topics and programs
     topics = Topic.objects.all()
-    programs = Program.objects.all()
+    programs = Program.objects.all() # TODO: Shuffle programs
     
     if topic_id:
         programs = programs.filter(topics__id=topic_id)
@@ -43,12 +45,15 @@ def play(request):
     programs = list(programs)
 
     if programs:
-        index = index % len(programs) # wrap-around
+        index = index % len(programs)
         program = programs[index]
         lines = program.lines.all()
     else:
         program = None
         lines = []
+
+    # Choose puzzle type on every load
+    puzzle_type = choice(["reorder", "fill_blank"])
 
     context = {
         "topics": topics,
@@ -57,5 +62,6 @@ def play(request):
         "lines": lines,
         "index": index,
         "selected_topic": topic_id,
+        "puzzle_type": puzzle_type,
     }
     return render(request, "code_puzzles/play.html", context)

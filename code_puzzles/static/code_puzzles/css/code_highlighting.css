@@ -26,6 +26,8 @@ code[class*="language-"] {
     font-weight: 600;
 }
 
+
+/* Reorder puzzles styles */
 .sortable-item {
     background: var(--main-gray);
     color: var(--main-lightgray);
@@ -42,4 +44,50 @@ code[class*="language-"] {
 /* The ghost element while dragging */
 .sortable-item.sortable-ghost {
     opacity: 0.5;
+}
+
+
+/* Fill-in-the-blanks puzzle styles */
+.blank-input {
+    border: 1px solid #888;
+    padding: 2px 4px;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+.blank-correct {
+    background-color: rgba(0,255,0,0.2);
+    border-color: green;
+    color: var(--main-lightgray);
+}
+
+.blank-wrong {
+    background-color: rgba(255,0,0,0.2);
+    border-color: red;
+    color: var(--main-lightgray);
+}
+
+/* Make fill-blank code lines match sortable-item style */
+.code-line.sortable-item {
+    cursor: default;
+    user-select: text;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+.code-line.sortable-item:active {
+    cursor: default;
+}
+
+/* Make inputs fit nicely inside Prism-highlighted code */
+.code-line code {
+    white-space: pre-wrap;
+}
+
+.blank-input {
+    font-family: monospace;
+    font-size: 1rem;
+    padding: 2px 4px;
+    border: 1px solid #888;
+    border-radius: 3px;
+    vertical-align: baseline;
 }
