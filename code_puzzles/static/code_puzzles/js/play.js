@@ -109,8 +109,8 @@ $(document).ready(function () {
         // ---------------------------
         const wordPositions = [];
 
-        // Tokens we don't want to turn into blanks
-        const skipTokens = new Set(['&', 'amp', ';', '(', ')', ',']);
+        // Tokens to not choose as blanks
+        const skipTokens = new Set(['&', 'amp', 'lt', 'gt', ';', '(', ')', ',']);
 
         $lines.each(function (lineIndex) {
             const clean = $(this).html().replace(/<\/?[^>]+>/g, '');
