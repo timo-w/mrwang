@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Category
 
 
 # Home page
@@ -11,12 +12,18 @@ def about(request):
 
 # Teacher page
 def teacher(request):
-    return render(request, "app/teacher.html")
+    category = Category.objects.get(name="Teacher Resources")
+    projects = category.projects.all()
+    return render(request, "app/category.html", {"category": category, "projects": projects})
 
 # Pupil page
 def pupil(request):
-    return render(request, "app/pupil.html")
+    category = Category.objects.get(name="Pupil Resources")
+    projects = category.projects.all()
+    return render(request, "app/category.html", {"category": category, "projects": projects})
 
 # Projects page
 def projects(request):
-    return render(request, "app/projects.html")
+    category = Category.objects.get(name="Other Projects")
+    projects = category.projects.all()
+    return render(request, "app/category.html", {"category": category, "projects": projects})

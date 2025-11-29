@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+
+{% block content %}
+<h1>{{ category.name }}</h1>
+
+<div class="content-grid">
+    {% for p in projects %}
+        <div class="grid-button"
+             data-app-name="{{ p.name }}"
+             data-app-desc="{{ p.description }}"
+             data-app-img="{{ p.thumbnail.url }}"
+             data-app-link="{% url p.link %}">
+            {{ p.name }}
+        </div>
+    {% endfor %}
+</div>
+<br>
+
+<!-- Overlay Modal -->
+<div class="app-modal" id="appModal">
+    <div class="app-modal-content">
+        <button class="close-modal">&times;</button>
+        <img id="modalImg" src="" alt="App thumbnail">
+        <h4 id="modalTitle"></h4>
+        <p id="modalDesc"></p>
+        <a id="modalLink" class="launch-btn" href="#">Open Resource</a>
+    </div>
+</div>
+{% endblock %}
