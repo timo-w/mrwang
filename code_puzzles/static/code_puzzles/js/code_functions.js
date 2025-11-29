@@ -60,7 +60,8 @@ function highlightVB(raw) {
         "If", "Then", "Else", "ElseIf", "End",
         "While", "Do", "Loop", "For", "Next", "Until",
         "Sub", "Function", "Return", "Dim", "As",
-        "And", "Or", "Not"
+        "String", "Integer", "Single", "Char",
+        "And", "Or", "Not", "New", "To"
     ];
     const keywordRegex = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
     text = text.replace(keywordRegex, match => `<span class="vb-keyword">${match}</span>`);
