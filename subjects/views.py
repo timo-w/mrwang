@@ -145,7 +145,8 @@ def explain_answer(request):
         f"No need to summarise your answer or give advice at the end."
         f"Do not use formatting symbols."
         f"Do not respond with a follow-up question."
-        f"Repond in second person and use British English."
+        f"Repond in second person (use you/your/yours), not 'the pupil'."
+        f"Use British English."
     )
 
     response = client.chat.completions.create(
