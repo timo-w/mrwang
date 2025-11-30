@@ -67,3 +67,9 @@ def play(request):
         "puzzle_type": puzzle_type,
     }
     return render(request, "code_puzzles/play.html", context)
+
+
+# VB Program Interpreter
+def vb(request):
+    return render(request, "code_puzzles/vb.html")
+
