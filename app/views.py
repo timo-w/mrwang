@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Category
 
 
@@ -26,8 +26,8 @@ def teacher(request):
     return render(request, "app/category.html", {"category": category, "projects": projects})
 
 
-# Projects page
-def projects(request):
-    category = Category.objects.get(name="Other Projects")
+# Category page
+def category(request, category_name):
+    category = get_object_or_404(Category, name=category_name)
     projects = category.projects.all()
     return render(request, "app/category.html", {"category": category, "projects": projects})

@@ -33,9 +33,9 @@
 
       <div class="nav-links">
         <a href="{% url 'index' %}"><b>mrwang.co.uk/</b></a>
-        <a href="{% url 'pupil' %}">Pupil Resources</a>
-        <a href="{% url 'teacher' %}">Teacher Resources</a>
-        <a href="{% url 'projects' %}">Other Projects</a>
+        <a href="{% url 'category' 'Pupil Resources' %}">Pupil Resources</a>
+        <a href="{% url 'category' 'Teacher Resources' %}">Teacher Resources</a>
+        <a href="{% url 'category' 'Other Projects' %}">Other Projects</a>
         <a href="{% url 'about' %}">About</a>
       </div>
     </nav>
