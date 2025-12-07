@@ -6,9 +6,18 @@ from .models import Category
 def index(request):
     return render(request, "app/index.html")
 
+
 # About page
 def about(request):
     return render(request, "app/about.html")
+
+
+# Pupil page
+def pupil(request):
+    category = Category.objects.get(name="Pupil Resources")
+    projects = category.projects.all()
+    return render(request, "app/category.html", {"category": category, "projects": projects})
+
 
 # Teacher page
 def teacher(request):
@@ -16,11 +25,6 @@ def teacher(request):
     projects = category.projects.all()
     return render(request, "app/category.html", {"category": category, "projects": projects})
 
-# Pupil page
-def pupil(request):
-    category = Category.objects.get(name="Pupil Resources")
-    projects = category.projects.all()
-    return render(request, "app/category.html", {"category": category, "projects": projects})
 
 # Projects page
 def projects(request):
