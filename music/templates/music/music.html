@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Music{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'music/css/music.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Music</h1>
+<p>Some music I&apos;ve composed over the years. I&apos;m particularly interested in orchestral composition, but there are a few pieces here written for smaller ensembles.</p>
+<p>Click on a piece to see more details and listen to it. Most pieces have a downloadable score if you would like to see the sheet music.</p>
+<hr>
+
+{% regroup compositions by year as years %}
+
+{% for year_group in years %}
+    <h4>{{ year_group.grouper }}</h4>
+    <div class="content-grid">
+        {% for piece in year_group.list %}
+            <div class="grid-button"
+                 data-composition-name="{{ piece.name }}"
+                 data-composition-year="{{ piece.year }}"
+                 data-composition-desc="{{ piece.description }}"
+                 data-composition-vid="{{ piece.youtube_link }}"
+                 data-composition-score="{% if piece.sheet_music %}{{ piece.sheet_music.url }}{% endif %}">
+                {{ piece.name }}
+            </div>
+        {% endfor %}
+    </div>
+    <br><hr>
+{% endfor %}
+
+<!-- Overlay Modal -->
+<div class="app-modal" id="appModal">
+    <div class="app-modal-content">
+        <button class="close-modal">&times;</button>
+        <h4 id="modalTitle"></h4>
+        <iframe id="modalVideo" width="100%" height="500" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    
+        <p id="modalDesc"></p>
+        <a id="modalLink" class="launch-btn" href="#" target="_blank" style="display:none;">
+            Download Score (PDF)
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'music/js/music.js' %}"></script>
+{% endblock %}

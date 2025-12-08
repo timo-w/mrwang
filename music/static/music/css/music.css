@@ -1,0 +1,7 @@
+/* Styles for music page */
+
+/* Make modal larger to display code */
+.app-modal-content {
+    width: 80%;
+    max-width: 800px;
+}
