@@ -86,4 +86,5 @@ $(document).ready(function(){
         slide++;
         updateSlide();
     });
+
 });

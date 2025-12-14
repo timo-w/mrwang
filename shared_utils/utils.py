@@ -15,7 +15,13 @@ client = AzureOpenAI(
 
 
 # Call Azure OpenAI
-def generate_text(subject: str, topic: str, level: str, no_of_questions: str, no_of_choices: str, additional_info: str) -> str:
+def generate_text(
+    source_material: str,
+    level: str,
+    no_of_questions: str,
+    no_of_choices: str,
+    additional_info: str
+) -> str:
     system_prompt = """
         You are a helpful assistant that creates multiple-choice quiz documents.
         Do not include any formatting symbols in your response.
@@ -36,14 +42,15 @@ def generate_text(subject: str, topic: str, level: str, no_of_questions: str, no
         The user prompt will contain the details for the quiz.
 
     """
-    user_prompt = (
-        f"Subject: {subject}"
-        f"Topic: {topic}"
-        f"Level: {level}"
-        f"Number of questions: {no_of_questions}"
-        f"Number of possible choices per question: {no_of_choices}"
-        f"Additional information (if any): {additional_info}"
-    )
+    user_prompt = f"""
+        Source material:
+        {source_material}
+
+        Level: {level}
+        Number of questions: {no_of_questions}
+        Choices per question: {no_of_choices}
+        Additional information: {additional_info}
+    """
     response = client.chat.completions.create(
         model=os.getenv("AZURE_DEPLOYMENT_NAME"),
         messages=[

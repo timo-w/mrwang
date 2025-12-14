@@ -11,30 +11,45 @@
 {% block content %}
 <h1>AI Quiz Generator</h1>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
 
-  <label for="subject">Subject:</label><br>
-  <textarea name="subject" rows="1" cols="40" placeholder="e.g. 'History'" required></textarea><br><br>
-  
-  <label for="topic">Topic:</label><br>
-  <textarea name="topic" rows="5" cols="40" placeholder="e.g. 'World War II'" required></textarea><br><br>
+  <div id="quiz-details">
 
-  <label for="level">Level:</label><br>
-  <select name="level" required>
-    <option value="">--Please select a level--</option>
-    <option value="S1">BGE - S1</option>
-    <option value="S2">BGE - S2</option>
-    <option value="S3">BGE - S3</option>
-    <option value="National 4">National 4</option>
-    <option value="National 5">National 5</option>
-    <option value="Higher">Higher</option>
-    <option value="Advanced Higher">Advanced Higher</option>
-    <option value="NPA Level 44">NPA - Level 44</option>
-    <option value="NPA Level 45">NPA - Level 45</option>
-    <option value="NPA Level 46">NPA - Level 46</option>
-    <option value="Other">Other</option>
-  </select><br>
+    <div id="topic-input-area">
+      <h4>Enter Details</h4>
+
+      <label for="subject">Subject:</label><br>
+      <textarea name="subject" rows="1" cols="40" placeholder="e.g. 'History'"></textarea><br><br>
+
+      <label for="topic">Topic:</label><br>
+      <textarea name="topic" rows="5" cols="40" placeholder="e.g. 'World War II'"></textarea><br><br>
+
+      <label for="level">Level:</label><br>
+      <select name="level">
+        <option value="">--Please select a level--</option>
+        <option value="S1">BGE - S1</option>
+        <option value="S2">BGE - S2</option>
+        <option value="S3">BGE - S3</option>
+        <option value="National 4">National 4</option>
+        <option value="National 5">National 5</option>
+        <option value="Higher">Higher</option>
+        <option value="Advanced Higher">Advanced Higher</option>
+        <option value="NPA Level 44">NPA - Level 44</option>
+        <option value="NPA Level 45">NPA - Level 45</option>
+        <option value="NPA Level 46">NPA - Level 46</option>
+        <option value="Other">Other</option>
+      </select><br>
+    </div>
+
+    <div id="quiz-input-choice">Or</div>
+
+    <div id="file-upload-area">
+      <h4>Upload Lesson (.pdf .docx or .pptx)</h4>
+      <input type="file" name="source_file" accept=".pdf,.docx,.pptx"><br><br>
+    </div>
+
+  </div>
   
   <br><a id="more-options">&darr; More options &darr;</a>
   <br><hr><br>
