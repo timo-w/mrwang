@@ -63,3 +63,34 @@ transform: scale(1.1);
     bottom: 1rem;
     right: 2rem;
 }
+
+
+/* Column layout for input choices */
+#quiz-details {
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+#topic-input-area,
+#file-upload-area {
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+}
+
+/* OR divider */
+#quiz-input-choice {
+    text-align: center;
+    margin: 1.5rem 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+    user-select: none;
+}
+
+/* Mobile view */
+@media only screen and (max-width: 600px) {
+
+}

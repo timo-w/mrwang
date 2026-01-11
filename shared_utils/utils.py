@@ -15,7 +15,13 @@ client = AzureOpenAI(
 
 
 # Call Azure OpenAI
-def generate_text(subject: str, topic: str, level: str, no_of_questions: str, no_of_choices: str, additional_info: str) -> str:
+def generate_text(
+    source_material: str,
+    level: str,
+    no_of_questions: str,
+    no_of_choices: str,
+    additional_info: str
+) -> str:
     system_prompt = """
         You are a helpful assistant that creates multiple-choice quiz documents.
         Do not include any formatting symbols in your response.
@@ -23,10 +29,9 @@ def generate_text(subject: str, topic: str, level: str, no_of_questions: str, no
         Use British English spellings, grammar, and conventions throughout.
 
         Your response will follow a specific format:
-        - For each question, begin with the question number.
+        - For each question, begin with the question number followed by a dot and the question text in one line.
         - Do not use bullet points, only new lines.
-        - Under each question, insert a new line and then the possible answer beginning with the letter from A.
-        - Between each question, add an additional new line.
+        - Under each question text, insert a new line and then the possible answer beginning with the letter from A.
         - Make option A the correct answer for each question.
 
         You will be making quizzes which secondary teachers in Scotland will be using. This means that:
@@ -36,14 +41,15 @@ def generate_text(subject: str, topic: str, level: str, no_of_questions: str, no
         The user prompt will contain the details for the quiz.
 
     """
-    user_prompt = (
-        f"Subject: {subject}"
-        f"Topic: {topic}"
-        f"Level: {level}"
-        f"Number of questions: {no_of_questions}"
-        f"Number of possible choices per question: {no_of_choices}"
-        f"Additional information (if any): {additional_info}"
-    )
+    user_prompt = f"""
+        Source material:
+        {source_material}
+
+        Level: {level}
+        Number of questions: {no_of_questions}
+        Choices per question: {no_of_choices}
+        Additional information: {additional_info}
+    """
     response = client.chat.completions.create(
         model=os.getenv("AZURE_DEPLOYMENT_NAME"),
         messages=[
