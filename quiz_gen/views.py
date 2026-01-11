@@ -3,8 +3,9 @@ from django.http import FileResponse
 from shared_utils.utils import generate_text, create_quiz_doc, extract_text_from_file
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-import os
 
+
+# AI Quiz Generator
 def quiz_gen(request):
     if request.method == "POST":
         uploaded_file = request.FILES.get("source_file")
@@ -18,7 +19,7 @@ def quiz_gen(request):
         no_of_choices = request.POST.get("no_of_choices")
         additional_info = request.POST.get("additional_info")
 
-        # File-based quiz
+        # User uploads a file to create the quiz from
         if uploaded_file:
             uploaded_file = request.FILES.get("source_file")
 
@@ -32,21 +33,18 @@ def quiz_gen(request):
                 ContentFile(uploaded_file.read())
             )
             full_path = default_storage.path(path)
-
             source_text = extract_text_from_file(full_path)
 
             prompt_input = f"""
             Create a quiz based on the following material:
-
             {source_text}
             """
 
-        # Topic-based quiz
+        # User enters quiz details manually
         else:
             subject = request.POST.get("subject")
             topic = request.POST.get("topic")
             
-
             prompt_input = f"""
             Subject: {subject}
             Topic: {topic}
