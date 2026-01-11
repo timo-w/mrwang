@@ -84,6 +84,8 @@ $(document).ready(function(){
 
     // Use as Forms
     $('#use-as-forms').on('click', function () {
+        $('#quiz_type_field').val('forms'); // Pass into views
+        $('form').submit(); // Submit form using hidden input
         $('#quiz-type').fadeOut(300, function () {
             $('#forms-quiz').fadeIn(300);
         });
@@ -91,6 +93,8 @@ $(document).ready(function(){
 
     // Use as Worksheet
     $('#use-as-worksheet').on('click', function () {
+        $('#quiz_type_field').val('worksheet');
+        $('form').submit();
         $('#quiz-type').fadeOut(300, function () {
             $('#worksheet-quiz').fadeIn(300);
         });

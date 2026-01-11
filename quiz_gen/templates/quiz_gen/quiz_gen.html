@@ -11,7 +11,7 @@
 {% block content %}
 <h1>AI Quiz Generator</h1>
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" target="download_frame">
   {% csrf_token %}
 
   <div id="quiz-details">
@@ -74,9 +74,12 @@
   </div>
   <br>
 
-  {% comment %} <button type="submit" id="generate-quiz" class="launch-btn">Generate</button> {% endcomment %}
   <button type="button" id="generate-quiz" class="launch-btn">Generate</button>
+  <input type="hidden" name="quiz_type" id="quiz_type_field">
+
 </form>
+
+<iframe name="download_frame" style="display:none;"></iframe>
 
 <!-- Overlay -->
 <div class="app-modal" id="appModal">

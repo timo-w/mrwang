@@ -8,6 +8,7 @@ from django.core.files.base import ContentFile
 # AI Quiz Generator
 def quiz_gen(request):
     if request.method == "POST":
+
         uploaded_file = request.FILES.get("source_file")
         if not uploaded_file and not request.POST.get("topic"):
             return render(request, "quiz_gen/quiz_gen.html", {
@@ -57,8 +58,22 @@ def quiz_gen(request):
             no_of_choices,
             additional_info
         )
-
         filepath = create_quiz_doc(text)
-        return FileResponse(open(filepath, "rb"), as_attachment=True, filename="generated-quiz.docx")
+
+        # Get quiz type from form
+        quiz_type = request.POST.get("quiz_type")
+        if quiz_type == "forms":
+            return FileResponse(
+                open(filepath, "rb"),
+                as_attachment=True,
+                filename="generated-quiz.docx"
+            )
+
+        elif quiz_type == "worksheet":
+            return FileResponse(
+                open(filepath, "rb"),
+                as_attachment=True,
+                filename="worksheet-quiz.docx"
+            )
 
     return render(request, "quiz_gen/quiz_gen.html")
