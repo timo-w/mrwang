@@ -77,12 +77,11 @@ a#more-options:hover {
   margin-bottom: -1.5rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #1f1f1f;
 }
 .quiz-type-option p {
   text-align: left;
   font-size: 1rem;
-  color: #5f5f5f;
+  color: gray
 }
 
 /* Overridden modal styles */
@@ -146,5 +145,14 @@ transform: scale(1.1);
 
 /* Mobile view */
 @media only screen and (max-width: 600px) {
+    
+    .quiz-type-option h4 {
+        padding-left: 0;
+        font-size: large;
+    }
+    .quiz-type-option p {
+        padding-left: 0;
+        font-size: large;
+    }
 
 }
