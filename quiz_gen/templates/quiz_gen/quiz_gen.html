@@ -78,11 +78,31 @@
   <button type="button" id="generate-quiz" class="launch-btn">Generate</button>
 </form>
 
-<!-- Guide overlay -->
+<!-- Overlay -->
 <div class="app-modal" id="appModal">
   <div class="app-modal-content">
       <button class="close-modal">&times;</button>
 
+      <!-- Quiz type -->
+      <div id="quiz-type">
+        <h4>How will you use your Quiz?</h4>
+        <div id="use-as-forms" class="quiz-type-option" role="button">
+          <img src="{% static 'quiz_gen/images/forms.png' %}" alt="Microsoft Forms icon">
+          <div>
+            <h4>Import into Forms</h4>
+            <p>Use the quiz digitally in Microsoft Forms.</p>
+          </div>
+        </div>
+        <div id="use-as-worksheet" class="quiz-type-option" role="button">
+          <img src="{% static 'quiz_gen/images/worksheet.png' %}" alt="Worksheet icon">
+          <div>
+            <h4>Worksheet</h4>
+            <p>Download a printable worksheet with answers provided seperately.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forms quiz guide -->
       <div id="forms-quiz">
         <h4 id="modalTitle"></h4>
         <img id="modalImg" src="" alt="Screenshot">
@@ -91,22 +111,11 @@
         <a id="next-slide" class="modal-nav">Next step &rarr;</a>
       </div>
 
-      <div id="quiz-type">
-        <h4 id="modalTitle">How will you use your Quiz?</h4>
-        <div class="quiz-type-option" role="button">
-          <img src="{% static 'quiz_gen/images/forms.png' %}" alt="Microsoft Forms icon">
-          <div>
-            <h4>Import into Forms</h4>
-            <p>Use the quiz digitally in Microsoft Forms.</p>
-          </div>
-        </div>
-        <div class="quiz-type-option" role="button">
-          <img src="{% static 'quiz_gen/images/worksheet.png' %}" alt="Worksheet icon">
-          <div>
-            <h4>Worksheet</h4>
-            <p>Download a printable worksheet with answers provided seperately.</p>
-          </div>
-        </div>
+      <!-- Worksheet quiz guide -->
+      <div id="worksheet-quiz">
+        <h4>Generating...</h4>
+        <img id="modalImg" src="{% static 'quiz_gen/images/worksheet.png' %}" alt="Worksheet icon">
+        <p id="modalDesc">Your worksheet will be downloaded shortly!</p>
       </div>
       
   </div>

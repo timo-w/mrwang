@@ -35,7 +35,7 @@ a#more-options:hover {
 
 
 /* Hide forms import instructions */
-#forms-quiz {
+#forms-quiz, #worksheet-quiz {
     display: none;
 }
 
