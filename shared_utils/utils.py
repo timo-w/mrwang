@@ -29,10 +29,9 @@ def generate_text(
         Use British English spellings, grammar, and conventions throughout.
 
         Your response will follow a specific format:
-        - For each question, begin with the question number.
+        - For each question, begin with the question number followed by a dot and the question text in one line.
         - Do not use bullet points, only new lines.
-        - Under each question, insert a new line and then the possible answer beginning with the letter from A.
-        - Between each question, add an additional new line.
+        - Under each question text, insert a new line and then the possible answer beginning with the letter from A.
         - Make option A the correct answer for each question.
 
         You will be making quizzes which secondary teachers in Scotland will be using. This means that:
