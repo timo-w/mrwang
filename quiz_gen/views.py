@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import FileResponse
-from shared_utils.utils import generate_text, create_quiz_doc, extract_text_from_file
+from shared_utils.utils import generate_text, create_quiz_doc, extract_text_from_file, parse_quiz, create_worksheet_doc
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
@@ -51,29 +51,30 @@ def quiz_gen(request):
             Topic: {topic}
             """
 
-        text = generate_text(
+        # Determin quiz type and generate document
+        quiz_type = request.POST.get("quiz_type")
+
+        raw_text = generate_text(
             prompt_input,
             level,
             no_of_questions,
             no_of_choices,
             additional_info
         )
-        filepath = create_quiz_doc(text)
 
-        # Get quiz type from form
-        quiz_type = request.POST.get("quiz_type")
         if quiz_type == "forms":
-            return FileResponse(
-                open(filepath, "rb"),
-                as_attachment=True,
-                filename="generated-quiz.docx"
-            )
+            filepath = create_quiz_doc(raw_text)
+            filename = "generated-quiz.docx"
 
         elif quiz_type == "worksheet":
-            return FileResponse(
-                open(filepath, "rb"),
-                as_attachment=True,
-                filename="worksheet-quiz.docx"
-            )
+            quiz = parse_quiz(raw_text)
+            filepath = create_worksheet_doc(quiz)
+            filename = "worksheet-quiz.docx"
+
+        return FileResponse(
+            open(filepath, "rb"),
+            as_attachment=True,
+            filename=filename
+        )
 
     return render(request, "quiz_gen/quiz_gen.html")

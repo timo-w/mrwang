@@ -1,5 +1,7 @@
 import os
 import datetime
+import re
+from random import shuffle
 from openai import AzureOpenAI
 from docx import Document
 from pptx import Presentation
@@ -93,3 +95,65 @@ def extract_text_from_file(file_path: str) -> str:
         return "\n".join(collected)
 
     return ""
+
+
+# For generating printable quiz worksheets
+def parse_quiz(text: str):
+    questions = []
+    blocks = re.split(r"\n(?=\d+\.)", text.strip())
+
+    for block in blocks:
+        lines = [l.strip() for l in block.splitlines() if l.strip()]
+        question_line = lines[0]
+
+        options = [l for l in lines[1:] if re.match(r"[A-Z]\.", l)]
+
+        correct_option = options[0]  # A is correct by contract
+
+        questions.append({
+            "question": question_line,
+            "options": options,
+            "correct": correct_option
+        })
+
+    return questions
+
+
+def create_worksheet_doc(quiz, filename="worksheet-quiz.docx"):
+    doc = Document()
+    doc.add_heading(datetime.datetime.now().strftime("Generated Quiz Worksheet - Created %H:%M on %B %d, %Y"), level=1)
+
+    answer_key = []
+
+    for idx, q in enumerate(quiz, start=1):
+        doc.add_paragraph(q["question"])
+
+        options = q["options"].copy()
+        shuffle(options)
+
+        new_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        correct_letter = None
+
+        for i, opt in enumerate(options):
+            text = opt.split(".", 1)[1].strip()
+            letter = new_letters[i]
+
+            doc.add_paragraph(f"{letter}. {text}")
+
+            if opt == q["correct"]:
+                correct_letter = letter
+
+        answer_key.append((idx, correct_letter))
+        doc.add_paragraph("") # Blank line between questions
+
+    doc.add_page_break()
+    doc.add_heading("Answers", level=1)
+
+    for idx, letter in answer_key:
+        doc.add_paragraph(f"{idx}. {letter}")
+
+    filepath = f"media/{filename}"
+    os.makedirs("media", exist_ok=True)
+    doc.save(filepath)
+
+    return filepath
