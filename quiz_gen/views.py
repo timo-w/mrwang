@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import FileResponse
-from shared_utils.utils import generate_text, create_quiz_doc, extract_text_from_file
+from shared_utils.utils import generate_text, create_quiz_doc, extract_text_from_file, parse_quiz, create_worksheet_doc
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
@@ -8,6 +8,7 @@ from django.core.files.base import ContentFile
 # AI Quiz Generator
 def quiz_gen(request):
     if request.method == "POST":
+
         uploaded_file = request.FILES.get("source_file")
         if not uploaded_file and not request.POST.get("topic"):
             return render(request, "quiz_gen/quiz_gen.html", {
@@ -50,7 +51,10 @@ def quiz_gen(request):
             Topic: {topic}
             """
 
-        text = generate_text(
+        # Determin quiz type and generate document
+        quiz_type = request.POST.get("quiz_type")
+
+        raw_text = generate_text(
             prompt_input,
             level,
             no_of_questions,
@@ -58,7 +62,19 @@ def quiz_gen(request):
             additional_info
         )
 
-        filepath = create_quiz_doc(text)
-        return FileResponse(open(filepath, "rb"), as_attachment=True, filename="generated-quiz.docx")
+        if quiz_type == "forms":
+            filepath = create_quiz_doc(raw_text)
+            filename = "generated-quiz.docx"
+
+        elif quiz_type == "worksheet":
+            quiz = parse_quiz(raw_text)
+            filepath = create_worksheet_doc(quiz)
+            filename = "worksheet-quiz.docx"
+
+        return FileResponse(
+            open(filepath, "rb"),
+            as_attachment=True,
+            filename=filename
+        )
 
     return render(request, "quiz_gen/quiz_gen.html")

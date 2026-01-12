@@ -11,7 +11,7 @@
 {% block content %}
 <h1>AI Quiz Generator</h1>
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" target="download_frame">
   {% csrf_token %}
 
   <div id="quiz-details">
@@ -51,8 +51,8 @@
 
   </div>
   
-  <br><a id="more-options">&darr; More options &darr;</a>
-  <br><hr><br>
+  <a id="more-options">&darr; More options &darr;</a>
+  <br>
 
   <!-- More options menu -->
   <div class="collapsable">
@@ -71,22 +71,56 @@
     <label for="additional_info">Additional information (optional):</label><br>
     <textarea name="additional_info" rows="3" cols="40" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
 
-    <br><hr><br>
-
   </div>
+  <br>
 
-  <button type="submit" id="generate-quiz" class="launch-btn">Generate</button>
+  <button type="button" id="generate-quiz" class="launch-btn">Generate</button>
+  <input type="hidden" name="quiz_type" id="quiz_type_field">
+
 </form>
 
-<!-- Guide overlay -->
+<iframe name="download_frame" style="display:none;"></iframe>
+
+<!-- Overlay -->
 <div class="app-modal" id="appModal">
   <div class="app-modal-content">
       <button class="close-modal">&times;</button>
-      <h4 id="modalTitle"></h4>
-      <img id="modalImg" src="" alt="Screenshot">
-      <p id="modalDesc"></p>
-      <a id="previous-slide" class="modal-nav">&larr; Previous step</a>
-      <a id="next-slide" class="modal-nav">Next step &rarr;</a>
+
+      <!-- Quiz type -->
+      <div id="quiz-type">
+        <h4>How will you use your Quiz?</h4>
+        <div id="use-as-forms" class="quiz-type-option" role="button">
+          <img src="{% static 'quiz_gen/images/forms.png' %}" alt="Microsoft Forms icon">
+          <div>
+            <h4>Import into Forms</h4>
+            <p>Use the quiz digitally in Microsoft Forms.</p>
+          </div>
+        </div>
+        <div id="use-as-worksheet" class="quiz-type-option" role="button">
+          <img src="{% static 'quiz_gen/images/worksheet.png' %}" alt="Worksheet icon">
+          <div>
+            <h4>Worksheet</h4>
+            <p>Download a printable worksheet with answers provided seperately.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forms quiz guide -->
+      <div id="forms-quiz">
+        <h4 id="modalTitle"></h4>
+        <img id="modalImg" src="" alt="Screenshot">
+        <p id="modalDesc"></p>
+        <a id="previous-slide" class="modal-nav">&larr; Previous step</a>
+        <a id="next-slide" class="modal-nav">Next step &rarr;</a>
+      </div>
+
+      <!-- Worksheet quiz guide -->
+      <div id="worksheet-quiz">
+        <h4>Generating...</h4>
+        <img id="modalImg" src="{% static 'quiz_gen/images/worksheet.png' %}" alt="Worksheet icon">
+        <p id="modalDesc">Your worksheet will be downloaded shortly!</p>
+      </div>
+      
   </div>
 </div>
 {% endblock %}

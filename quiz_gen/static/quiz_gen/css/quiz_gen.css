@@ -33,6 +33,57 @@ a#more-options:hover {
     display: none;
 }
 
+
+/* Hide forms import instructions */
+#forms-quiz, #worksheet-quiz {
+    display: none;
+}
+
+/* Quiz type selection (forms/worksheet) */
+.quiz-type-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 1px solid #ddd;
+  background-color: #f6f6f6;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.quiz-type-option:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  background-color: white;
+}
+
+/* Icon */
+.quiz-type-option img {
+  width: 20% !important;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Text container behaviour */
+.quiz-type-option h4 {
+  text-align: left;
+  margin: 0;
+  margin-top: 2rem;
+  margin-bottom: -1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.quiz-type-option p {
+  text-align: left;
+  font-size: 1rem;
+  color: gray
+}
+
 /* Overridden modal styles */
 .app-modal-content p {
     font-size: 0.8rem;
@@ -72,11 +123,12 @@ transform: scale(1.1);
 }
 
 #topic-input-area,
-#file-upload-area {
+#file-upload-area,
+.collapsable {
     padding: 1.5rem;
     border: 1px solid #ddd;
     border-radius: 10px;
-    background: #fafafa;
+    background: #f6f6f6;
 }
 
 /* OR divider */
@@ -90,7 +142,17 @@ transform: scale(1.1);
     user-select: none;
 }
 
+
 /* Mobile view */
 @media only screen and (max-width: 600px) {
+    
+    .quiz-type-option h4 {
+        padding-left: 0;
+        font-size: large;
+    }
+    .quiz-type-option p {
+        padding-left: 0;
+        font-size: large;
+    }
 
 }
