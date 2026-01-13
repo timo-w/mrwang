@@ -7,34 +7,24 @@ const slides = [
       image: window.quizImages.slide0
     },
     {
-      title: "Opening Microsoft Forms (1/6)",
+      title: "Opening Microsoft Forms (1/4)",
       description: "First, click <a href='https://forms.office.com/' target='_blank'>here</a> to open Microsoft Forms (opens in a new tab).<br>You will need to be signed in to use the site.",
       image: window.quizImages.slide1
     },
     {
-      title: "Uploading the Quiz File (2/6)",
+      title: "Uploading your Quiz File (2/4)",
       description: "Click 'Quick import' then 'Upload from this device'.<br>Then, select the document which has been downloaded to your device (e.g. 'generated-quiz.docx').",
       image: window.quizImages.slide2
     },
     {
-      title: "Importing the Quiz (3/6)",
+      title: "Reviewing your Quiz (3/4)",
       description: "Select 'Quiz' once the file has uploaded.<br>Once the file has converted, click 'Start review' to view your quiz.",
       image: window.quizImages.slide3
     },
     {
-      title: "Selecting Correct Answers (4/6)",
-      description: "Tick the first (correct) option for each question.<br>Drag the options to randomise their order",
-      image: window.quizImages.slide4
-    },
-    {
-      title: "Adding Points (5/6)",
-      description: "For each question, assign points (at least 1 point per question).",
-      image: window.quizImages.slide5
-    },
-    {
-      title: "Sharing your Quiz (6/6)",
+      title: "Sharing your Quiz (4/4)",
       description: "Give your quiz a name, then click on 'Collect responses' to share your quiz.<br>You can share by link, email, or QR code.",
-      image: window.quizImages.slide6
+      image: window.quizImages.slide4
     },
 ];
 let slide = 0

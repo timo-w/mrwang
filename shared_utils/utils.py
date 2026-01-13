@@ -34,7 +34,7 @@ def generate_text(
         - For each question, begin with the question number followed by a dot and the question text in one line.
         - Do not use bullet points, only new lines.
         - Under each question text, insert a new line and then the possible answer beginning with the letter from A.
-        - Make option A the correct answer for each question.
+        - Randomise the answer order, and below add "Answer: " followed by the letter of the correct answer. Below this, add a line with "Point: 1".
 
         You will be making quizzes which secondary teachers in Scotland will be using. This means that:
         - Quizzes for S1-3s should contain questions which are answerable by 12-14 year olds.
