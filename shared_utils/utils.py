@@ -1,5 +1,4 @@
 import os
-import datetime
 import re
 from random import shuffle
 from openai import AzureOpenAI
@@ -63,9 +62,9 @@ def generate_text(
 
 
 # Generate Word Document
-def create_quiz_doc(content: str, filename: str = "generated-quiz.docx") -> str:
+def create_quiz_doc(content: str, title: str, filename: str = "generated-quiz.docx") -> str:
     doc = Document()
-    doc.add_heading(datetime.datetime.now().strftime("Generated Quiz - Created %H:%M on %B %d, %Y"), level=1)
+    doc.add_heading(title, level=1)
     doc.add_paragraph(content)
     filepath = f"media/{filename}"
     os.makedirs("media", exist_ok=True)
@@ -134,14 +133,10 @@ def parse_quiz(text: str):
     return questions
 
 
-def create_worksheet_doc(quiz, filename="worksheet-quiz.docx"):
+# For creating a printable quiz worksheet with answers on the last page
+def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
     doc = Document()
-    doc.add_heading(
-        datetime.datetime.now().strftime(
-            "Generated Quiz Worksheet - Created %H:%M on %B %d, %Y"
-        ),
-        level=1
-    )
+    doc.add_heading(title, level=1)
 
     answer_key = []
 
@@ -179,3 +174,43 @@ def create_worksheet_doc(quiz, filename="worksheet-quiz.docx"):
     doc.save(filepath)
 
     return filepath
+
+
+# Generate a meaningful quiz title based on the contents
+def generate_quiz_title(source_material: str, level: str) -> str:
+    system_prompt = """
+    You generate short, clear educational quiz titles.
+    Titles must be:
+    - 5-10 words
+    - Suitable for a Scottish secondary classroom
+    - Use British English
+    - Neutral and professional
+    - No punctuation at the end
+    - No quotation marks
+    """
+
+    user_prompt = f"""
+    Create a suitable quiz title based on this material.
+
+    Level: {level}
+
+    Material:
+    {source_material[:1500]}
+    """
+
+    response = client.chat.completions.create(
+        model=os.getenv("AZURE_DEPLOYMENT_NAME"),
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ],
+        temperature=0.3
+    )
+
+    title = response.choices[0].message.content.strip()
+
+    # Safety fallback
+    if len(title) < 5 or len(title) > 80:
+        return "AI-Generated Quiz"
+
+    return title

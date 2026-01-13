@@ -1,8 +1,15 @@
 from django.shortcuts import render
 from django.http import FileResponse
-from shared_utils.utils import generate_text, create_quiz_doc, extract_text_from_file, parse_quiz, create_worksheet_doc
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from shared_utils.utils import (
+    generate_text,
+    generate_quiz_title,
+    create_quiz_doc,
+    extract_text_from_file,
+    parse_quiz,
+    create_worksheet_doc
+)
 
 
 # AI Quiz Generator
@@ -51,9 +58,10 @@ def quiz_gen(request):
             Topic: {topic}
             """
 
-        # Determin quiz type and generate document
+        # Determine quiz type and generate document
         quiz_type = request.POST.get("quiz_type")
 
+        quiz_title = generate_quiz_title(prompt_input, level) # generate meaningful title
         raw_text = generate_text(
             prompt_input,
             level,
@@ -63,12 +71,12 @@ def quiz_gen(request):
         )
 
         if quiz_type == "forms":
-            filepath = create_quiz_doc(raw_text)
+            filepath = create_quiz_doc(raw_text, quiz_title)
             filename = "generated-quiz.docx"
 
         elif quiz_type == "worksheet":
             quiz = parse_quiz(raw_text)
-            filepath = create_worksheet_doc(quiz)
+            filepath = create_worksheet_doc(quiz, quiz_title)
             filename = "worksheet-quiz.docx"
 
         return FileResponse(
