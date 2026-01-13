@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'subjects',
     'gallery',
     'code_puzzles',
+    'music',
 ]
 
 # Middleware

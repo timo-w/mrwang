@@ -72,11 +72,34 @@ $(document).ready(function(){
         }
     });
 
-    // Open forms guide
+    // Open quiz type modal
     $('#generate-quiz').on('click', function() {
+        $('#quiz-type').show();
+        $('#forms-quiz').hide();
+        $('#worksheet-quiz').hide();
+        slide = 0
         updateSlide();
         $modal.addClass('show');
     });
+
+    // Use as Forms
+    $('#use-as-forms').on('click', function () {
+        $('#quiz_type_field').val('forms'); // Pass into views
+        $('form').submit(); // Submit form using hidden input
+        $('#quiz-type').fadeOut(300, function () {
+            $('#forms-quiz').fadeIn(300);
+        });
+    });
+
+    // Use as Worksheet
+    $('#use-as-worksheet').on('click', function () {
+        $('#quiz_type_field').val('worksheet');
+        $('form').submit();
+        $('#quiz-type').fadeOut(300, function () {
+            $('#worksheet-quiz').fadeIn(300);
+        });
+    });
+
     // Slide navigation
     $('#previous-slide').on('click', function () {
         slide--;
@@ -86,4 +109,5 @@ $(document).ready(function(){
         slide++;
         updateSlide();
     });
+
 });
