@@ -44,31 +44,34 @@ def module_detail(request, subject_slug, module_slug):
 def generate_quiz_from_file(request):
     if request.method != "POST":
         return HttpResponse("Invalid method", status=405)
-    
+
     # Get path from subjects.js
     rel_path = request.POST.get("file_path")
     if not rel_path:
         return HttpResponse("Missing file path", status=400)
 
     # Turn `/media/...` into an actual filesystem path
-    local_path = os.path.join(settings.MEDIA_ROOT, rel_path.replace("/media/", ""))
+    local_path = os.path.join(
+        settings.MEDIA_ROOT,
+        rel_path.replace("/media/", "")
+    )
 
     if not os.path.exists(local_path):
         return HttpResponse(f"File not found: {local_path}", status=404)
 
-    # Extract text and generate
+    # Extract text
     extracted = extract_text_from_file(local_path)
+
     quiz_text = generate_text(
-        subject="Auto-generated from document",
-        topic="Document contents",
+        source_material=extracted[:8000],  # main content
         level="N/A",
         no_of_questions="10",
         no_of_choices="4",
-        additional_info=extracted[:8000]
+        additional_info=""  # optional
     )
 
-    request.session['quiz_text'] = quiz_text
-    return redirect('generated-quiz')
+    request.session["quiz_text"] = quiz_text
+    return redirect("generated-quiz")
 
 
 # Parse and display quiz
@@ -77,37 +80,53 @@ def display_generated_quiz(request):
     if not quiz_text:
         return HttpResponse("No quiz found. Please generate a quiz first.", status=400)
 
-    # Split by questions
-    question_blocks = re.split(r'\n\d+\.\s', '\n' + quiz_text)
+    blocks = re.split(r"\n\s*(?=\d+\.)", quiz_text.strip())
     quiz_questions = []
 
-    for block in question_blocks[1:]:
-        lines = block.strip().splitlines()
+    for block in blocks:
+        lines = [l.strip() for l in block.splitlines() if l.strip()]
         if not lines:
             continue
 
-        question_text = lines[0].strip()
+        
+        # Remove question number from AI output
+        question_text = re.sub(r'^\d+\.\s*', '', lines[0].strip())
 
-        # Clean choices by removing leading "A. ", "B. ", etc.
-        cleaned_choices = []
+        options = []
+        correct_letter = None
+
         for line in lines[1:]:
-            line = line.strip()
-            if not line:
-                continue
-            line = re.sub(r'^[A-Z][\.\)]\s*', '', line)
-            cleaned_choices.append(line)
+            if re.match(r"[A-Z]\.", line):
+                options.append(line)
+            elif line.startswith("Answer:"):
+                correct_letter = line.split(":", 1)[1].strip()
 
-        # Set correct answer before randomising options
-        correct_answer = cleaned_choices[0]
-        shuffle(cleaned_choices)
+        if not options or not correct_letter:
+            continue  # skip malformed questions safely
+
+        # Extract option text only
+        option_texts = [opt.split(".", 1)[1].strip() for opt in options]
+
+        # Determine correct answer text BEFORE shuffling
+        correct_answer = next(
+            opt.split(".", 1)[1].strip()
+            for opt in options
+            if opt.startswith(correct_letter + ".")
+        )
+
+        shuffle(option_texts)
 
         quiz_questions.append({
-            'question': question_text,
-            'choices': cleaned_choices,
-            'correct_answer': correct_answer
+            "question": question_text,
+            "choices": option_texts,
+            "correct_answer": correct_answer,
         })
 
-    return render(request, "subjects/generated_quiz.html", {"quiz_questions": quiz_questions})
+    return render(
+        request,
+        "subjects/generated_quiz.html",
+        {"quiz_questions": quiz_questions}
+    )
 
 
 # Explain incorrect quiz answers
