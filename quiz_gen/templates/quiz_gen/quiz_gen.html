@@ -16,13 +16,24 @@
 
   <div id="quiz-details">
 
+    <!-- Upload lesson file -->
     <div id="file-upload-area">
-      <h4>Upload Lesson (.pdf .docx or .pptx)</h4>
-      <input type="file" name="source_file" accept=".pdf,.docx,.pptx"><br><br>
+      <h4>Upload your Lesson</h4>
+
+      <label id="drop-zone">
+        <input type="file" name="source_file" accept=".pdf,.docx,.pptx" hidden>
+        <div class="drop-zone-content">
+          <strong>Drag & drop a file here (.pdf .docx or .pptx)</strong>
+          <span>or click to browse</span>
+        </div>
+      </label>
+
+      <p id="file-name" class="file-name"></p>
     </div>
 
     <div id="quiz-input-choice">Or</div>
 
+    <!-- Alternatively, enter quiz details -->
     <div id="topic-input-area">
       <h4>Enter Details</h4>
 

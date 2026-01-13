@@ -3,7 +3,7 @@
 const slides = [
     {
       title: "Your Quiz is now Generating!",
-      description: "This quick guide will show you how to import your quiz in Microsoft Forms and share it with your class.<br>Click on the 'Next step' button to continue.",
+      description: "Please allow up to 60 seconds for your quiz to download.<br>This quick guide will show you how to import your quiz in Microsoft Forms and share it with your class.",
       image: window.quizImages.slide0
     },
     {
@@ -99,5 +99,40 @@ $(document).ready(function(){
         slide++;
         updateSlide();
     });
+
+
+    // Drag-drop box for uploading files
+    const $dropZone = $("#drop-zone");
+    const $fileInput = $dropZone.find("input[type='file']");
+    const $fileNameDisplay = $("#file-name");
+
+    function updateFileName() {
+        const files = $fileInput[0].files;
+        if (files.length > 0) {
+        $fileNameDisplay.text("Selected file: " + files[0].name);
+        } else {
+        $fileNameDisplay.text("");
+        }
+    }
+
+    $dropZone.on("dragenter dragover", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $dropZone.addClass("dragover");
+    });
+
+    $dropZone.on("dragleave drop", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $dropZone.removeClass("dragover");
+    });
+
+    $dropZone.on("drop", function (e) {
+        const files = e.originalEvent.dataTransfer.files;
+        $fileInput[0].files = files;
+        updateFileName();
+    });
+
+    $fileInput.on("change", updateFileName);
 
 });

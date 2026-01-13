@@ -143,6 +143,51 @@ transform: scale(1.1);
 }
 
 
+/* Drag & drop upload box */
+#drop-zone {
+  display: block;
+  border: 2px dashed #bbb;
+  border-radius: 12px;
+  padding: 2rem;
+  background: #fafafa;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+#drop-zone:hover {
+  background: #ffffff;
+  border-color: #888;
+}
+
+#drop-zone.dragover {
+  background: #eef6ff;
+  border-color: #3b82f6;
+}
+
+.drop-zone-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #666;
+}
+
+.drop-zone-content strong {
+  font-size: 1rem;
+  color: #333;
+}
+
+.drop-zone-content span {
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.file-name {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #333;
+  word-break: break-all;
+}
+
+
 /* Mobile view */
 @media only screen and (max-width: 600px) {
     
