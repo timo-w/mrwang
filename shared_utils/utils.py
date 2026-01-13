@@ -100,15 +100,30 @@ def extract_text_from_file(file_path: str) -> str:
 # For generating printable quiz worksheets
 def parse_quiz(text: str):
     questions = []
-    blocks = re.split(r"\n(?=\d+\.)", text.strip())
+
+    blocks = re.split(r"\n\s*(?=\d+\.)", text.strip())
 
     for block in blocks:
         lines = [l.strip() for l in block.splitlines() if l.strip()]
+
         question_line = lines[0]
 
-        options = [l for l in lines[1:] if re.match(r"[A-Z]\.", l)]
+        options = []
+        correct_letter = None
 
-        correct_option = options[0]  # A is correct by contract
+        for line in lines[1:]:
+            if re.match(r"[A-Z]\.", line):
+                options.append(line)
+
+            elif line.startswith("Answer:"):
+                correct_letter = line.split(":", 1)[1].strip()
+
+        if not options or not correct_letter:
+            continue  # skip malformed blocks safely
+
+        correct_option = next(
+            opt for opt in options if opt.startswith(correct_letter + ".")
+        )
 
         questions.append({
             "question": question_line,
@@ -121,7 +136,12 @@ def parse_quiz(text: str):
 
 def create_worksheet_doc(quiz, filename="worksheet-quiz.docx"):
     doc = Document()
-    doc.add_heading(datetime.datetime.now().strftime("Generated Quiz Worksheet - Created %H:%M on %B %d, %Y"), level=1)
+    doc.add_heading(
+        datetime.datetime.now().strftime(
+            "Generated Quiz Worksheet - Created %H:%M on %B %d, %Y"
+        ),
+        level=1
+    )
 
     answer_key = []
 
@@ -144,7 +164,9 @@ def create_worksheet_doc(quiz, filename="worksheet-quiz.docx"):
                 correct_letter = letter
 
         answer_key.append((idx, correct_letter))
-        doc.add_paragraph("") # Blank line between questions
+
+        # Real blank line between questions
+        doc.add_paragraph("")
 
     doc.add_page_break()
     doc.add_heading("Answers", level=1)
