@@ -13,17 +13,17 @@ const slides = [
     },
     {
       title: "Uploading your Quiz File (2/4)",
-      description: "Click 'Quick import' then 'Upload from this device'.<br>Then, select the document which has been downloaded to your device (e.g. 'generated-quiz.docx').",
+      description: "Click 'Quick import' then 'Upload from this device'.<br>Then, select the document which has been downloaded to your device (e.g. 'generated-quiz.docx'). Click 'Quiz' once uploaded.",
       image: window.quizImages.slide2
     },
     {
       title: "Reviewing your Quiz (3/4)",
-      description: "Select 'Quiz' once the file has uploaded.<br>Once the file has converted, click 'Start review' to view your quiz.",
+      description: "Once the file has converted, click 'Start review' to view your quiz.<br>You can check, edit, or add/remove questions and answers here.",
       image: window.quizImages.slide3
     },
     {
       title: "Sharing your Quiz (4/4)",
-      description: "Give your quiz a name, then click on 'Collect responses' to share your quiz.<br>You can share by link, email, or QR code.",
+      description: "Click on 'Collect responses' to share your quiz.<br>You can share by link, email, or QR code.",
       image: window.quizImages.slide4
     },
 ];
