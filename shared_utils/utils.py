@@ -3,6 +3,9 @@ import re
 from random import shuffle
 from openai import AzureOpenAI
 from docx import Document
+from docx.shared import Pt
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 from pptx import Presentation
 from PyPDF2 import PdfReader
 
@@ -133,15 +136,45 @@ def parse_quiz(text: str):
     return questions
 
 
+# Helper functions for creating worksheets
+def add_horizontal_rule(paragraph):
+    p = paragraph._p
+    pPr = p.get_or_add_pPr()
+
+    pBdr = OxmlElement("w:pBdr")
+    bottom = OxmlElement("w:bottom")
+
+    bottom.set(qn("w:val"), "single")
+    bottom.set(qn("w:sz"), "6")       # thickness
+    bottom.set(qn("w:space"), "8")    # spacing
+    bottom.set(qn("w:color"), "auto")
+
+    pBdr.append(bottom)
+    pPr.append(pBdr)
+
+def remove_initial_empty_paragraph(doc):
+    if doc.paragraphs:
+        first_para = doc.paragraphs[0]
+        if not first_para.text.strip():
+            p = first_para._element
+            p.getparent().remove(p)
+
+
 # For creating a printable quiz worksheet with answers on the last page
 def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
-    doc = Document()
+    doc = Document("shared_utils/templates/quiz_template.docx")
+    remove_initial_empty_paragraph(doc)
     doc.add_heading(title, level=1)
+    doc.add_paragraph("")
 
     answer_key = []
 
     for idx, q in enumerate(quiz, start=1):
-        doc.add_paragraph(q["question"])
+        # Question (bold, size 12)
+        q_para = doc.add_paragraph()
+        q_run = q_para.add_run(q["question"])
+        q_run.bold = True
+        q_run.font.size = Pt(12)
 
         options = q["options"].copy()
         shuffle(options)
@@ -153,21 +186,28 @@ def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
             text = opt.split(".", 1)[1].strip()
             letter = new_letters[i]
 
-            doc.add_paragraph(f"{letter}. {text}")
+            opt_para = doc.add_paragraph()
+            opt_run = opt_para.add_run(f"{letter}. {text}")
 
             if opt == q["correct"]:
                 correct_letter = letter
 
         answer_key.append((idx, correct_letter))
 
-        # Real blank line between questions
+        # Horizontal rule after each question block
+        rule_para = doc.add_paragraph("")
+        add_horizontal_rule(rule_para)
+
+        # Blank line between questions
         doc.add_paragraph("")
 
     doc.add_page_break()
     doc.add_heading("Answers", level=1)
 
     for idx, letter in answer_key:
-        doc.add_paragraph(f"{idx}. {letter}")
+        ans_para = doc.add_paragraph()
+        ans_run = ans_para.add_run(f"{idx}. {letter}")
+        ans_run.font.size = Pt(12)
 
     filepath = f"media/{filename}"
     os.makedirs("media", exist_ok=True)
