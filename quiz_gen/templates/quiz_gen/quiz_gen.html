@@ -101,17 +101,24 @@
       <div id="quiz-type">
         <h4>How will you use your Quiz?</h4>
         <div id="use-as-forms" class="quiz-type-option" role="button">
-          <img src="{% static 'quiz_gen/images/forms.png' %}" alt="Microsoft Forms icon">
+          <img src="{% static 'quiz_gen/images/logos/forms.png' %}" alt="Microsoft Forms icon">
           <div>
-            <h4>Import into Forms</h4>
-            <p>Use the quiz digitally in Microsoft Forms.</p>
+            <h4>Forms Quiz</h4>
+            <p>Import the quiz digitally in Microsoft Forms.</p>
           </div>
         </div>
         <div id="use-as-worksheet" class="quiz-type-option" role="button">
-          <img src="{% static 'quiz_gen/images/worksheet.png' %}" alt="Worksheet icon">
+          <img src="{% static 'quiz_gen/images/logos/word.png' %}" alt="Microsoft Word icon">
           <div>
             <h4>Worksheet</h4>
-            <p>Download a printable worksheet with answers provided seperately.</p>
+            <p>Download a printable Microsoft Word worksheet.</p>
+          </div>
+        </div>
+        <div id="use-as-presentation" class="quiz-type-option" role="button">
+          <img src="{% static 'quiz_gen/images/logos/powerpoint.png' %}" alt="Microsoft PowerPoint icon">
+          <div>
+            <h4>Presentation</h4>
+            <p>Download a Microsoft PowerPoint presentation.</p>
           </div>
         </div>
       </div>
@@ -128,8 +135,15 @@
       <!-- Worksheet quiz guide -->
       <div id="worksheet-quiz">
         <h4>Generating...</h4>
-        <img id="modalImg" src="{% static 'quiz_gen/images/worksheet.png' %}" alt="Worksheet icon">
+        <img id="modalImg" src="{% static 'quiz_gen/images/logos/worksheet.png' %}" alt="Worksheet icon">
         <p id="modalDesc">Your worksheet will be ready shortly! Please allow up to 60 seconds for the document to download.</p>
+      </div>
+
+      <!-- Presentation quiz guide -->
+      <div id="presentation-quiz">
+        <h4>Generating...</h4>
+        <img id="modalImg" src="{% static 'quiz_gen/images/logos/powerpoint.png' %}" alt="Microsoft PowerPoint icon">
+        <p id="modalDesc">Your presentation will be ready shortly! Please allow up to 60 seconds for the document to download.</p>
       </div>
       
   </div>
@@ -140,11 +154,11 @@
 {% block js %}
 <script>
   window.quizImages = {
-    slide0: "{% static 'quiz_gen/images/forms-quiz-slide-0.png' %}",
-    slide1: "{% static 'quiz_gen/images/forms-quiz-slide-1.png' %}",
-    slide2: "{% static 'quiz_gen/images/forms-quiz-slide-2.gif' %}",
-    slide3: "{% static 'quiz_gen/images/forms-quiz-slide-3.gif' %}",
-    slide4: "{% static 'quiz_gen/images/forms-quiz-slide-4.gif' %}",
+    slide0: "{% static 'quiz_gen/images/forms-slides/slide-0.png' %}",
+    slide1: "{% static 'quiz_gen/images/forms-slides/slide-1.png' %}",
+    slide2: "{% static 'quiz_gen/images/forms-slides/slide-2.gif' %}",
+    slide3: "{% static 'quiz_gen/images/forms-slides/slide-3.gif' %}",
+    slide4: "{% static 'quiz_gen/images/forms-slides/slide-4.gif' %}",
   };
 </script>
 <script src="{% static 'quiz_gen/js/quiz_gen.js' %}"></script>
