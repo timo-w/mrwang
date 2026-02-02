@@ -8,7 +8,8 @@ from shared_utils.utils import (
     create_quiz_doc,
     extract_text_from_file,
     parse_quiz,
-    create_worksheet_doc
+    create_worksheet_doc,
+    create_presentation_doc
 )
 
 
@@ -69,15 +70,21 @@ def quiz_gen(request):
             no_of_choices,
             additional_info
         )
-
+        
+        # Forms quiz
         if quiz_type == "forms":
             filepath = create_quiz_doc(raw_text, quiz_title)
             filename = "generated-quiz.docx"
-
+        # Word quiz
         elif quiz_type == "worksheet":
             quiz = parse_quiz(raw_text)
             filepath = create_worksheet_doc(quiz, quiz_title)
             filename = "worksheet-quiz.docx"
+        # PowerPoint quiz
+        elif quiz_type == "presentation":
+            quiz = parse_quiz(raw_text)
+            filepath = create_presentation_doc(quiz, quiz_title)
+            filename = "presentation-quiz.pptx"
 
         return FileResponse(
             open(filepath, "rb"),

@@ -3,7 +3,8 @@ import re
 from random import shuffle
 from openai import AzureOpenAI
 from docx import Document
-from docx.shared import Pt
+from docx.shared import Pt as DocxPt
+from pptx.util import Pt as PptxPt
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from pptx import Presentation
@@ -174,7 +175,7 @@ def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
         q_para = doc.add_paragraph()
         q_run = q_para.add_run(q["question"])
         q_run.bold = True
-        q_run.font.size = Pt(12)
+        q_run.font.size = DocxPt(12)
 
         options = q["options"].copy()
         shuffle(options)
@@ -212,6 +213,76 @@ def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
     filepath = f"media/{filename}"
     os.makedirs("media", exist_ok=True)
     doc.save(filepath)
+
+    return filepath
+
+
+# For creating a presentation quiz
+def create_presentation_doc(quiz, title: str, filename="presentation-quiz.pptx"):
+    prs = Presentation("shared_utils/templates/quiz_template.pptx")
+
+    # --- Title slide ---
+    title_slide_layout = prs.slide_layouts[0]  # Title slide
+    slide = prs.slides.add_slide(title_slide_layout)
+    slide.shapes.title.text = title
+
+    subtitle = slide.placeholders[1]
+    subtitle.text = "Multiple Choice Quiz"
+
+    # --- Question slides ---
+    question_layout = prs.slide_layouts[1]  # Title + Content
+
+    for idx, q in enumerate(quiz, start=1):
+        slide = prs.slides.add_slide(question_layout)
+
+        # Slide title = question
+        slide.shapes.title.text = f"{q['question']}"
+
+        content = slide.placeholders[1]
+        text_frame = content.text_frame
+        text_frame.clear()
+
+       # Add options as lettered choices (A., B., C., ...)
+        letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+        for i, opt in enumerate(q["options"]):
+            option_text = opt.split(".", 1)[1].strip()
+            letter = letters[i]
+
+            if i == 0:
+                p = text_frame.paragraphs[0]
+            else:
+                p = text_frame.add_paragraph()
+
+            p.text = f"{letter}. {option_text}"
+            p.level = 0
+            p.font.size = PptxPt(24)
+
+
+     # --- Answer slides ---
+    answer_layout = prs.slide_layouts[1]  # reuse Title + Content
+
+    for idx, q in enumerate(quiz, start=1):
+        slide = prs.slides.add_slide(answer_layout)
+
+        slide.shapes.title.text = f"Answer: {q['question']}"
+
+        content = slide.placeholders[1]
+        text_frame = content.text_frame
+        text_frame.clear()
+
+        # q["correct"] looks like "B. Correct answer text"
+        correct_letter, correct_text = q["correct"].split(".", 1)
+
+        p = text_frame.paragraphs[0]
+        p.text = f"{correct_letter}. {correct_text.strip()}"
+        p.font.size = PptxPt(28)
+
+        
+    # --- Save file ---
+    filepath = f"media/{filename}"
+    os.makedirs("media", exist_ok=True)
+    prs.save(filepath)
 
     return filepath
 
