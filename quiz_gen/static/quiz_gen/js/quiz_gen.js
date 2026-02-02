@@ -67,6 +67,7 @@ $(document).ready(function(){
         $('#quiz-type').show();
         $('#forms-quiz').hide();
         $('#worksheet-quiz').hide();
+        $('#presentation-quiz').hide();
         slide = 0
         updateSlide();
         $modal.addClass('show');
@@ -87,6 +88,15 @@ $(document).ready(function(){
         $('form').submit();
         $('#quiz-type').fadeOut(300, function () {
             $('#worksheet-quiz').fadeIn(300);
+        });
+    });
+
+    // Use as Worksheet
+    $('#use-as-presentation').on('click', function () {
+        $('#quiz_type_field').val('presentation');
+        $('form').submit();
+        $('#quiz-type').fadeOut(300, function () {
+            $('#presentation-quiz').fadeIn(300);
         });
     });
 
