@@ -208,7 +208,7 @@ def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
     for idx, letter in answer_key:
         ans_para = doc.add_paragraph()
         ans_run = ans_para.add_run(f"{idx}. {letter}")
-        ans_run.font.size = Pt(12)
+        ans_run.font.size = DocxPt(12)
 
     filepath = f"media/{filename}"
     os.makedirs("media", exist_ok=True)
