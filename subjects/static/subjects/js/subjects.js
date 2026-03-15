@@ -15,6 +15,15 @@ $(document).ready(function () {
         const isOffice = officeExt.some(ext => lower.endsWith(ext));
         const isPDF = lower.endsWith('.pdf');
 
+        const lessonText = $(this).text().trim();
+        const lessonNumber = lessonText.split(" ")[0];
+
+        // Update URL with lesson number without refreshing
+        const newUrl = `${window.location.pathname}?lesson=${lessonNumber}`;
+        window.history.replaceState(null, "", newUrl);
+        // Store lesson number for copy button
+        $('#copyLessonLink').data('lesson', lessonNumber);
+
         // Only show button if office file or PDF
         if (isOffice || isPDF) {
             // Store file URL on the Generate Quiz button
@@ -84,10 +93,27 @@ $(document).ready(function () {
     });
 
 
+    // Share lesson button
+    $('#copyLessonLink').on('click', function () {
+        const lesson = $(this).data('lesson');
 
-    // Open page to specific lesson
+        if (!lesson) {
+            alert("No lesson selected.");
+            return;
+        }
 
-    // Extract the ?lesson= parameter from URL
+        const url = `${window.location.origin}${window.location.pathname}?lesson=${lesson}`;
+
+        navigator.clipboard.writeText(url).then(() => {
+            const $btn = $(this);
+            $btn.text("Link copied to clipboard!");
+            setTimeout(() => $btn.text("Share"), 1500);
+        });
+    });
+
+
+
+    // Open page to specific lesson if specified in URL
     const targetLesson = new URLSearchParams(window.location.search).get("lesson");
 
     if (targetLesson) {
