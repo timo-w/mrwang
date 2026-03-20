@@ -24,9 +24,11 @@ $(document).ready(function () {
         // Store lesson number for copy button
         $('#copyLessonLink').data('lesson', lessonNumber);
 
-        // Only show button if office file or PDF
-        if (isOffice || isPDF) {
-            // Store file URL on the Generate Quiz button
+        // Get quizzable flag
+        const isQuizzable = $(this).data('quizzable') === true || $(this).data('quizzable') === "true";
+
+        // Only show button if file type is supported AND marked as quizzable
+        if ((isOffice || isPDF) && isQuizzable) {
             $('#generateQuiz').data('file-path', filePath);
             $('#generateQuiz').show();
         } else {
