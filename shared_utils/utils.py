@@ -163,7 +163,7 @@ def remove_initial_empty_paragraph(doc):
 
 # For creating a printable quiz worksheet with answers on the last page
 def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
-    doc = Document("shared_utils/templates/quiz_template.docx")
+    doc = Document("shared_utils/quiz_templates/docx_quiz_template.docx")
     remove_initial_empty_paragraph(doc)
     doc.add_heading(title, level=1)
     doc.add_paragraph("")
@@ -219,7 +219,7 @@ def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
 
 # For creating a presentation quiz
 def create_presentation_doc(quiz, title: str, filename="presentation-quiz.pptx"):
-    prs = Presentation("shared_utils/templates/quiz_template.pptx")
+    prs = Presentation("shared_utils/quiz_templates/pptx_quiz_template.pptx")
 
     # --- Title slide ---
     title_slide_layout = prs.slide_layouts[0]  # Title slide
