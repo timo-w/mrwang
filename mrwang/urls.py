@@ -25,7 +25,7 @@ from django.shortcuts import render
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
-    path('quiz_gen', include('quiz_gen.urls')),
+    path('quiz_gen/', include('quiz_gen.urls')),
     path('subjects/', include('subjects.urls')),
     path('gallery/', include('gallery.urls')),
     path('code_puzzles/', include('code_puzzles.urls')),

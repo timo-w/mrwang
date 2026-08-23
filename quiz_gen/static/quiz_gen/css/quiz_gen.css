@@ -33,6 +33,13 @@ a#more-options:hover {
     display: none;
 }
 
+/* Terms of use message */
+p#terms_msg {
+    color: gray;
+    font-style: italic;
+    font-size: 14px;
+}
+
 
 /* Hide forms import instructions */
 #forms-quiz, #worksheet-quiz {
@@ -44,7 +51,7 @@ a#more-options:hover {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0.6rem 1rem;
   margin: 1rem 0;
   border: 1px solid #ddd;
   background-color: #f6f6f6;

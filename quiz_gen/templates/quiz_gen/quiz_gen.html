@@ -88,6 +88,16 @@
   <button type="button" id="generate-quiz" class="launch-btn">Generate</button>
   <input type="hidden" name="quiz_type" id="quiz_type_field">
 
+  <!-- Terms of use message -->
+  <p id="terms_msg">
+      By generating a quiz, you agree to the
+      <a href="{% url 'terms_of_use' %}" target="_blank">Terms of Use</a>
+      and
+      <a href="{% url 'privacy_policy' %}" target="_blank">Privacy Policy</a>.
+      Your submitted content may be processed and retained to provide and improve this service,
+      as described in the Privacy Policy.
+  </p>
+
 </form>
 
 <iframe name="download_frame" style="display:none;"></iframe>
@@ -99,12 +109,12 @@
 
       <!-- Quiz type -->
       <div id="quiz-type">
-        <h4>How will you use your Quiz?</h4>
+        <h4>How will you use your quiz?</h4>
         <div id="use-as-forms" class="quiz-type-option" role="button">
           <img src="{% static 'quiz_gen/images/logos/forms.png' %}" alt="Microsoft Forms icon">
           <div>
             <h4>Forms Quiz</h4>
-            <p>Import the quiz digitally in Microsoft Forms.</p>
+            <p>Import the quiz into Microsoft Forms.</p>
           </div>
         </div>
         <div id="use-as-worksheet" class="quiz-type-option" role="button">
@@ -119,6 +129,13 @@
           <div>
             <h4>Presentation</h4>
             <p>Download a Microsoft PowerPoint presentation.</p>
+          </div>
+        </div>
+        <div id="use-as-blooket" class="quiz-type-option" role="button">
+          <img src="{% static 'quiz_gen/images/logos/blooket.png' %}" alt="Blooket icon">
+          <div>
+            <h4><i>(NEW)</i> Blooket Quiz</h4>
+            <p>Import the quiz into Blooket.</p>
           </div>
         </div>
       </div>

@@ -93,3 +93,13 @@ def quiz_gen(request):
         )
 
     return render(request, "quiz_gen/quiz_gen.html")
+
+
+# Terms of Use page
+def terms_of_use(request):
+    return render(request, "quiz_gen/terms_of_use.html")
+
+
+# Privacy Policy page
+def privacy_policy(request):
+    return render(request, "quiz_gen/privacy_policy.html")
