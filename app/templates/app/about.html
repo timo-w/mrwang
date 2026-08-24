@@ -12,7 +12,7 @@
 
 {% block content %}
 <h1>About the Site</h1>
-<p>Hello! My name is Mr Wang and I&apos;m a Computing Science teacher at <a href="https://blogs.glowscotland.org.uk/gc/bellahoustonacademy2019/" target="_blank">Bellahouston Academy</a>. </p>
+<p>Hello! My name is Mr Wang and I&apos;m a Computing Science teacher at <a href="https://blogs.glowscotland.org.uk/er/MearnsCastle/" target="_blank">Mearns Castle High School</a>. </p>
 <img id="rocket-costume" src="{% static 'app/images/rocket-costume.jpg' %}" alt="Mr Wang in a rocket costume.">
 <p>This site is a side project of mine to host various educational tools and resources, alongside any personal projects.</p>
 <p>Please email me any suggestions or feedback at <i>timothy.wang.me.uk(at)gmail.com</i>.
@@ -25,54 +25,63 @@
 
 <br><hr><br>
 
-<h1>AI Quiz Generator</h1>
-<p>To this day, there is no official implementation in <a href="https://forms.office.com/" target="_blank">Microsoft Forms</a> to generate using AI. There is however, a feature to import a Word Document which can be parsed as a quiz or survey. My quiz generator app aims to provide a way to quickly generate multiple choice quizzes (MCQs) which can be imported into Forms using its &quot;Quick Import&quot; feature.</p>
-<p>This drastically speeds-up the process of generating and importing a quiz into Forms compared to copy-pasting each question and possible answer into the site.</p>
+<h1>About the AI Quiz Generator</h1>
+<p>There are many sites and services for creating and hosting digital quizzes, with many having their own proprietary services for the AI-generation of quizzes. However, many of these require signing up for accounts or paying for premium features such as AI-generation.</p>
+<p>The goal of this service is to have a unified, single web interface for the generation of quizzes in as many formats as possible, with no subscriptions or account sign-ups.</p>
 <h2>Technical Details</h2>
-<p>The app generates a prompt from the form input, which is passed into the <a href="https://azure.microsoft.com/" target="_blank">Azure API</a>. Currently, the model uses the <a href="https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/" target="_blank">GPT-4o Mini</a> model for response generation, which was chosen for its cost efficiency.</p>
+<p>The app generates a prompt from the form input, which is passed into the <a href="https://azure.microsoft.com/" target="_blank">Azure API</a>. Currently, the model uses the <a href="https://developers.openai.com/api/docs/models/gpt-4.1-mini" target="_blank">GPT-4.1 Mini</a> model for response generation, which was chosen for its cost efficiency.</p>
 <h2>Pre-prompts</h2>
-<p>The prompt which is passed into the Azure API is made up of a &quot;system prompt&quot; and a &quot;user prompt&quot;. First, the form data is posted into a function like so:</p>
+<p>The prompt which is passed into the Azure API is made up of a &quot;system prompt&quot; and a &quot;user prompt&quot;.
+<p>The function which sends data to the API looks like this:</p>
+
 <pre><code class="language-python">
-subject = request.POST.get("subject")
-topic = request.POST.get("topic")
-level = request.POST.get("level")
-no_of_questions = request.POST.get("no_of_questions")
-no_of_choices = request.POST.get("no_of_choices")
-additional_info = request.POST.get("additional_info")
+# Call Azure OpenAI
+def generate_text(
+    source_material: str,
+    level: str,
+    no_of_questions: str,
+    no_of_choices: str,
+    additional_info: str
+) -> str:
+    system_prompt = """
+        You are a helpful assistant that creates multiple-choice quiz documents.
+        Do not include any formatting symbols in your response.
+        Do not respond with any follow-up questions.
+        Use British English spellings, grammar, and conventions throughout.
 
-# Create prompt
-text = generate_text(
-subject,
-topic,
-level,
-no_of_questions,
-no_of_choices,
-additional_info
-)
-filepath = create_quiz_doc(text)
+        Your response will follow a specific format:
+        - For each question, begin with the question number followed by a dot and the question text in one line.
+        - Do not use bullet points, only new lines.
+        - Under each question text, insert a new line and then the possible answer beginning with the letter from A.
+        - Randomise the answer order, and below add "Answer: " followed by the letter of the correct answer. Below this, add a line with "Point: 1".
+
+        You will be making quizzes which secondary teachers in Scotland will be using. This means that:
+        - Quizzes for S1-2s should contain questions which are answerable by 12-13 year olds.
+        - NPAs, National 4/5, Higher, and Advanced Higher quizzes should contain content which is applicable for those courses.
+
+        The user prompt will contain the details for the quiz.
+
+    """
+    user_prompt = f"""
+        Source material:
+        {source_material}
+
+        Level: {level}
+        Number of questions: {no_of_questions}
+        Choices per question: {no_of_choices}
+        Additional information: {additional_info}
+    """
+    response = client.chat.completions.create(
+        model=os.getenv("AZURE_DEPLOYMENT_NAME"),
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+    )
+    return response.choices[0].message.content
 </code></pre>
-<p>This is combined with the system prompt which is as follows:</p>
-<pre><code class="language-python">
-system_prompt = """
-You are a helpful assistant that creates multiple-choice quiz documents.
-Do not include any formatting symbols in your response.
-Do not respond with any follow-up questions.
 
-Your response will follow a specific format:
-- For each question, begin with the question number.
-- Do not use bullet points, only new lines.
-- Under each question, insert a new line and then the possible answer beginning with the letter from A.
-- Between each question, add an additional new line.
-- Make option A the correct answer for each question.
-
-You will be making quizzes which secondary teachers in Scotland will be using. This means that:
-- Quizzes for S1-3s should contain questions which are answerable by 12-14 year olds.
-- National 4/5, Higher, and Advanced Higher quizzes should contain content which is applicable for those courses.
-
-The user prompt will contain the details for the quiz.
-"""
-</code></pre>
-<p>The response from this prompt is used to create a Microsoft Word docx file with the help of Python&apos;s <a href="https://pypi.org/project/python-docx/" target="_blank">docx</a> library, which is finally downloaded to the user&apos;s system.</p>
+<p>The response from this prompt can be used to generate documents or importable files for services such as Microsoft Forms or Blooket.</p>
 <p><a href="{% url 'quiz_gen' %}">Click here</a> to use the quiz generator.</p>
 {% endblock %}
 

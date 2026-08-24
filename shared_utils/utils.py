@@ -1,5 +1,6 @@
 import os
 import re
+import csv
 from random import shuffle
 from openai import AzureOpenAI
 from docx import Document
@@ -25,7 +26,8 @@ def generate_text(
     level: str,
     no_of_questions: str,
     no_of_choices: str,
-    additional_info: str
+    additional_info: str,
+    quiz_type: str = ""
 ) -> str:
     system_prompt = """
         You are a helpful assistant that creates multiple-choice quiz documents.
@@ -40,11 +42,12 @@ def generate_text(
         - Randomise the answer order, and below add "Answer: " followed by the letter of the correct answer. Below this, add a line with "Point: 1".
 
         You will be making quizzes which secondary teachers in Scotland will be using. This means that:
-        - Quizzes for S1-3s should contain questions which are answerable by 12-14 year olds.
-        - National 4/5, Higher, and Advanced Higher quizzes should contain content which is applicable for those courses.
+        - Quizzes for S1-2s should contain questions which are answerable by 12-13 year olds.
+        - NPAs, National 4/5, Higher, and Advanced Higher quizzes should contain content which is applicable for those courses.
 
         The user prompt will contain the details for the quiz.
 
+        If the quiz type is Blooket, create exactly 4 answer choices per question.
     """
     user_prompt = f"""
         Source material:
@@ -54,6 +57,7 @@ def generate_text(
         Number of questions: {no_of_questions}
         Choices per question: {no_of_choices}
         Additional information: {additional_info}
+        Quiz type: {quiz_type}
     """
     response = client.chat.completions.create(
         model=os.getenv("AZURE_DEPLOYMENT_NAME"),
@@ -163,7 +167,7 @@ def remove_initial_empty_paragraph(doc):
 
 # For creating a printable quiz worksheet with answers on the last page
 def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
-    doc = Document("shared_utils/templates/quiz_template.docx")
+    doc = Document("shared_utils/quiz_templates/docx_quiz_template.docx")
     remove_initial_empty_paragraph(doc)
     doc.add_heading(title, level=1)
     doc.add_paragraph("")
@@ -219,7 +223,7 @@ def create_worksheet_doc(quiz, title: str, filename="worksheet-quiz.docx"):
 
 # For creating a presentation quiz
 def create_presentation_doc(quiz, title: str, filename="presentation-quiz.pptx"):
-    prs = Presentation("shared_utils/templates/quiz_template.pptx")
+    prs = Presentation("shared_utils/quiz_templates/pptx_quiz_template.pptx")
 
     # --- Title slide ---
     title_slide_layout = prs.slide_layouts[0]  # Title slide
@@ -325,3 +329,73 @@ def generate_quiz_title(source_material: str, level: str) -> str:
         return "AI-Generated Quiz"
 
     return title
+
+
+# For generating a Blooket-compatible CSV
+def create_blooket_csv(quiz, title: str, filename="blooket-quiz.csv", time_limit=30):
+    filepath = f"media/{filename}"
+    os.makedirs("media", exist_ok=True)
+
+    headers = [
+        "Question #",
+        "Question Text",
+        "Answer 1",
+        "Answer 2",
+        "Answer 3\n(Optional)",
+        "Answer 4\n(Optional)",
+        "Time Limit (sec)\n(Max: 300 Seconds)",
+        "Correct Answer(s)\n(Only Include Answer #)"
+    ]
+
+    with open(filepath, "w", newline="", encoding="utf-8-sig") as csvfile:
+        writer = csv.writer(csvfile)
+
+        # Blooket template starts with a blank row
+        writer.writerow([""] * 8)
+
+        # Header row
+        writer.writerow(headers)
+
+        for idx, q in enumerate(quiz, start=1):
+
+            options = q["options"].copy()
+
+            if len(options) > 4:
+                raise ValueError(
+                    "Blooket quizzes can only contain a maximum of four answer choices."
+                )
+
+            shuffle(options)
+
+            correct_answer_number = None
+
+            for i, option in enumerate(options, start=1):
+                if option == q["correct"]:
+                    correct_answer_number = i
+                    break
+
+            if correct_answer_number is None:
+                raise ValueError(
+                    "Could not identify the correct answer for a Blooket question."
+                )
+
+            answer_texts = [
+                option.split(".", 1)[1].strip()
+                for option in options
+            ]
+
+            while len(answer_texts) < 4:
+                answer_texts.append("")
+
+            writer.writerow([
+                idx,
+                q["question"],
+                answer_texts[0],
+                answer_texts[1],
+                answer_texts[2],
+                answer_texts[3],
+                time_limit,
+                correct_answer_number
+            ])
+
+    return filepath

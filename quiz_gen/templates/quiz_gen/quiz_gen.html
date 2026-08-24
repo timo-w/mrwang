@@ -48,7 +48,6 @@
         <option value="">--Please select a level--</option>
         <option value="S1">BGE - S1</option>
         <option value="S2">BGE - S2</option>
-        <option value="S3">BGE - S3</option>
         <option value="National 4">National 4</option>
         <option value="National 5">National 5</option>
         <option value="Higher">Higher</option>
@@ -88,6 +87,16 @@
   <button type="button" id="generate-quiz" class="launch-btn">Generate</button>
   <input type="hidden" name="quiz_type" id="quiz_type_field">
 
+  <!-- Terms of use message -->
+  <p id="terms_msg">
+      By generating a quiz, you agree to the
+      <a href="{% url 'terms_of_use' %}" target="_blank">Terms of Use</a>
+      and
+      <a href="{% url 'privacy_policy' %}" target="_blank">Privacy Policy</a>.
+      Your submitted content may be processed and retained to provide and improve this service,
+      as described in the Privacy Policy.
+  </p>
+
 </form>
 
 <iframe name="download_frame" style="display:none;"></iframe>
@@ -99,14 +108,16 @@
 
       <!-- Quiz type -->
       <div id="quiz-type">
-        <h4>How will you use your Quiz?</h4>
+        <h4>How will you use your quiz?</h4>
+
         <div id="use-as-forms" class="quiz-type-option" role="button">
           <img src="{% static 'quiz_gen/images/logos/forms.png' %}" alt="Microsoft Forms icon">
           <div>
             <h4>Forms Quiz</h4>
-            <p>Import the quiz digitally in Microsoft Forms.</p>
+            <p>Import the quiz into Microsoft Forms.</p>
           </div>
         </div>
+
         <div id="use-as-worksheet" class="quiz-type-option" role="button">
           <img src="{% static 'quiz_gen/images/logos/word.png' %}" alt="Microsoft Word icon">
           <div>
@@ -114,6 +125,7 @@
             <p>Download a printable Microsoft Word worksheet.</p>
           </div>
         </div>
+
         <div id="use-as-presentation" class="quiz-type-option" role="button">
           <img src="{% static 'quiz_gen/images/logos/powerpoint.png' %}" alt="Microsoft PowerPoint icon">
           <div>
@@ -121,6 +133,15 @@
             <p>Download a Microsoft PowerPoint presentation.</p>
           </div>
         </div>
+
+        <div id="use-as-blooket" class="quiz-type-option" role="button">
+          <img src="{% static 'quiz_gen/images/logos/blooket.png' %}" alt="Blooket icon">
+          <div>
+            <h4><i>(NEW)</i> Blooket Quiz</h4>
+            <p>Import the quiz into Blooket.</p>
+          </div>
+        </div>
+
       </div>
 
       <!-- Forms quiz guide -->
@@ -128,8 +149,8 @@
         <h4 id="modalTitle"></h4>
         <img id="modalImg" src="" alt="Screenshot">
         <p id="modalDesc"></p>
-        <a id="previous-slide" class="modal-nav">&larr; Previous step</a>
-        <a id="next-slide" class="modal-nav">Next step &rarr;</a>
+        <a id="forms-previous-slide" class="modal-nav">&larr; Previous step</a>
+        <a id="forms-next-slide" class="modal-nav">Next step &rarr;</a>
       </div>
 
       <!-- Worksheet quiz guide -->
@@ -145,6 +166,19 @@
         <img id="modalImg" src="{% static 'quiz_gen/images/logos/powerpoint.png' %}" alt="Microsoft PowerPoint icon">
         <p id="modalDesc">Your presentation will be ready shortly! Please allow up to 60 seconds for the document to download.</p>
       </div>
+
+      <!-- Blooket quiz guide -->
+      <div id="blooket-quiz">
+          <h4 id="blooketModalTitle"></h4>
+          <img id="blooketModalImg" src="" alt="Blooket instructions">
+          <p id="blooketModalDesc"></p>
+          <a id="blooket-previous-slide" class="modal-nav">
+              &larr; Previous step
+          </a>
+          <a id="blooket-next-slide" class="modal-nav">
+              Next step &rarr;
+          </a>
+      </div>
       
   </div>
 </div>
@@ -153,12 +187,21 @@
 
 {% block js %}
 <script>
-  window.quizImages = {
+  window.formsImages = {
     slide0: "{% static 'quiz_gen/images/forms-slides/slide-0.png' %}",
     slide1: "{% static 'quiz_gen/images/forms-slides/slide-1.png' %}",
     slide2: "{% static 'quiz_gen/images/forms-slides/slide-2.gif' %}",
     slide3: "{% static 'quiz_gen/images/forms-slides/slide-3.gif' %}",
-    slide4: "{% static 'quiz_gen/images/forms-slides/slide-4.gif' %}",
+    slide4: "{% static 'quiz_gen/images/forms-slides/slide-4.gif' %}"
+  };
+
+  window.blooketImages = {
+    slide0: "{% static 'quiz_gen/images/blooket-slides/slide-0.png' %}",
+    slide1: "{% static 'quiz_gen/images/blooket-slides/slide-1.png' %}",
+    slide2: "{% static 'quiz_gen/images/blooket-slides/slide-2.gif' %}",
+    slide3: "{% static 'quiz_gen/images/blooket-slides/slide-3.gif' %}",
+    slide4: "{% static 'quiz_gen/images/blooket-slides/slide-4.gif' %}",
+    slide5: "{% static 'quiz_gen/images/blooket-slides/slide-5.png' %}"
   };
 </script>
 <script src="{% static 'quiz_gen/js/quiz_gen.js' %}"></script>

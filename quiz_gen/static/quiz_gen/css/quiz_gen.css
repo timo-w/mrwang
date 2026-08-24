@@ -33,6 +33,13 @@ a#more-options:hover {
     display: none;
 }
 
+/* Terms of use message */
+p#terms_msg {
+    color: gray;
+    font-style: italic;
+    font-size: 14px;
+}
+
 
 /* Hide forms import instructions */
 #forms-quiz, #worksheet-quiz {
@@ -44,7 +51,7 @@ a#more-options:hover {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0.6rem 1rem;
   margin: 1rem 0;
   border: 1px solid #ddd;
   background-color: #f6f6f6;
@@ -106,11 +113,11 @@ a#more-options:hover {
 .app-modal-content a.modal-nav:hover {
 transform: scale(1.1);
 }
-.app-modal-content a#previous-slide {
+.app-modal-content a#forms-previous-slide, .app-modal-content a#blooket-previous-slide {
     bottom: 1rem;
     left: 2rem;
 }
-.app-modal-content a#next-slide {
+.app-modal-content a#forms-next-slide, .app-modal-content a#blooket-next-slide {
     bottom: 1rem;
     right: 2rem;
 }
