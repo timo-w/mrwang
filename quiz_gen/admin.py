@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import QuizGenerationEvent
 
-# Register your models here.
+admin.site.register(QuizGenerationEvent)
