@@ -51,24 +51,29 @@ const blooketSlides = [
         image: window.blooketImages.slide0
     },
     {
-        title: "Opening Blooket (1/4)",
+        title: "Opening Blooket (1/5)",
         description: "First, click <a href='https://www.blooket.com/' target='_blank'>here</a> to open Blooket (opens in a new tab).<br>You will need to be signed in to use the site.",
         image: window.blooketImages.slide1
     },
     {
-        title: "Creating a Question Set (2/4)",
+        title: "Creating a Question Set (2/5)",
         description: "Click <strong>Create</strong> and select <strong>CSV Upload</strong>.",
         image: window.blooketImages.slide2
     },
     {
-        title: "Uploading your Quiz (3/4)",
+        title: "Uploading your Quiz (3/5)",
         description: "Enter the details for your question set and click <strong>Create Set</strong>.",
         image: window.blooketImages.slide3
     },
     {
-        title: "Importing your Questions (4/4)",
+        title: "Importing your Questions (4/5)",
         description: "Click <strong>Upload CSV</strong> and select the Blooket CSV file which has been downloaded to your device. Blooket will import the questions and answers into your question set.",
         image: window.blooketImages.slide4
+    },
+    {
+        title: "Save your Set (5/5)",
+        description: "Check the imported questions and click <strong>Save Set</strong> when you are done. You should now see your question set in your account!",
+        image: window.blooketImages.slide5
     }
 ];
 let blooketSlide = 0;
