@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'gallery',
     'code_puzzles',
     'music',
+    'feedback',
 ]
 
 # Middleware
