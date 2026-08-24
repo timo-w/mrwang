@@ -108,6 +108,13 @@ footer {
   padding: 2rem;
   cursor: default;
 }
+footer a {
+  color: white;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
 
 /* Headings */
 h1, h2, h3 {

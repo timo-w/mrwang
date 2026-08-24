@@ -30,6 +30,7 @@ urlpatterns = [
     path('gallery/', include('gallery.urls')),
     path('code_puzzles/', include('code_puzzles.urls')),
     path('music/', include('music.urls')),
+    path('feedback/', include('feedback.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # For custom error pages
