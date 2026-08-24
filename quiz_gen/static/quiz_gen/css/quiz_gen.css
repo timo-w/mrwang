@@ -113,11 +113,11 @@ p#terms_msg {
 .app-modal-content a.modal-nav:hover {
 transform: scale(1.1);
 }
-.app-modal-content a#previous-slide {
+.app-modal-content a#forms-previous-slide, .app-modal-content a#blooket-previous-slide {
     bottom: 1rem;
     left: 2rem;
 }
-.app-modal-content a#next-slide {
+.app-modal-content a#forms-next-slide, .app-modal-content a#blooket-next-slide {
     bottom: 1rem;
     right: 2rem;
 }

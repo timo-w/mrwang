@@ -9,7 +9,8 @@ from shared_utils.utils import (
     extract_text_from_file,
     parse_quiz,
     create_worksheet_doc,
-    create_presentation_doc
+    create_presentation_doc,
+    create_blooket_csv
 )
 
 
@@ -68,7 +69,8 @@ def quiz_gen(request):
             level,
             no_of_questions,
             no_of_choices,
-            additional_info
+            additional_info,
+            quiz_type
         )
         
         # Forms quiz
@@ -85,6 +87,11 @@ def quiz_gen(request):
             quiz = parse_quiz(raw_text)
             filepath = create_presentation_doc(quiz, quiz_title)
             filename = "presentation-quiz.pptx"
+        # Blooket quiz
+        elif quiz_type == "blooket":
+            quiz = parse_quiz(raw_text)
+            filepath = create_blooket_csv(quiz, quiz_title)
+            filename = "blooket-quiz.csv"
 
         return FileResponse(
             open(filepath, "rb"),
