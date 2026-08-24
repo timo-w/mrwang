@@ -49,7 +49,11 @@
   </main>
 
   <!-- Footer -->
-  <footer>&copy; 2025-{% now "Y" %} Mr Wang - All rights reserved</footer>
+  <footer>
+    &copy; 2025-{% now "Y" %} Mr Wang - All rights reserved
+    <br><br>
+    <a href="{% url 'feedback' %}" target="_blank">Send feedback | Report a bug</a>
+  </footer>
 
   <!-- Scripts -->
   <script src="{% static 'app/js/global.js' %}"></script>

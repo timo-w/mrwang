@@ -15,9 +15,10 @@ def feedback_view(request):
             feedback.user_agent = request.META.get("HTTP_USER_AGENT", "")
 
             feedback.save()
-            return render(request, "feedback/thank_you.html")
+
+            return render(request, "feedback/submitted.html")
 
     else:
         form = FeedbackForm()
 
-    return render(request, "feedback/feedback_form.html", {"form": form})
+    return render(request, "feedback/feedback.html", {"form": form})
