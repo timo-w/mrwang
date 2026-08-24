@@ -38,13 +38,13 @@
       <h4>Enter Details</h4>
 
       <label for="subject">Subject:</label><br>
-      <textarea name="subject" rows="1" cols="40" placeholder="e.g. 'History'"></textarea><br><br>
+      <textarea id="subject" name="subject" rows="1" cols="40" placeholder="e.g. 'History'"></textarea><br><br>
 
       <label for="topic">Topic:</label><br>
-      <textarea name="topic" rows="5" cols="40" placeholder="e.g. 'World War II'"></textarea><br><br>
+      <textarea id="topic" name="topic" rows="5" cols="40" placeholder="e.g. 'World War II'"></textarea><br><br>
 
       <label for="level">Level:</label><br>
-      <select name="level">
+      <select id="level" name="level">
         <option value="">--Please select a level--</option>
         <option value="S1">BGE - S1</option>
         <option value="S2">BGE - S2</option>
@@ -70,16 +70,16 @@
     <div class="two_col">
       <div class="column">
         <label for="no_of_questions">Number of questions:</label><br>
-        <input type="number" name="no_of_questions" min="1" max="20" value="10" required><br><br>
+        <input id="no_of_questions" type="number" name="no_of_questions" min="1" max="20" value="10" required><br><br>
       </div>
       <div class="column">
         <label for="no_of_choices">Choices per question:</label><br>
-      <input type="number" name="no_of_choices" min="2" max="10" value="4" required><br><br>
+      <input id="no_of_choices" type="number" name="no_of_choices" min="2" max="10" value="4" required><br><br>
       </div>
     </div><br>
 
     <label for="additional_info">Additional information (optional):</label><br>
-    <textarea name="additional_info" rows="3" cols="40" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
+    <textarea id="additional_info" name="additional_info" rows="3" cols="40" placeholder="e.g. 'Include 2 questions on the Beveridge Report'"></textarea><br>
 
   </div>
   <br>
