@@ -2,7 +2,7 @@
 
 const formsSlides = [
     {
-      title: "Your Quiz is now Generating!",
+      title: "<a class='generating-text'>Generating quiz</a>",
       description: "Please allow up to 60 seconds for your quiz to download.<br>This quick guide will show you how to import your quiz in Microsoft Forms and share it with your class.",
       image: window.formsImages.slide0
     },
@@ -46,7 +46,7 @@ function updateFormsSlide() {
 
 const blooketSlides = [
     {
-        title: "Your Blooket Quiz is now Generating!",
+        title: "<a class='generating-text'>Generating quiz</a>",
         description: "Please allow up to 60 seconds for your quiz to download.<br>This quick guide will show you how to import your quiz into Blooket.",
         image: window.blooketImages.slide0
     },
@@ -238,5 +238,13 @@ $(document).ready(function(){
     });
 
     $fileInput.on("change", updateFileName);
+
+    // Generating... text animation
+    let dots = 0;
+    setInterval(function () {
+        dots = (dots + 1) % 4; // cycles 0–3 dots
+        let text = "Generating quiz" + ".".repeat(dots);
+        $(".generating-text").text(text);
+    }, 700);
 
 });
