@@ -1,3 +1,5 @@
+import hashlib
+from .models import QuizGenerationEvent
 from django.shortcuts import render
 from django.http import FileResponse
 from django.core.files.storage import default_storage
@@ -19,25 +21,39 @@ def quiz_gen(request):
     if request.method == "POST":
 
         uploaded_file = request.FILES.get("source_file")
-        if not uploaded_file and not request.POST.get("topic"):
+        subject = request.POST.get("subject", "")
+        topic = request.POST.get("topic", "")
+        level = request.POST.get("level", "")
+        no_of_questions = request.POST.get("no_of_questions")
+        no_of_choices = request.POST.get("no_of_choices")
+        additional_info = request.POST.get("additional_info", "")
+        quiz_type = request.POST.get("quiz_type")
+
+        # Validate input
+        if not uploaded_file and not topic:
             return render(request, "quiz_gen/quiz_gen.html", {
                 "error": "Please enter a topic or upload a file."
             })
 
-        level = request.POST.get("level")
-        no_of_questions = request.POST.get("no_of_questions")
-        no_of_choices = request.POST.get("no_of_choices")
-        additional_info = request.POST.get("additional_info")
+        # LOG QUIZ GENERATION EVENT
+        ip = request.META.get("REMOTE_ADDR", "")
+        ip_hash = hashlib.sha256(ip.encode()).hexdigest() if ip else ""
 
-        # User uploads a file to create the quiz from
+        QuizGenerationEvent.objects.create(
+            subject=subject,
+            topic=topic,
+            level=level,
+            no_of_questions=int(no_of_questions),
+            no_of_choices=int(no_of_choices),
+            additional_info=additional_info,
+            quiz_type=quiz_type,
+            file_uploaded=bool(uploaded_file),
+            user_agent=request.META.get("HTTP_USER_AGENT", ""),
+            ip_hash=ip_hash,
+        )
+
+        # User uploads a file
         if uploaded_file:
-            uploaded_file = request.FILES.get("source_file")
-
-            if not uploaded_file:
-                return render(request, "quiz_gen/quiz_gen.html", {
-                    "error": "Please upload a file."
-                })
-
             path = default_storage.save(
                 f"uploads/{uploaded_file.name}",
                 ContentFile(uploaded_file.read())
@@ -52,18 +68,13 @@ def quiz_gen(request):
 
         # User enters quiz details manually
         else:
-            subject = request.POST.get("subject")
-            topic = request.POST.get("topic")
-            
             prompt_input = f"""
             Subject: {subject}
             Topic: {topic}
             """
 
-        # Determine quiz type and generate document
-        quiz_type = request.POST.get("quiz_type")
-
-        quiz_title = generate_quiz_title(prompt_input, level) # generate meaningful title
+        # Generate quiz content
+        quiz_title = generate_quiz_title(prompt_input, level)
         raw_text = generate_text(
             prompt_input,
             level,
@@ -72,22 +83,22 @@ def quiz_gen(request):
             additional_info,
             quiz_type
         )
-        
-        # Forms quiz
+
+        # Produce output file
         if quiz_type == "forms":
             filepath = create_quiz_doc(raw_text, quiz_title)
-            filename = "generated-quiz.docx"
-        # Word quiz
+            filename = "forms-quiz.docx"
+
         elif quiz_type == "worksheet":
             quiz = parse_quiz(raw_text)
             filepath = create_worksheet_doc(quiz, quiz_title)
             filename = "worksheet-quiz.docx"
-        # PowerPoint quiz
+
         elif quiz_type == "presentation":
             quiz = parse_quiz(raw_text)
             filepath = create_presentation_doc(quiz, quiz_title)
             filename = "presentation-quiz.pptx"
-        # Blooket quiz
+
         elif quiz_type == "blooket":
             quiz = parse_quiz(raw_text)
             filepath = create_blooket_csv(quiz, quiz_title)
