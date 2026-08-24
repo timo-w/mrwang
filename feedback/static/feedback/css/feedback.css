@@ -1,0 +1,34 @@
+/* Styles for feedback form */
+
+body {
+    text-align: center;
+}
+
+/* Disable textarea resizing */
+textarea {
+    resize: none;
+}
+
+/* Column layout for input choices */
+form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #f6f6f6;
+}
+
+/* Force newline after label */
+form p label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Make all form inputs the same width */
+form p textarea,
+form p input[type="email"] {
+    width: 100%;
+    max-width: 25rem;
+    box-sizing: border-box;
+}
