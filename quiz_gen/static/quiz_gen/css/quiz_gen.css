@@ -124,7 +124,7 @@ transform: scale(1.1);
 
 
 /* Column layout for input choices */
-#quiz-details {
+#quiz-details, .collapsable {
     max-width: 600px;
     margin: 2rem auto;
 }
