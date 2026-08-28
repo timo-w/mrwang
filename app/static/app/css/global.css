@@ -137,6 +137,7 @@ h2, h3 {
   margin-top: 30px;
   border-bottom: 2px solid transparent;
   max-width: 400px;
+  text-transform: lowercase; 
 }
 h4 {
   text-align: center;
@@ -159,16 +160,19 @@ h4 {
 /* Grid buttons  */
 .grid-button {
   position: relative;
-  background-color: var(--main-gray);
+  background:
+    linear-gradient(var(--main-gray), var(--main-gray)) padding-box,
+    linear-gradient(white, white) border-box;
   height: 6rem;
-  border: 2px solid white;
+  border: 2px solid transparent;
+  isolation: isolate;
+  overflow: hidden;
   color: white;
   font-size: 1rem;
   font-weight: bold;
   text-align: left;
   padding: 0.75rem;
   border-radius: 0.5rem;
-  overflow: hidden;
   text-decoration: underline;
   text-underline-offset: 0.3rem;
   line-height: 2rem;
@@ -183,37 +187,46 @@ h4 {
   border-radius: 9999px;
   filter: blur(20px);
   transition: all 0.5s ease;
-  z-index: 10;
+  z-index: -1;
 }
-/* Purple circle */
+/* Colour circle 1 */
 .grid-button::before {
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
   right: 0.25rem;
   top: 4.5rem;
-  background-color: var(--main-purple);
+  background-color: var(--button-colour-1);
 }
-/* Yellow circle */
+/* Colour circle 2 */
 .grid-button::after {
   width: 6rem;
   height: 6rem; 
   right: 2rem;
   top: 5rem;
-  background-color: var(--main-yellow);
+  background-color: var(--button-colour-2);
 }
 /* --- Hover effects --- */
 .grid-button:hover {
-  border-color: var(--main-yellow);
-  color: var(--main-yellow);
+  border: 2px solid transparent;
+
+  background:
+    linear-gradient(var(--main-gray), var(--main-gray)) padding-box,
+    linear-gradient(
+      135deg,
+      var(--button-colour-1),
+      var(--button-colour-2)
+    ) border-box;
+
+  color: var(--button-colour-1);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.7rem;
 }
 /* Move and blur pseudo elements */
 .grid-button:hover::before {
-  right: 3rem;
-  top: 5rem;
+  right: 2rem;
+  top: 4rem;
   filter: blur(30px);
-  box-shadow: 10px 10px 10px 20px var(--main-purple);
+  box-shadow: 10px 10px 10px 20px var(--button-colour-1);
 }
 .grid-button:hover::after {
   right: -2rem;
@@ -291,22 +304,44 @@ h4 {
 
 /* Launch button */
 .launch-btn {
-  background: var(--main-purple);
-  border: 1px solid black;
+  position: relative;
+  display: inline-block;
   padding: 10px 30px;
+
+  background: var(--main-gray);
+  border: 3px solid transparent;
+  border-radius: 0.5rem;
+
   color: white;
   font-size: 1rem;
   font-weight: bold;
   text-decoration: none;
-  display: inline-block;
+
   cursor: pointer;
-  transition: 0.1s linear;
+  overflow: hidden;
+  isolation: isolate;
+
+  transition:
+      color 0.3s ease,
+      transform 0.2s ease,
+      box-shadow 0.3s ease;
+
+  background:
+    linear-gradient(var(--main-gray), var(--main-gray)) padding-box,
+    linear-gradient(
+      135deg,
+      var(--main-purple),
+      var(--main-yellow)
+    ) border-box;
 }
 
 .launch-btn:hover {
-  background: var(--main-yellow);
-  color: black;
-  transform: scale(1.01);
+  color: var(--main-yellow);
+  transform: scale(1.03);
+
+  box-shadow:
+    0 0 10px rgba(131, 32, 189, 0.35),
+    0 0 20px rgba(255, 236, 64, 0.2);
 }
 
 /* Back to previous page button */
