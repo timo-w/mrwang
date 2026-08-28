@@ -142,6 +142,14 @@
           </div>
         </div>
 
+        <div id="use-as-gimkit" class="quiz-type-option" role="button">
+          <img src="{% static 'quiz_gen/images/logos/gimkit.png' %}" alt="Blooket icon">
+          <div>
+            <h4><i>(NEW)</i> Gimkit Quiz</h4>
+            <p>Import the quiz into Gimkit.</p>
+          </div>
+        </div>
+
       </div>
 
       <!-- Forms quiz guide -->
@@ -172,12 +180,17 @@
           <h4 id="blooketModalTitle"></h4>
           <img id="blooketModalImg" src="" alt="Blooket instructions">
           <p id="blooketModalDesc"></p>
-          <a id="blooket-previous-slide" class="modal-nav">
-              &larr; Previous step
-          </a>
-          <a id="blooket-next-slide" class="modal-nav">
-              Next step &rarr;
-          </a>
+          <a id="blooket-previous-slide" class="modal-nav">&larr; Previous step</a>
+          <a id="blooket-next-slide" class="modal-nav">Next step &rarr;</a>
+      </div>
+
+      <!-- Gimkit quiz guide -->
+      <div id="gimkit-quiz">
+          <h4 id="gimkitModalTitle"></h4>
+          <img id="gimkitModalImg" src="" alt="Gimkit instructions">
+          <p id="gimkitModalDesc"></p>
+          <a id="gimkit-previous-slide" class="modal-nav">&larr; Previous step</a>
+          <a id="gimkit-next-slide" class="modal-nav">Next step &rarr;</a>
       </div>
       
   </div>
@@ -202,6 +215,15 @@
     slide3: "{% static 'quiz_gen/images/blooket-slides/slide-3.gif' %}",
     slide4: "{% static 'quiz_gen/images/blooket-slides/slide-4.gif' %}",
     slide5: "{% static 'quiz_gen/images/blooket-slides/slide-5.png' %}"
+  };
+
+  window.gimkitImages = {
+    slide0: "{% static 'quiz_gen/images/gimkit-slides/slide-0.png' %}",
+    slide1: "{% static 'quiz_gen/images/gimkit-slides/slide-1.png' %}",
+    slide2: "{% static 'quiz_gen/images/gimkit-slides/slide-2.png' %}",
+    slide3: "{% static 'quiz_gen/images/gimkit-slides/slide-3.png' %}",
+    slide4: "{% static 'quiz_gen/images/gimkit-slides/slide-4.png' %}",
+    slide5: "{% static 'quiz_gen/images/gimkit-slides/slide-5.png' %}"
   };
 </script>
 <script src="{% static 'quiz_gen/js/quiz_gen.js' %}"></script>

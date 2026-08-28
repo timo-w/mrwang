@@ -79,16 +79,9 @@ const blooketSlides = [
 let blooketSlide = 0;
 
 function updateBlooketSlide() {
-    $('#blooketModalTitle').html(
-        blooketSlides[blooketSlide].title
-    );
-    $('#blooketModalDesc').html(
-        blooketSlides[blooketSlide].description
-    );
-    $('#blooketModalImg').attr(
-        'src',
-        blooketSlides[blooketSlide].image
-    );
+    $('#blooketModalTitle').html(blooketSlides[blooketSlide].title);
+    $('#blooketModalDesc').html(blooketSlides[blooketSlide].description);
+    $('#blooketModalImg').attr('src', blooketSlides[blooketSlide].image);
     if (blooketSlide == 0) {
         $('#blooket-previous-slide').hide();
     } else {
@@ -98,6 +91,57 @@ function updateBlooketSlide() {
         $('#blooket-next-slide').hide();
     } else {
         $('#blooket-next-slide').show();
+    }
+}
+
+
+const gimkitSlides = [
+    {
+        title: "<a class='generating-text'>Generating quiz</a>",
+        description: "Please allow up to 60 seconds for your quiz to download.<br>This quick guide will show you how to import your quiz into Gimkit.",
+        image: window.gimkitImages.slide0
+    },
+    {
+        title: "Opening Blooket (1/5)",
+        description: "First, click <a href='https://www.gimkit.com/' target='_blank'>here</a> to open Gimkit (opens in a new tab).<br>You will need to be signed in to use the site.",
+        image: window.gimkitImages.slide1
+    },
+    {
+        title: "Creating a Question Set (2/5)",
+        description: "Click <strong>(+) New Kit</strong>, fill in your <strong>quiz details</strong>, and select a <strong>cover image</strong>.",
+        image: window.gimkitImages.slide2
+    },
+    {
+        title: "Importing your Quiz (3/5)",
+        description: "Click <strong>Import from Spreadsheet</strong>.",
+        image: window.gimkitImages.slide3
+    },
+    {
+        title: "Importing your Quiz (4/5)",
+        description: "Click <strong>Upload File</strong> and select the Gimkit CSV file which has been downloaded to your device. Gimkit will import the questions and answers into your question set.",
+        image: window.gimkitImages.slide4
+    },
+    {
+        title: "Save your Set (5/5)",
+        description: "Check the imported questions and click <strong>All Done</strong> when you are done. You should now see your question set in your account!",
+        image: window.gimkitImages.slide5
+    }
+];
+let gimkitSlide = 0;
+
+function updateGimkitSlide() {
+    $('#gimkitModalTitle').html(gimkitSlides[gimkitSlide].title);
+    $('#gimkitModalDesc').html(gimkitSlides[gimkitSlide].description);
+    $('#gimkitModalImg').attr('src', gimkitSlides[gimkitSlide].image);
+    if (gimkitSlide == 0) {
+        $('#gimkit-previous-slide').hide();
+    } else {
+        $('#gimkit-previous-slide').show();
+    }
+    if (gimkitSlide == gimkitSlides.length - 1) {
+        $('#gimkit-next-slide').hide();
+    } else {
+        $('#gimkit-next-slide').show();
     }
 }
 
@@ -129,12 +173,15 @@ $(document).ready(function(){
         $('#worksheet-quiz').hide();
         $('#presentation-quiz').hide();
         $('#blooket-quiz').hide();
+        $('#gimkit-quiz').hide();
 
         formsSlide = 0;
         blooketSlide = 0;
+        gimkitSlide = 0;
 
         updateFormsSlide();
         updateBlooketSlide();
+        updateGimkitSlide();
 
         $modal.addClass('show');
     });
@@ -184,6 +231,24 @@ $(document).ready(function(){
 
     });
 
+    // Use as Gimkit
+    $('#use-as-gimkit').on('click', function () {
+
+        // Gimkit only supports up to 4 choices
+        const choices = parseInt($('input[name="no_of_choices"]').val());
+        if (choices > 4) {
+            alert("Gimkit supports a maximum of 4 answer choices. Please reduce the number of choices before generating your quiz.");
+            return;
+        }
+
+        $('#quiz_type_field').val('gimkit');
+        $('form').submit();
+        $('#quiz-type').fadeOut(300, function () {
+            $('#gimkit-quiz').fadeIn(300);
+        });
+
+    });
+
     // Forms slide navigation
     $('#forms-previous-slide').on('click', function () {
         formsSlide--;
@@ -202,6 +267,16 @@ $(document).ready(function(){
     $('#blooket-next-slide').on('click', function () {
         blooketSlide++;
         updateBlooketSlide();
+    });
+
+    // Gimkit slide navigation
+    $('#gimkit-previous-slide').on('click', function () {
+        gimkitSlide--;
+        updateGimkitSlide();
+    });
+    $('#gimkit-next-slide').on('click', function () {
+        gimkitSlide++;
+        updateGimkitSlide();
     });
 
 
