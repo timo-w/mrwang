@@ -4,10 +4,10 @@ A personal project to host easy-to-use teaching materials and resources.
 View the live site [here](https://mrwang.co.uk)!
 
 Contains:
-- A quiz generator web app that uses Azure OpenAI to generate Word documents based on prompts.
+- An all-in-one quiz generator web app that uses Azure OpenAI to create quizzes in multiple formats, including MS Forms, Blooket, Gimkit and more.
 - Downloadable pupil resources from classes - where AI quizzes can be generated based on the resource
-- Photography
-- Code puzzles - a fun revision tool for practicing Visual Basic code
+- Code puzzles - a fun revision tool for practising Visual Basic code
+- Photography and music projects
 - 1 of your 5 a day
 
 ## Setup
@@ -40,3 +40,5 @@ DJANGO_SUPERUSER_USERNAME
 DJANGO_SUPERUSER_EMAIL
 DJANGO_SUPERUSER_PASSWORD
 ```
+
+Copyright Mr Wang 2025-26. All rights reserved.
