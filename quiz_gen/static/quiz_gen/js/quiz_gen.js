@@ -102,13 +102,13 @@ const gimkitSlides = [
         image: window.gimkitImages.slide0
     },
     {
-        title: "Opening Blooket (1/5)",
+        title: "Opening Gimkit (1/5)",
         description: "First, click <a href='https://www.gimkit.com/' target='_blank'>here</a> to open Gimkit (opens in a new tab).<br>You will need to be signed in to use the site.",
         image: window.gimkitImages.slide1
     },
     {
         title: "Creating a Question Set (2/5)",
-        description: "Click <strong>(+) New Kit</strong>, fill in your <strong>quiz details</strong>, and select a <strong>cover image</strong>.",
+        description: "Click <strong>New Kit</strong>, fill in your <strong>quiz details</strong>, and select a <strong>cover image</strong>.",
         image: window.gimkitImages.slide2
     },
     {
@@ -118,7 +118,7 @@ const gimkitSlides = [
     },
     {
         title: "Importing your Quiz (4/5)",
-        description: "Click <strong>Upload File</strong> and select the Gimkit CSV file which has been downloaded to your device. Gimkit will import the questions and answers into your question set.",
+        description: "Click <strong>Upload File</strong> and select the <strong>Gimkit Quiz</strong> file which has been downloaded to your device. Gimkit will import the questions and answers into your question set.",
         image: window.gimkitImages.slide4
     },
     {
