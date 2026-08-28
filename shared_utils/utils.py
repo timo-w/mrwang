@@ -399,3 +399,55 @@ def create_blooket_csv(quiz, title: str, filename="blooket-quiz.csv", time_limit
             ])
 
     return filepath
+
+
+# For generating a Gimkit-compatible CSV
+def create_gimkit_csv(quiz, title: str, filename="gimkit-quiz.csv"):
+    filepath = f"media/{filename}"
+    os.makedirs("media", exist_ok=True)
+
+    headers = [
+        "Question",
+        "Correct Answer",
+        "Incorrect Answer 1",
+        "Incorrect Answer 2 (Optional)",
+        "Incorrect Answer 3 (Optional)"
+    ]
+
+    with open(filepath, "w", newline="", encoding="utf-8-sig") as csvfile:
+        writer = csv.writer(csvfile)
+
+        # Gimkit template starts with a blank row (same as Blooket)
+        writer.writerow([""] * len(headers))
+
+        # Header row
+        writer.writerow(headers)
+
+        for q in quiz:
+            options = q["options"].copy()
+            shuffle(options)
+
+            # Extract correct answer text
+            correct_option = q["correct"]
+            correct_text = correct_option.split(".", 1)[1].strip()
+
+            # Build incorrect answers list
+            incorrect_texts = [
+                opt.split(".", 1)[1].strip()
+                for opt in options
+                if opt != correct_option
+            ]
+
+            # Pad to 3 incorrect answers
+            while len(incorrect_texts) < 3:
+                incorrect_texts.append("")
+
+            writer.writerow([
+                q["question"],
+                correct_text,
+                incorrect_texts[0],
+                incorrect_texts[1],
+                incorrect_texts[2]
+            ])
+
+    return filepath

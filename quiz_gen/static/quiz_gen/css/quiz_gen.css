@@ -41,11 +41,6 @@ p#terms_msg {
 }
 
 
-/* Hide forms import instructions */
-#forms-quiz, #worksheet-quiz {
-    display: none;
-}
-
 /* Quiz type selection (forms/worksheet) */
 .quiz-type-option {
   display: flex;

@@ -12,7 +12,8 @@ from shared_utils.utils import (
     parse_quiz,
     create_worksheet_doc,
     create_presentation_doc,
-    create_blooket_csv
+    create_blooket_csv,
+    create_gimkit_csv
 )
 
 
@@ -103,6 +104,11 @@ def quiz_gen(request):
             quiz = parse_quiz(raw_text)
             filepath = create_blooket_csv(quiz, quiz_title)
             filename = "blooket-quiz.csv"
+
+        elif quiz_type == "gimkit":
+            quiz = parse_quiz(raw_text)
+            filepath = create_gimkit_csv(quiz, quiz_title)
+            filename = "gimkit-quiz.csv"
 
         return FileResponse(
             open(filepath, "rb"),
