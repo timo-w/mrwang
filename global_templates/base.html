@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <!-- mrwang.co.uk -->
-<!-- Copyright Timothy Wang 2025 -->
+<!-- Copyright Timothy Wang 2025-26 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -41,6 +41,7 @@
     </nav>
   </header>
 
+  <!-- Page Content -->
   <main>
     <div class="content">
     {% block content %}<!-- Page content -->{% endblock %}
@@ -52,7 +53,9 @@
   <footer>
     &copy; 2025-{% now "Y" %} Mr Wang - All rights reserved
     <br><br>
-    <a href="{% url 'feedback' %}" target="_blank">Send feedback</a> | <a href="{% url 'feedback' %}" target="_blank">Report a bug</a>
+    <a href="{% url 'feedback' %}" target="_blank">Send feedback</a> | 
+    <a href="{% url 'feedback' %}" target="_blank">Report a bug</a> | 
+    <a href="https://github.com/timo-w/mrwang" target="_blank">GitHub</a>
   </footer>
 
   <!-- Scripts -->
