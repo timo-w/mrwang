@@ -153,6 +153,20 @@ $(document).ready(function () {
 
 
     // Button bindings
+    
+    // More options toggle
+    $('#more-options').on('click', function () {
+        const $menu = $('.collapsable');
+        const isVisible = $menu.is(':visible');
+
+        $menu.slideToggle();
+
+        if (isVisible) {
+            $(this).html("&darr; More options &darr;");
+        } else {
+            $(this).html("&uarr; Hide options &uarr;");
+        }
+    });
     $('#generate-quiz').on('click', function () {
 
         // Hide all quiz guides
